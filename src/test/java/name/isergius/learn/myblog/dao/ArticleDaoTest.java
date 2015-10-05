@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.dao;
 
+import name.isergius.learn.myblog.domain.Article;
 import org.junit.Assert;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
