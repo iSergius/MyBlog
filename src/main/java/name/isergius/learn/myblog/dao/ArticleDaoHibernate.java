@@ -22,4 +22,10 @@ public class ArticleDaoHibernate {
         return result;
     }
 
+    public Article create(Article article) {
+        Session session = sessionFactory.openSession();
+        session.save(article);
+        session.close();
+        return article;
+    }
 }

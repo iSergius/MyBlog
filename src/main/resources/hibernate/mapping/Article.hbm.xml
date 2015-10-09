@@ -5,7 +5,7 @@
 <hibernate-mapping default-lazy="false">
     <class name="name.isergius.learn.myblog.domain.Article" table="article_t">
         <id name="id" column="article_id" type="long">
-            <generator class="native"/>
+            <generator class="identity"/>
         </id>
         <property name="title" column="article_title" type="string" />
     </class>
