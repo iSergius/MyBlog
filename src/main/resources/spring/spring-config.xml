@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tool="http://www.springframework.org/schema/tool"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+
+    <bean id="articleDao" class="name.isergius.learn.myblog.dao.ArticleDaoHibernate">
+        <!--<property name="sessionFactory" ref="sessionFactory"/>-->
+    </bean>
+
+    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+        <property name="jndiName" value="java:comp/env/jdbc/myblog"/>
+    </bean>
+
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="configLocation" value="hibernate/hibernate.cfg.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="hibernateProperties" ref="hibernateProperties"/>
+    </bean>
+
+    <util:map id="hibernateProperties" map-class="java.util.Properties">
+        <entry key="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
+        <entry key="hibernate.connection.release_mode" value="after_transaction"/>
+        <entry key="hibernate.cache.use_second_level_cache" value="false"/>
+        <entry key="hibernate.cache.use_query_cache" value="false"/>
+        <entry key="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
+    </util:map>
+    <!--<jee:jndi-lookup id="dataSource" jndi-name="jdbc/DatabaseName" expected-type="javax.sql.DataSource" />-->
+    <!--Alternatively, setup using simple bean configuration like this:-->
+
+</beans>
