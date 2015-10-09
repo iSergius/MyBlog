@@ -13,7 +13,7 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <bean id="articleDao" class="name.isergius.learn.myblog.dao.ArticleDaoHibernate">
-        <!--<property name="sessionFactory" ref="sessionFactory"/>-->
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
