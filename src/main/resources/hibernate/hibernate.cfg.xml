@@ -6,5 +6,6 @@
     <session-factory>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
+        <mapping resource="hibernate/mapping/Article.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

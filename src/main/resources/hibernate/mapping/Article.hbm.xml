@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+    <class name="name.isergius.learn.myblog.domain.Article" table="article_t">
+        <id name="id" column="article_id" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="article_title" type="string" />
+    </class>
+</hibernate-mapping>
