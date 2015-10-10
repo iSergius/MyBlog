@@ -31,6 +31,7 @@ public class ArticleDaoTest extends AbstractDbTest {
     }
 
     @Test
+    @DataSet
     @ExpectedDataSet
     public void testUpdate() throws Exception {
         Article article = new Article("Changed title");
