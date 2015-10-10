@@ -15,9 +15,10 @@ public class ArticleDaoHibernate {
         this.sessionFactory = sessionFactory;
     }
 
-    public Article readBy(long id) {
+    public Article readBy(long id) throws DaoException {
         Session session = sessionFactory.openSession();
         Article result = session.get(Article.class, id);
+        if (result == null) throw new DaoException();
         session.close();
         return result;
     }
