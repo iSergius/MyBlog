@@ -51,4 +51,13 @@ public class ArticleDaoTest extends AbstractDbTest {
     public void testReadNotContainEntity() throws Exception {
         Article article = dao.readBy(2L);
     }
+
+    @DataSet({"ArticleDaoTest.testDelete-result.xml"})
+    @ExpectedDataSet({"ArticleDaoTest.testDelete-result.xml"})
+    @Test(expected = DaoException.class)
+    public void testCreateWithNotEmptyId() throws Exception {
+        Article article = new Article("Wrong article");
+        article.setId(2L);
+        dao.create(article);
+    }
 }
