@@ -4,6 +4,7 @@ import name.isergius.learn.myblog.domain.Article;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
 import org.unitils.dbunit.annotation.ExpectedDataSet;
+import org.unitils.dbunit.datasetloadstrategy.impl.CleanInsertLoadStrategy;
 import org.unitils.spring.annotation.SpringBean;
 
 /**
@@ -37,5 +38,12 @@ public class ArticleDaoTest extends AbstractDbTest {
         Article article = new Article("Changed title");
         article.setId(1l);
         dao.update(article);
+    }
+
+    @Test
+    @ExpectedDataSet
+    @DataSet(loadStrategy = CleanInsertLoadStrategy.class)
+    public void testDelete() throws Exception {
+        dao.deleteBy(1L);
     }
 }
