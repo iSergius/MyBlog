@@ -23,7 +23,8 @@ public class ArticleDaoHibernate {
         return result;
     }
 
-    public Article create(Article article) {
+    public Article create(Article article) throws DaoException {
+        if (article.getId() != null) throw new DaoException();
         Session session = sessionFactory.openSession();
         session.save(article);
         session.close();
