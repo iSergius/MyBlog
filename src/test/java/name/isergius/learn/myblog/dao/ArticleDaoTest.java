@@ -29,4 +29,12 @@ public class ArticleDaoTest extends AbstractDbTest {
         article = dao.create(article);
         assertNotNull(article.getId());
     }
+
+    @Test
+    @ExpectedDataSet
+    public void testUpdate() throws Exception {
+        Article article = new Article("Changed title");
+        article.setId(1l);
+        dao.update(article);
+    }
 }
