@@ -36,4 +36,13 @@ public class ArticleDaoHibernate {
         session.getTransaction().commit();
         session.close();
     }
+
+    public void deleteBy(long id) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Article article = session.get(Article.class, id);
+        session.delete(article);
+        session.getTransaction().commit();
+        session.close();
+    }
 }
