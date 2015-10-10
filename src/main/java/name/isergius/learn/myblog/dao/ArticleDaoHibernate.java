@@ -28,4 +28,12 @@ public class ArticleDaoHibernate {
         session.close();
         return article;
     }
+
+    public void update(Article article) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        session.update(article);
+        session.getTransaction().commit();
+        session.close();
+    }
 }
