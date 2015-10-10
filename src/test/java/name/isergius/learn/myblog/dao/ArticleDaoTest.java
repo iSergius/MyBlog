@@ -18,7 +18,7 @@ public class ArticleDaoTest extends AbstractDbTest {
 
     @Test
     @DataSet
-    public void testReadById() {
+    public void testReadById() throws DaoException {
         Article article = dao.readBy(1L);
         assertEquals("My Firs Article", article.getTitle());
     }
@@ -45,5 +45,10 @@ public class ArticleDaoTest extends AbstractDbTest {
     @DataSet(loadStrategy = CleanInsertLoadStrategy.class)
     public void testDelete() throws Exception {
         dao.deleteBy(1L);
+    }
+
+    @Test(expected = DaoException.class)
+    public void testReadNotContainEntity() throws Exception {
+        Article article = dao.readBy(2L);
     }
 }
