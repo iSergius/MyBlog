@@ -22,6 +22,7 @@ public class MarkerDaoTest extends AbstractDbTest {
         Marker marker = dao.readBy(1L);
         assertEquals("My Firs Marker", marker.getTitle());
     }
+
     @Test
     @ExpectedDataSet
     public void testCreateWithSetId() throws Exception {
@@ -29,6 +30,7 @@ public class MarkerDaoTest extends AbstractDbTest {
         marker = dao.create(marker);
         assertNotNull(marker.getId());
     }
+
     @Test
     @DataSet
     @ExpectedDataSet
@@ -43,6 +45,36 @@ public class MarkerDaoTest extends AbstractDbTest {
     @DataSet(loadStrategy = CleanInsertLoadStrategy.class)
     public void testDelete() throws Exception {
         dao.deleteBy(1L);
+    }
+
+    @Test(expected = DaoException.class)
+    public void testReadNotContainEntity() throws Exception {
+        Marker marker = dao.readBy(2L);
+    }
+
+    @DataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @ExpectedDataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @Test(expected = DaoException.class)
+    public void testCreateWithNotEmptyId() throws Exception {
+        Marker marker = new Marker("Wrong marker");
+        marker.setId(2L);
+        dao.create(marker);
+    }
+
+    @DataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @ExpectedDataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @Test(expected = DaoException.class)
+    public void testUpdateNotContainEntity() throws Exception {
+        Marker marker = new Marker("New marker");
+        marker.setId(2L);
+        dao.update(marker);
+    }
+
+    @DataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @ExpectedDataSet({"MarkerDaoTest.testDelete-result.xml"})
+    @Test(expected = DaoException.class)
+    public void testDeleteNotContainEntity() throws Exception {
+        dao.deleteBy(2L);
     }
 
 }
