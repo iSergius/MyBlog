@@ -1,20 +1,27 @@
 <!ELEMENT dataset (
-   (DBMAINTAIN_SCRIPTS|
-    ARTICLE_T)*)>
+   (article_t|
+    dbmaintain_scripts|
+    marker_t)*)>
 
-<!ELEMENT DBMAINTAIN_SCRIPTS EMPTY>
-<!ATTLIST DBMAINTAIN_SCRIPTS
-    FILE_NAME CDATA #IMPLIED
-    VERSION CDATA #IMPLIED
-    FILE_LAST_MODIFIED_AT CDATA #IMPLIED
-    CHECKSUM CDATA #IMPLIED
-    EXECUTED_AT CDATA #IMPLIED
-    SUCCEEDED CDATA #IMPLIED
+<!ELEMENT article_t EMPTY>
+<!ATTLIST article_t
+    article_id CDATA #IMPLIED
+    article_title CDATA #IMPLIED
 >
 
-<!ELEMENT ARTICLE_T EMPTY>
-<!ATTLIST ARTICLE_T
-    ARTICLE_ID CDATA #IMPLIED
-    ARTICLE_TITLE CDATA #IMPLIED
+<!ELEMENT dbmaintain_scripts EMPTY>
+<!ATTLIST dbmaintain_scripts
+    file_name CDATA #IMPLIED
+    version CDATA #IMPLIED
+    file_last_modified_at CDATA #IMPLIED
+    checksum CDATA #IMPLIED
+    executed_at CDATA #IMPLIED
+    succeeded CDATA #IMPLIED
+>
+
+<!ELEMENT marker_t EMPTY>
+<!ATTLIST marker_t
+    marker_id CDATA #IMPLIED
+    marker_title CDATA #IMPLIED
 >
 
