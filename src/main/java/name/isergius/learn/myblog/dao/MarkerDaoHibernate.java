@@ -42,4 +42,31 @@ public class MarkerDaoHibernate {
         }
         return result;
     }
+
+    public Marker create(Marker marker) throws DaoException {
+        if (marker.getId() != null) throw new DaoException("Entity have id: "+ marker.getId());
+
+        Session session = null;
+        Transaction transaction = null;
+
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            session.save(marker);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException(e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return marker;
+    }
 }
