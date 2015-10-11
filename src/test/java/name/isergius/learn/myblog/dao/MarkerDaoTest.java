@@ -4,6 +4,7 @@ import name.isergius.learn.myblog.domain.Marker;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
 import org.unitils.dbunit.annotation.ExpectedDataSet;
+import org.unitils.dbunit.datasetloadstrategy.impl.CleanInsertLoadStrategy;
 import org.unitils.spring.annotation.SpringBean;
 
 /**
@@ -36,7 +37,7 @@ public class MarkerDaoTest extends AbstractDbTest {
         marker.setId(1L);
         dao.update(marker);
     }
-/*
+
     @Test
     @ExpectedDataSet
     @DataSet(loadStrategy = CleanInsertLoadStrategy.class)
@@ -44,32 +45,4 @@ public class MarkerDaoTest extends AbstractDbTest {
         dao.deleteBy(1L);
     }
 
-    @Test(expected = DaoException.class)
-    public void testReadNotContainEntity() throws Exception {
-        Markier marker = dao.readBy(2L);
-    }
-
-    @DataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @ExpectedDataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @Test(expected = DaoException.class)
-    public void testCreateWithNotEmptyId() throws Exception {
-        Markier marker = new Markier("Wrong marker");
-        marker.setId(2L);
-        dao.create(marker);
-    }
-    @DataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @ExpectedDataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @Test(expected = DaoException.class)
-    public void testUpdateNotContainEntity() throws Exception {
-        Markier marker = new Markier("New marker");
-        marker.setId(2L);
-        dao.update(marker);
-    }
-
-    @DataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @ExpectedDataSet({"MarkierDaoTest.testDelete-result.xml"})
-    @Test(expected = DaoException.class)
-    public void testDeleteNotContainEntity() throws Exception {
-        dao.deleteBy(2L);
-    }*/
 }
