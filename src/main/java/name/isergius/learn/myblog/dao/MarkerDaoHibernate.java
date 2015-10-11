@@ -93,4 +93,30 @@ public class MarkerDaoHibernate {
             }
         }
     }
+
+    public void deleteBy(long id) throws DaoException {
+        Session session = null;
+        Transaction transaction = null;
+
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            Marker article = session.get(Marker.class, id);
+            if (article == null) throw new DaoException("Delete not contain entity");
+            session.delete(article);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException(e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }
