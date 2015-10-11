@@ -17,24 +17,63 @@ public class ArticleDaoHibernate {
     }
 
     public Article readBy(long id) throws DaoException {
-        Session session = sessionFactory.openSession();
-        Article result = session.get(Article.class, id);
-        if (result == null) throw new DaoException();
-        session.close();
+        Session session = null;
+        Transaction transaction = null;
+        Article result = null;
+
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            result = session.get(Article.class, id);
+            if (result == null) throw new DaoException("Entity with "+id+"Not found");
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException(e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
         return result;
     }
 
     public Article create(Article article) throws DaoException {
-        if (article.getId() != null) throw new DaoException();
-        Session session = sessionFactory.openSession();
-        session.save(article);
-        session.close();
+        if (article.getId() != null) throw new DaoException("Entity have id: "+article.getId());
+
+        Session session = null;
+        Transaction transaction = null;
+
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            session.save(article);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException(e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
         return article;
     }
 
     public void update(Article article) throws DaoException {
         Session session = null;
         Transaction transaction = null;
+
         try {
             session = sessionFactory.openSession();
             transaction = session.getTransaction();
@@ -47,7 +86,7 @@ public class ArticleDaoHibernate {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DaoException();
+            throw new DaoException("Update not contain entity");
         } finally {
             if (session != null) {
                 session.close();
@@ -56,12 +95,28 @@ public class ArticleDaoHibernate {
     }
 
     public void deleteBy(long id) throws DaoException {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-        Article article = session.get(Article.class, id);
-        if (article == null) throw new DaoException();
-        session.delete(article);
-        session.getTransaction().commit();
-        session.close();
+        Session session = null;
+        Transaction transaction = null;
+
+        try{
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            Article article = session.get(Article.class, id);
+            if (article == null) throw new DaoException("Delete not contain entity");
+            session.delete(article);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException(e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
     }
 }
