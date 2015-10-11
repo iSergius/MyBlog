@@ -55,10 +55,11 @@ public class ArticleDaoHibernate {
         }
     }
 
-    public void deleteBy(long id) {
+    public void deleteBy(long id) throws DaoException {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         Article article = session.get(Article.class, id);
+        if (article == null) throw new DaoException();
         session.delete(article);
         session.getTransaction().commit();
         session.close();
