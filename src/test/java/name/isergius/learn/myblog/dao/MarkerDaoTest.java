@@ -3,6 +3,7 @@ package name.isergius.learn.myblog.dao;
 import name.isergius.learn.myblog.domain.Marker;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
+import org.unitils.dbunit.annotation.ExpectedDataSet;
 import org.unitils.spring.annotation.SpringBean;
 
 /**
@@ -19,6 +20,13 @@ public class MarkerDaoTest extends AbstractDbTest {
     public void testReadById() throws DaoException {
         Marker marker = dao.readBy(1L);
         assertEquals("My Firs Marker", marker.getTitle());
+    }
+    @Test
+    @ExpectedDataSet
+    public void testCreateWithSetId() throws Exception {
+        Marker marker = new Marker("My Second Marker");
+        marker = dao.create(marker);
+        assertNotNull(marker.getId());
     }
 
 }
