@@ -7,5 +7,6 @@
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
         <mapping resource="hibernate/mapping/Article.hbm.xml"/>
+        <mapping resource="hibernate/mapping/Marker.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
