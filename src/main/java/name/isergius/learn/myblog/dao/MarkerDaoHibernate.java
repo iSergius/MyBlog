@@ -69,4 +69,28 @@ public class MarkerDaoHibernate {
         }
         return marker;
     }
+
+    public void update(Marker marker) throws DaoException {
+        Session session = null;
+        Transaction transaction = null;
+
+        try {
+            session = sessionFactory.openSession();
+            transaction = session.getTransaction();
+            transaction.begin();
+
+            session.update(marker);
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new DaoException("Update not contain entity");
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
 }
