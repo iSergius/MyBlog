@@ -1,11 +1,14 @@
 package name.isergius.learn.myblog.dao;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Marker;
 import org.junit.Test;
 import org.unitils.dbunit.annotation.DataSet;
 import org.unitils.dbunit.annotation.ExpectedDataSet;
 import org.unitils.dbunit.datasetloadstrategy.impl.CleanInsertLoadStrategy;
 import org.unitils.spring.annotation.SpringBean;
+
+import java.util.List;
 
 /**
  * Created by Kondratyev Sergey on 02.10.15.
@@ -74,5 +77,13 @@ public class ArticleDaoTest extends AbstractDbTest {
     @Test(expected = DaoException.class)
     public void testDeleteNotContainEntity() throws Exception {
         dao.deleteBy(2L);
+    }
+
+    @Test
+    @DataSet("ArticleDaoTest.testContainMarkers.xml")
+    public void testContainMarkers() throws Exception {
+        Article article = dao.readBy(2L);
+        List<Marker> markers = article.getMarkers();
+        assertEquals("News", markers.get(0).getTitle());
     }
 }
