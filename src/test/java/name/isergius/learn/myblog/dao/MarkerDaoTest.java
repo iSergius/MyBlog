@@ -14,7 +14,7 @@ import org.unitils.spring.annotation.SpringBean;
 public class MarkerDaoTest extends AbstractDbTest {
 
     @SpringBean("markerDao")
-    private MarkerDaoHibernate dao;
+    private MarkerDao dao;
 
     @Test
     @DataSet

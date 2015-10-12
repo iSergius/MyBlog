@@ -12,11 +12,11 @@
                            http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
-    <bean id="articleDao" class="name.isergius.learn.myblog.dao.ArticleDaoHibernate">
+    <bean id="articleDao" class="name.isergius.learn.myblog.dao.hibernate.ArticleDaoHibernate">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="markerDao" class="name.isergius.learn.myblog.dao.MarkerDaoHibernate">
+    <bean id="markerDao" class="name.isergius.learn.myblog.dao.hibernate.MarkerDaoHibernate">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 

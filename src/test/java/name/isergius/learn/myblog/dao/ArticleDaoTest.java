@@ -14,7 +14,7 @@ import org.unitils.spring.annotation.SpringBean;
 public class ArticleDaoTest extends AbstractDbTest {
 
     @SpringBean("articleDao")
-    private ArticleDaoHibernate dao;
+    private ArticleDao dao;
 
     @Test
     @DataSet

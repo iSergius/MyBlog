@@ -1,32 +1,37 @@
-package name.isergius.learn.myblog.dao;
+package name.isergius.learn.myblog.dao.hibernate;
 
-import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.dao.Dao;
+import name.isergius.learn.myblog.dao.DaoException;
+import name.isergius.learn.myblog.dao.Model;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- * Created by Kondratyev Sergey on 05.10.15.
+ * Created by Kondratyev Sergey on 12.10.15.
  */
-public class ArticleDaoHibernate {
+public abstract class AbstractDaoHibernate<T extends Model> implements Dao<T> {
 
+    private Class<T> clazz;
     private SessionFactory sessionFactory;
 
-    public ArticleDaoHibernate(SessionFactory sessionFactory) {
+    public AbstractDaoHibernate(SessionFactory sessionFactory, Class<T> clazz) {
+        this.clazz = clazz;
         this.sessionFactory = sessionFactory;
     }
 
-    public Article readBy(long id) throws DaoException {
+    @Override
+    public T readBy(long id) throws DaoException {
         Session session = null;
         Transaction transaction = null;
-        Article result = null;
+        T result = null;
 
         try{
             session = sessionFactory.openSession();
             transaction = session.getTransaction();
             transaction.begin();
 
-            result = session.get(Article.class, id);
+            result = session.get(clazz, id);
             if (result == null) throw new DaoException("Entity with "+id+"Not found");
 
             transaction.commit();
@@ -43,8 +48,9 @@ public class ArticleDaoHibernate {
         return result;
     }
 
-    public Article create(Article article) throws DaoException {
-        if (article.getId() != null) throw new DaoException("Entity have id: "+article.getId());
+    @Override
+    public T create(T entity) throws DaoException {
+        if (entity.getId() != null) throw new DaoException("Entity have id: "+entity.getId());
 
         Session session = null;
         Transaction transaction = null;
@@ -54,7 +60,7 @@ public class ArticleDaoHibernate {
             transaction = session.getTransaction();
             transaction.begin();
 
-            session.save(article);
+            session.save(entity);
 
             transaction.commit();
         } catch (Exception e) {
@@ -67,10 +73,11 @@ public class ArticleDaoHibernate {
                 session.close();
             }
         }
-        return article;
+        return entity;
     }
 
-    public void update(Article article) throws DaoException {
+    @Override
+    public void update(T entity) throws DaoException {
         Session session = null;
         Transaction transaction = null;
 
@@ -79,7 +86,7 @@ public class ArticleDaoHibernate {
             transaction = session.getTransaction();
             transaction.begin();
 
-            session.update(article);
+            session.update(entity);
 
             transaction.commit();
         } catch (Exception e) {
@@ -94,6 +101,7 @@ public class ArticleDaoHibernate {
         }
     }
 
+    @Override
     public void deleteBy(long id) throws DaoException {
         Session session = null;
         Transaction transaction = null;
@@ -103,9 +111,9 @@ public class ArticleDaoHibernate {
             transaction = session.getTransaction();
             transaction.begin();
 
-            Article article = session.get(Article.class, id);
-            if (article == null) throw new DaoException("Delete not contain entity");
-            session.delete(article);
+            T entity = session.get(clazz, id);
+            if (entity == null) throw new DaoException("Delete not contain entity");
+            session.delete(entity);
 
             transaction.commit();
         } catch (Exception e) {
@@ -118,5 +126,9 @@ public class ArticleDaoHibernate {
                 session.close();
             }
         }
+    }
+
+    protected SessionFactory getSessionFactory() {
+        return this.sessionFactory;
     }
 }
