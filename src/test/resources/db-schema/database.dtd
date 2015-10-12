@@ -1,7 +1,15 @@
 <!ELEMENT dataset (
-   (article_t|
+   (article_marker_t|
+    article_t|
     dbmaintain_scripts|
     marker_t)*)>
+
+<!ELEMENT article_marker_t EMPTY>
+<!ATTLIST article_marker_t
+    article_marker_id CDATA #IMPLIED
+    article_id CDATA #IMPLIED
+    marker_id CDATA #IMPLIED
+>
 
 <!ELEMENT article_t EMPTY>
 <!ATTLIST article_t
