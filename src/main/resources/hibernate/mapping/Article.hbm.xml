@@ -8,5 +8,13 @@
             <generator class="identity"/>
         </id>
         <property name="title" column="article_title" type="string" />
+        <bag name="markers" table="article_marker_t">
+            <key>
+                <column name="article_id"/>
+            </key>
+            <many-to-many class="name.isergius.learn.myblog.domain.Marker" not-found="ignore">
+                <column name="marker_id"/>
+            </many-to-many>
+        </bag>
     </class>
 </hibernate-mapping>
