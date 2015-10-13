@@ -20,6 +20,10 @@
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="note" class="name.isergius.learn.myblog.domain.Note">
+        <constructor-arg name="articleDao" ref="articleDao"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/jdbc/myblog"/>
     </bean>
