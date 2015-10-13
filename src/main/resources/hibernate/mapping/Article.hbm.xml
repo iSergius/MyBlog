@@ -16,5 +16,6 @@
                 <column name="marker_id"/>
             </many-to-many>
         </bag>
+        <property name="published" column="article_published" type="boolean"/>
     </class>
 </hibernate-mapping>
