@@ -86,4 +86,11 @@ public class ArticleDaoTest extends AbstractDbTest {
         List<Marker> markers = article.getMarkers();
         assertEquals("News", markers.get(0).getTitle());
     }
+
+    @Test
+    @DataSet("ArticleDaoTest.testReadPublishedBy.xml")
+    public void testReadPublishedBy() throws Exception {
+        Article article = dao.readPublishedBy(1L,true);
+        assertTrue(article.isPublished());
+    }
 }
