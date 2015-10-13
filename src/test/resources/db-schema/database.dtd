@@ -15,6 +15,7 @@
 <!ATTLIST article_t
     article_id CDATA #IMPLIED
     article_title CDATA #IMPLIED
+    article_published CDATA #IMPLIED
 >
 
 <!ELEMENT dbmaintain_scripts EMPTY>
