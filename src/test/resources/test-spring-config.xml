@@ -35,4 +35,8 @@
 
     <bean id="feickArticleDao" class="name.isergius.learn.myblog.domain.ArticleDaoFeick"/>
 
+    <bean id="jndiCreator" class="name.isergius.learn.myblog.JndiCreator" init-method="init" lazy-init="false">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
 </beans>
