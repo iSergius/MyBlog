@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import name.isergius.learn.myblog.domain.Note;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,16 +27,31 @@ public class ArticleControllerTest {
     private HttpServletResponse httpServletResponse;
     @Mock
     private RequestDispatcher requestDispatcher;
+    @Mock
+    private ServletContext servletContext;
+    @Mock
+    private Note note;
 
     @Before
     public void setUp() throws Exception {
         articleController = new ArticleController();
         Mockito.when(httpServletRequest.getRequestDispatcher("article.jsp")).thenReturn(requestDispatcher);
+        Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
+        Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
     }
 
     @Test
     public void testArticleViewRoute() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(requestDispatcher).forward(Matchers.any(HttpServletRequest.class),Matchers.any(HttpServletResponse.class));
+    }
+
+    @Test
+    public void testGettingRightArticle() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+        articleController.doGet(httpServletRequest,httpServletResponse);
+        Mockito.verify(note).getPublishedArticleBy(1L);
+
     }
 }
