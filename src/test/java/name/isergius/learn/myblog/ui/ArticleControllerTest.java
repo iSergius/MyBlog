@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import name.isergius.learn.myblog.domain.Article;
 import name.isergius.learn.myblog.domain.Note;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,6 +32,8 @@ public class ArticleControllerTest {
     private ServletContext servletContext;
     @Mock
     private Note note;
+    @Mock
+    private Article article;
 
     @Before
     public void setUp() throws Exception {
@@ -38,6 +41,7 @@ public class ArticleControllerTest {
         Mockito.when(httpServletRequest.getRequestDispatcher("article.jsp")).thenReturn(requestDispatcher);
         Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
         Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
+        Mockito.when(note.getPublishedArticleBy(1L)).thenReturn(article);
     }
 
     @Test
@@ -66,5 +70,12 @@ public class ArticleControllerTest {
         Mockito.when(httpServletRequest.getPathInfo()).thenReturn(null);
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(httpServletResponse).sendError(404);
+    }
+
+    @Test
+    public void testSettingArticleInRequestAttribute() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+        articleController.doGet(httpServletRequest,httpServletResponse);
+        Mockito.verify(httpServletRequest).setAttribute("article", article);
     }
 }
