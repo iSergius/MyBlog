@@ -52,6 +52,12 @@ public class ArticleControllerTest {
         Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(note).getPublishedArticleBy(1L);
+    }
 
+    @Test
+    public void testWrongIdUrl() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1a");
+        articleController.doGet(httpServletRequest,httpServletResponse);
+        Mockito.verify(httpServletResponse).sendError(404);
     }
 }
