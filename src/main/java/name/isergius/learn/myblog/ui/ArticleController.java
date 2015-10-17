@@ -19,7 +19,7 @@ public class ArticleController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String pathInfo = request.getPathInfo();
-        if (!Pattern.matches("/\\d+",pathInfo)) {
+        if (pathInfo == null || !Pattern.matches("/\\d+", pathInfo)) {
             response.sendError(404);
             return;
         }
