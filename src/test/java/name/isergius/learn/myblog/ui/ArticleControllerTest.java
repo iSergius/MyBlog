@@ -44,7 +44,7 @@ public class ArticleControllerTest {
     public void testArticleViewRoute() throws Exception {
         Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
         articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(requestDispatcher).forward(Matchers.any(HttpServletRequest.class),Matchers.any(HttpServletResponse.class));
+        Mockito.verify(requestDispatcher).forward(Matchers.any(HttpServletRequest.class), Matchers.any(HttpServletResponse.class));
     }
 
     @Test
@@ -57,6 +57,13 @@ public class ArticleControllerTest {
     @Test
     public void testWrongIdUrl() throws Exception {
         Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1a");
+        articleController.doGet(httpServletRequest,httpServletResponse);
+        Mockito.verify(httpServletResponse).sendError(404);
+    }
+
+    @Test
+    public void testNullIdUrl() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn(null);
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(httpServletResponse).sendError(404);
     }
