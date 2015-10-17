@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import name.isergius.learn.myblog.domain.Article;
 import name.isergius.learn.myblog.domain.Note;
 
 import javax.servlet.ServletContext;
@@ -26,8 +27,8 @@ public class ArticleController extends HttpServlet {
         Integer articleId = Integer.valueOf(pathInfo.substring(1));
         ServletContext servletContext = request.getServletContext();
         Note note = (Note) servletContext.getAttribute("note");
-        note.getPublishedArticleBy(articleId);
-
+        Article article = note.getPublishedArticleBy(articleId);
+        request.setAttribute("article",article);
         request.getRequestDispatcher("article.jsp").forward(request,response);
     }
 
