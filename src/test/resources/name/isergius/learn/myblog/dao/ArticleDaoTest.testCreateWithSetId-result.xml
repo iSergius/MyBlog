@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dataset SYSTEM "../../../../../db-schema/database.dtd">
 <dataset>
-    <ARTICLE_T ARTICLE_TITLE="My Second Article" />
+    <article_t article_title="My Second Article" />
 </dataset>

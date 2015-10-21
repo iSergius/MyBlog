@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context path="/">
+    <Resource name="jdbc/myblog" auth="Container"
+              type="javax.sql.DataSource" driverClassName="${jdbc.driver}"
+              url="${jdbc.url}"
+              username="${jdbc.username}" password="${jdbc.password}" maxTotal="20" maxIdle="10"
+              maxWaitMillis="-1"/>
+</Context>

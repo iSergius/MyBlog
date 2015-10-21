@@ -36,6 +36,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
         <!-- testing dependencies -->
         <dependency>
             <groupId>junit</groupId>
@@ -44,55 +49,193 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-core</artifactId>
-            <version>${unitils.version}</version>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.5.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-database</artifactId>
-            <version>${unitils.version}</version>
-            <scope>test</scope>
+            <groupId>com.github.springtestdbunit</groupId>
+            <artifactId>spring-test-dbunit</artifactId>
+            <version>1.2.1</version>
         </dependency>
-        <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-dbunit</artifactId>
-            <version>${unitils.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-dbmaintainer</artifactId>
-            <version>${unitils.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-spring</artifactId>
-            <version>${unitils.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.unitils</groupId>
-            <artifactId>unitils-orm</artifactId>
-            <version>${unitils.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
-            <scope>test</scope>
-        </dependency>
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>1.10.19</version>
+            <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.codeborne</groupId>
+            <artifactId>selenide</artifactId>
+            <version>2.23</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+
+            <properties>
+                <jdbc.driver>org.postgresql.Driver</jdbc.driver> <!--org.h2.Driver-->
+                <jdbc.url>jdbc:postgresql://localhost:5432/myblog</jdbc.url> <!--jdbc:h2:file:./target/h2/test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1-->
+                <jdbc.username>developer</jdbc.username>
+                <jdbc.password>r_BD88gk1h</jdbc.password>
+                <database.hibernate.dialect>org.hibernate.dialect.PostgreSQL94Dialect</database.hibernate.dialect>
+                <database.schemaNames>public</database.schemaNames>
+            </properties>
+
+            <build>
+
+                <resources>
+                    <resource>
+                        <directory>src/main/resources/</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                    </resource>
+                </resources>
+
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources/</directory>
+                        <filtering>true</filtering>
+                        <includes>
+                            <include>**</include>
+                        </includes>
+                    </testResource>
+                </testResources>
+
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*IntegrationTest.java</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.liquibase</groupId>
+                        <artifactId>liquibase-maven-plugin</artifactId>
+                        <version>3.4.1</version>
+                        <configuration>
+                            <changeLogFile>/src/test/resources/sql/postgresql/changelog.xml</changeLogFile>
+                            <driver>${jdbc.driver}</driver>
+                            <url>${jdbc.url}</url>
+                            <username>${jdbc.username}</username>
+                            <password>${jdbc.password}</password>
+                            <defaultCatalogName>test</defaultCatalogName>
+                            <defaultSchemaName>public</defaultSchemaName>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>resources</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                                <configuration>
+                                    <contexts>ddl</contexts>
+                                </configuration>
+                            </execution>
+
+                            <execution>
+                                <id>it</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>dropAll</goal>
+                                    <goal>update</goal>
+                                </goals>
+                                <configuration>
+                                    <contexts>ddl,it</contexts>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>post-integration-test</id>
+                                <goals>
+                                    <goal>update</goal>
+                                </goals>
+                                <configuration>
+                                    <contexts>clear</contexts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.tomcat.maven</groupId>
+                        <artifactId>tomcat7-maven-plugin</artifactId>
+                        <version>2.2</version>
+                        <configuration>
+                            <contextFile>target/test-classes/context.xml</contextFile>
+                            <warFile>/target/MyBlog-0.0.1.war</warFile>
+                            <path>/</path>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>tomcat-run</id>
+                                <goals>
+                                    <goal>run-war-only</goal>
+                                </goals>
+                                <phase>pre-integration-test</phase>
+                                <configuration>
+                                    <fork>true</fork>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>tomcat-shutdown</id>
+                                <goals>
+                                    <goal>shutdown</goal>
+                                </goals>
+                                <phase>post-integration-test</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>2.18.1</version>
+                        <executions>
+                            <execution>
+                                <id>integration-test</id>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                </goals>
+                                <phase>integration-test</phase>
+                                <configuration>
+                                    <excludes>
+                                        <exclude>none</exclude>
+                                    </excludes>
+                                    <includes>
+                                        <include>**/*IntegrationTest.java</include>
+                                    </includes>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+
+            </build>
+        </profile>
+    </profiles>
 
     <properties>
         <unitils.version>3.4.2</unitils.version>

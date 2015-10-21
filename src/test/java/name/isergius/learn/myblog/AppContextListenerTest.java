@@ -9,7 +9,6 @@ import org.mockito.Matchers;
 import org.mockito.Mockito;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.unitils.UnitilsJUnit4;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -21,7 +20,7 @@ import javax.servlet.ServletContextEvent;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
-public class AppContextListenerTest extends UnitilsJUnit4 {
+public class AppContextListenerTest {
 
     private AppContextListener appContextListener;
     private ServletContext servletContext;

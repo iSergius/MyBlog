@@ -11,7 +11,7 @@ public class Article extends Model {
 
     private String title;
     private List<Marker> markers;
-    private boolean published;
+    private Boolean published;
 
     public Article() {
         super();
@@ -38,11 +38,11 @@ public class Article extends Model {
         this.markers = markers;
     }
 
-    public boolean isPublished() {
+    public Boolean getPublished() {
         return published;
     }
 
-    public void setPublished(boolean published) {
+    public void setPublished(Boolean published) {
         this.published = published;
     }
 }

@@ -38,7 +38,7 @@ public class ArticleControllerTest {
     @Before
     public void setUp() throws Exception {
         articleController = new ArticleController();
-        Mockito.when(httpServletRequest.getRequestDispatcher("article.jsp")).thenReturn(requestDispatcher);
+        Mockito.when(httpServletRequest.getRequestDispatcher("/article.jsp")).thenReturn(requestDispatcher);
         Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
         Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
         Mockito.when(note.getPublishedArticleBy(1L)).thenReturn(article);

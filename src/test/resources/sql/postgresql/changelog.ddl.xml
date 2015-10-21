@@ -1,0 +1,40 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="1" author="Kondratyev Sergey" context="ddl">
+        <createTable tableName="article_t">
+            <column name="article_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="article_pk" />
+            </column>
+            <column name="article_title" type="VARCHAR(140)"/>
+            <column name="article_published" type="BOOLEAN" defaultValue="false"/>
+        </createTable>
+
+        <createTable tableName="marker_t">
+            <column name="marker_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="marker_pk" />
+            </column>
+            <column name="marker_title" type="VARCHAR(140)"/>
+        </createTable>
+
+        <createTable tableName="article_marker_t">
+            <column name="article_marker_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="article_marker_pk"/>
+            </column>
+            <column name="article_id" type="INT"/>
+            <column name="marker_id" type="INT"/>
+        </createTable>
+        <!--<addForeignKeyConstraint baseTableName="article_marker_t" baseColumnNames="article_id"
+                                 constraintName="article_fk"
+                                 referencedTableName="article_t"
+                                 referencedColumnNames="article_id"/>
+        <addForeignKeyConstraint baseTableName="article_marker_t" baseColumnNames="marker_id" constraintName="marker_fk"
+                                 referencedTableName="marker_t"
+                                 referencedColumnNames="marker_id"/>-->
+    </changeSet>
+
+</databaseChangeLog>

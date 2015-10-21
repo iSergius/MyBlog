@@ -19,17 +19,32 @@ public class ArticleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String pathInfo = request.getPathInfo();
-        if (pathInfo == null || !Pattern.matches("/\\d+", pathInfo)) {
+        if (checkRequest(request)) {
             response.sendError(404);
             return;
         }
-        Integer articleId = Integer.valueOf(pathInfo.substring(1));
+        Long articleId = Long.valueOf(request.getPathInfo().substring(1));
+
+        setModelAttributes(request,articleId);
+
+        request.getRequestDispatcher("/article.jsp").forward(request, response);
+    }
+
+    private boolean checkRequest(HttpServletRequest request) {
+        String pathInfo = request.getPathInfo();
+        if (pathInfo == null || !Pattern.matches("/\\d+", pathInfo)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private void setModelAttributes(HttpServletRequest request, Long articleId) {
         ServletContext servletContext = request.getServletContext();
         Note note = (Note) servletContext.getAttribute("note");
         Article article = note.getPublishedArticleBy(articleId);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+article+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         request.setAttribute("article",article);
-        request.getRequestDispatcher("article.jsp").forward(request,response);
     }
 
 }
