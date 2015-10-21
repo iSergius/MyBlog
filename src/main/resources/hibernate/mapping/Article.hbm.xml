@@ -8,6 +8,7 @@
             <generator class="identity"/>
         </id>
         <property name="title" column="article_title" type="string" />
+        <property name="content" column="article_content" type="string"/>
         <bag name="markers" table="article_marker_t">
             <key>
                 <column name="article_id"/>

@@ -29,4 +29,6 @@
         <delete tableName="article_marker_t"/>
     </changeSet>
 
+    <include file="/src/test/resources/sql/postgresql/content.sql"/>
+
 </databaseChangeLog>

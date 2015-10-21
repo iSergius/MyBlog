@@ -10,6 +10,7 @@ import java.util.List;
 public class Article extends Model {
 
     private String title;
+    private String content;
     private List<Marker> markers;
     private Boolean published;
 
@@ -28,6 +29,14 @@ public class Article extends Model {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public List<Marker> getMarkers() {

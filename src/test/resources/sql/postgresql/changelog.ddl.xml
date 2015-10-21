@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="1" author="Kondratyev Sergey" context="ddl">
+    <changeSet id="1" author="Kondratyev Sergey" context="ddl" runOnChange="true">
         <createTable tableName="article_t">
             <column name="article_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="article_pk" />
@@ -35,6 +35,12 @@
         <addForeignKeyConstraint baseTableName="article_marker_t" baseColumnNames="marker_id" constraintName="marker_fk"
                                  referencedTableName="marker_t"
                                  referencedColumnNames="marker_id"/>-->
+    </changeSet>
+
+    <changeSet id="2" author="Kondratyev Sergey">
+        <addColumn tableName="article_t">
+            <column name="article_content" type="VARCHAR(2000)"/>
+        </addColumn>
     </changeSet>
 
 </databaseChangeLog>
