@@ -25,7 +25,7 @@
                 <h1 class="page-header">MyBlog</h1>
             </div>
             <div class="markers col-lg-6">
-                <c:forEach items="${article.markers}" var="marker">
+                <c:forEach items="${markers}" var="marker">
                     <a href="#marker"> <h3><span class="marker text-primary">${marker.title}</span></h3></a>
                 </c:forEach>
             </div>

@@ -1,6 +1,7 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,6 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * Created by Kondratyev Sergey on 16.10.15.
@@ -34,6 +36,8 @@ public class ArticleControllerTest {
     private Note note;
     @Mock
     private Article article;
+    @Mock
+    private List<Marker> markers;
 
     @Before
     public void setUp() throws Exception {
@@ -42,6 +46,7 @@ public class ArticleControllerTest {
         Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
         Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
         Mockito.when(note.getPublishedArticleBy(1L)).thenReturn(article);
+        Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
     }
 
     @Test
@@ -77,5 +82,12 @@ public class ArticleControllerTest {
         Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(httpServletRequest).setAttribute("article", article);
+    }
+
+    @Test
+    public void testSettingMarkersInRequestAttribute() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+        articleController.doGet(httpServletRequest,httpServletResponse);
+        Mockito.verify(httpServletRequest).setAttribute("markers", markers);
     }
 }

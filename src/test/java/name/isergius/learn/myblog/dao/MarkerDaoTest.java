@@ -99,4 +99,15 @@ public class MarkerDaoTest extends AbstractDbTest {
         assertEquals("My Firs Article", articles.get(0).getTitle());
     }
 
+    @Test
+    @DatabaseSetup(value = "MarkersWithPublishedArticles.xml")
+    public void testReadAllPublished() throws Exception {
+        List<Marker> markers = dao.readAll(true);
+        assertNotNull(markers);
+        assertTrue(markers.size() != 0);
+        System.out.println(markers.getClass());
+        System.out.println(markers.get(0).getClass());
+        assertNotNull(markers.get(0).getArticles());
+        assertTrue(markers.get(0).getArticles().get(0).getPublished());
+    }
 }

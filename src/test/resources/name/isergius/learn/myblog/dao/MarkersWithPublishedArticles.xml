@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "../../../../../db-schema/database.dtd">
+<dataset>
+    <marker_t marker_id="1" marker_title="News" />
+    <article_t article_id="2" article_title="My Firs Article" article_published="true"/>
+    <article_marker_t article_marker_id="1" article_id="2" marker_id="1"/>
+</dataset>

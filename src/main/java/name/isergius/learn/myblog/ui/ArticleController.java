@@ -1,6 +1,7 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
 
 import javax.servlet.ServletContext;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Pattern;
 
 /**
@@ -43,8 +45,10 @@ public class ArticleController extends HttpServlet {
         ServletContext servletContext = request.getServletContext();
         Note note = (Note) servletContext.getAttribute("note");
         Article article = note.getPublishedArticleBy(articleId);
+        List<Marker> markers = note.getAllPublishedMarkers();
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"+article+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         request.setAttribute("article",article);
+        request.setAttribute("markers",markers);
     }
 
 }
