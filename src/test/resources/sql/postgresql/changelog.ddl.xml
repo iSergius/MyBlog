@@ -43,4 +43,10 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="3" author="Kondratyev Sergey">
+        <addColumn tableName="article_t">
+            <column name="article_published_date" type="DATE"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

@@ -18,9 +18,12 @@ public class PageArticleIntegrationTest extends Assert {
     public void testShowArticle() throws Exception {
         open("/article/1");
         assertEquals("h1", $(Selectors.byText("MyBlog")).getTagName());
+        assertEquals("News",$("header").findElement(By.className("markers")).findElement(By.tagName("span")).getText());
         assertEquals("h2", $(Selectors.byText("My First Article")).getTagName());
         assertEquals("My First Article", $("article").findElement(By.tagName("h2")).getText());
         assertEquals("Article content", $("article").findElement(By.tagName("p")).getText());
+        assertEquals("2015-10-21",$("article").findElement(By.className("date")).getText());
+        assertEquals("News",$("article").findElement(By.className("marker")).getText());
         assertEquals("iSergius Copyright 2015", $(By.tagName("footer")).getText());
     }
 }

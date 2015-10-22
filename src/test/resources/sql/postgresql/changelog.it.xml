@@ -22,13 +22,6 @@
         </insert>
     </changeSet>
 
-    <changeSet id="2" author="Kondratyev Sergey" context="clear">
-        <!--<rollback changeSetId="1"/>-->
-        <delete tableName="article_t"/>
-        <delete tableName="market_t"/>
-        <delete tableName="article_marker_t"/>
-    </changeSet>
-
     <include file="/src/test/resources/sql/postgresql/content.sql"/>
 
 </databaseChangeLog>

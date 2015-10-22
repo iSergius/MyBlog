@@ -18,5 +18,6 @@
             </many-to-many>
         </bag>
         <property name="published" column="article_published" type="boolean"/>
+        <property name="publishedDate" column="article_published_date" type="java.time.LocalDate"/>
     </class>
 </hibernate-mapping>

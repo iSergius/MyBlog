@@ -2,6 +2,7 @@ package name.isergius.learn.myblog.domain;
 
 import name.isergius.learn.myblog.dao.Model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ public class Article extends Model {
     private String content;
     private List<Marker> markers;
     private Boolean published;
+    private LocalDate publishedDate;
 
     public Article() {
         super();
@@ -54,4 +56,13 @@ public class Article extends Model {
     public void setPublished(Boolean published) {
         this.published = published;
     }
+
+    public LocalDate getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(LocalDate publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
 }
