@@ -3,16 +3,26 @@ package name.isergius.learn.myblog.domain;
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.DaoException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Kondratyev Sergey on 13.10.15.
  */
 public class ArticleDaoFeick implements ArticleDao {
 
     @Override
-    public Article readPublishedBy(long id, boolean published) {
+    public Article readBy(long id, boolean published) {
         Article result = new Article("Feick Article");
         result.setPublished(published);
         result.setId(id);
+        return result;
+    }
+
+    @Override
+    public List<Article> readAll(boolean published) {
+        List<Article> result =  new ArrayList<Article>();
+        result.add(new Article("Feick"));
         return result;
     }
 

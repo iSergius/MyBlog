@@ -26,4 +26,10 @@ public class NoteTest extends AbstractSpringContext {
         List<Marker> markers = note.getAllPublishedMarkers();
         assertNotNull(markers);
     }
+
+    @Test
+    public void testGettingAllPublishedArticles() throws Exception {
+        List<Article> articles = note.getAllPublishedArticles();
+        assertNotNull(articles);
+    }
 }

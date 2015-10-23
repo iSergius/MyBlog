@@ -19,10 +19,14 @@ public class Note {
     }
 
     public Article getPublishedArticleBy(long id) {
-        return articleDao.readPublishedBy(id,true);
+        return articleDao.readBy(id, true);
     }
 
     public List<Marker> getAllPublishedMarkers() {
         return markerDao.readAll(true);
+    }
+
+    public List<Article> getAllPublishedArticles() {
+        return articleDao.readAll(true);
     }
 }
