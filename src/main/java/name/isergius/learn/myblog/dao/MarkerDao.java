@@ -11,4 +11,6 @@ public interface MarkerDao extends Dao<Marker> {
 
     public List<Marker> readAll(boolean published);
 
+    Marker readBy(long id, boolean published);
+
 }

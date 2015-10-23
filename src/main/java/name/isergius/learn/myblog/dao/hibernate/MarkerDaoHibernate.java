@@ -43,4 +43,32 @@ public class MarkerDaoHibernate extends AbstractDaoHibernate<Marker> implements 
         }
         return result;
     }
+
+    @Override
+    public Marker readBy(long id, boolean published) {
+        Session session = null;
+        Transaction transaction = null;
+        Marker result = null;
+
+        try {
+            session = getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            result = (Marker) session.createQuery("select marker from Marker as marker join marker.articles as article where article.published = :pub and marker.id = :id")
+                    .setBoolean("pub", published)
+                    .setLong("id",id)
+                    .uniqueResult();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return result;
+    }
 }
