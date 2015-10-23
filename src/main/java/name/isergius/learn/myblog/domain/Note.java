@@ -29,4 +29,8 @@ public class Note {
     public List<Article> getAllPublishedArticles() {
         return articleDao.readAll(true);
     }
+
+    public Marker getPublishedMarkerBy(long id) {
+        return markerDao.readBy(id,true);
+    }
 }

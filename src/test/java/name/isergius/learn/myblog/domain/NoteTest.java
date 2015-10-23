@@ -25,6 +25,8 @@ public class NoteTest extends Assert {
     @Mock
     private Article article;
     @Mock
+    private Marker marker;
+    @Mock
     private List<Article> articles;
     @Mock
     private List<Marker> markers;
@@ -62,5 +64,14 @@ public class NoteTest extends Assert {
         List<Article> articles = note.getAllPublishedArticles();
 
         assertNotNull(articles);
+    }
+
+    @Test
+    public void testGettingPublishedMarker() throws Exception {
+        Mockito.when(markerDao.readBy(1L,true)).thenReturn(marker);
+
+        Marker marker = note.getPublishedMarkerBy(1L);
+
+        assertNotNull(marker);
     }
 }
