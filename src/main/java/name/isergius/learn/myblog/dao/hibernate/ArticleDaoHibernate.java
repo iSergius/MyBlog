@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import java.util.List;
+
 /**
  * Created by Kondratyev Sergey on 05.10.15.
  */
@@ -16,7 +18,7 @@ public class ArticleDaoHibernate extends AbstractDaoHibernate<Article> implement
     }
 
     @Override
-    public Article readPublishedBy(long id, boolean published) {
+    public Article readBy(long id, boolean published) {
         Session session = null;
         Transaction transaction = null;
         Article result = null;
@@ -25,9 +27,37 @@ public class ArticleDaoHibernate extends AbstractDaoHibernate<Article> implement
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            result = (Article) session.createQuery("from Article a where a.published = :published")
+            result = (Article) session.createQuery("from Article a where a.published = :published and a.id = :id")
                                     .setBoolean("published", published)
+                                    .setLong("id",id)
                                     .uniqueResult();
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return result;
+    }
+
+    @Override
+    public List<Article> readAll(boolean published) {
+        Session session = null;
+        Transaction transaction = null;
+        List<Article> result = null;
+
+        try {
+            session = getSessionFactory().openSession();
+            transaction = session.beginTransaction();
+
+            result = (List<Article>) session.createQuery("from Article a where a.published = :published")
+                    .setBoolean("published", published)
+                    .list();
 
             transaction.commit();
         } catch (Exception e) {
