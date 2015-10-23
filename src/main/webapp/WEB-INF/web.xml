@@ -22,6 +22,14 @@
         <servlet-name>articleController</servlet-name>
         <url-pattern>/article/*</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>markerController</servlet-name>
+        <servlet-class>name.isergius.learn.myblog.ui.MarkerController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>markerController</servlet-name>
+        <url-pattern>/marker/*</url-pattern>
+    </servlet-mapping>
     <resource-ref>
         <description>MyBlog Datasource</description>
         <res-ref-name>jdbc/myblog</res-ref-name>
