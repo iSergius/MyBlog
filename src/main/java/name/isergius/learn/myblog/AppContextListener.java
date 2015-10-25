@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog;
 
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Note;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -18,9 +19,11 @@ public class AppContextListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/spring-config.xml");
+        Blog blog = applicationContext.getBean(Blog.class);
         Note note = applicationContext.getBean(Note.class);
 
         ServletContext servletContext = sce.getServletContext();
+        servletContext.setAttribute("blog", blog);
         servletContext.setAttribute("note", note);
 
     }

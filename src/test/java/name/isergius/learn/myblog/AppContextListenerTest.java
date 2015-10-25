@@ -1,6 +1,6 @@
 package name.isergius.learn.myblog;
 
-import name.isergius.learn.myblog.domain.Note;
+import name.isergius.learn.myblog.domain.Blog;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +42,6 @@ public class AppContextListenerTest {
     @Test
     public void testAddNoteAttribute() throws Exception {;
         appContextListener.contextInitialized(servletContextEvent);
-        Mockito.verify(servletContext).setAttribute(Matchers.same("note"), Matchers.any(Note.class));
+        Mockito.verify(servletContext).setAttribute(Matchers.same("blog"), Matchers.any(Blog.class));
     }
 }

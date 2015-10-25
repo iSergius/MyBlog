@@ -25,6 +25,11 @@
         <constructor-arg name="markerDao" ref="markerDao"/>
     </bean>
 
+    <bean id="blog" class="name.isergius.learn.myblog.domain.Blog">
+        <constructor-arg name="title" value="MyBlog"/>
+        <property name="note" ref="note"/>
+    </bean>
+
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
         <property name="jndiName" value="java:comp/env/jdbc/myblog"/>
     </bean>
@@ -42,7 +47,5 @@
         <entry key="hibernate.cache.use_query_cache" value="false"/>
         <entry key="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </util:map>
-    <!--<jee:jndi-lookup id="dataSource" jndi-name="jdbc/DatabaseName" expected-type="javax.sql.DataSource" />-->
-    <!--Alternatively, setup using simple bean configuration like this:-->
 
 </beans>
