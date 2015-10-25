@@ -1,6 +1,7 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
 import org.junit.Before;
@@ -33,6 +34,8 @@ public class IndexControllerTest {
     @Mock
     private ServletContext servletContext;
     @Mock
+    private Blog blog;
+    @Mock
     private Note note;
     @Mock
     private List<Article> articles;
@@ -45,8 +48,10 @@ public class IndexControllerTest {
         Mockito.when(httpServletRequest.getRequestDispatcher("/index.jsp")).thenReturn(requestDispatcher);
         Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
         Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
+        Mockito.when(servletContext.getAttribute("blog")).thenReturn(blog);
         Mockito.when(note.getAllPublishedArticles()).thenReturn(articles);
         Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
+        Mockito.when(blog.getTitle()).thenReturn("MyBlog");
     }
 
     @Test
@@ -66,5 +71,13 @@ public class IndexControllerTest {
     public void testSettingPublishedMarkers() throws Exception {
         indexController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(httpServletRequest).setAttribute("markers", markers);
+    }
+    @Test
+    public void testSetTitle() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+
+        indexController.doGet(httpServletRequest,httpServletResponse);
+
+        Mockito.verify(httpServletRequest).setAttribute("title", "MyBlog");
     }
 }

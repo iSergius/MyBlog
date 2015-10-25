@@ -46,6 +46,7 @@ public class ArticleController extends HttpServlet {
         Note note = (Note) servletContext.getAttribute("note");
         Article article = note.getPublishedArticleBy(articleId);
         List<Marker> markers = note.getAllPublishedMarkers();
+        request.setAttribute("title",article.getTitle());
         request.setAttribute("article",article);
         request.setAttribute("markers",markers);
     }

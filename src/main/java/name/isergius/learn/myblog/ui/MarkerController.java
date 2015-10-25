@@ -46,6 +46,7 @@ public class MarkerController extends HttpServlet {
         Marker marker = note.getPublishedMarkerBy(articleId);
         List<Article> articles = marker.getArticles();
         List<Marker> markers = note.getAllPublishedMarkers();
+        request.setAttribute("title",marker.getTitle());
         request.setAttribute("articles",articles);
         request.setAttribute("markers",markers);
     }

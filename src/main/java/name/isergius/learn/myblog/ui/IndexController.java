@@ -1,6 +1,7 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
 
@@ -19,8 +20,10 @@ public class IndexController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Note note = (Note) request.getServletContext().getAttribute("note");
+        Blog blog = (Blog) request.getServletContext().getAttribute("blog");
         List<Article> articles = note.getAllPublishedArticles();
         List<Marker> markers = note.getAllPublishedMarkers();
+        request.setAttribute("title", blog.getTitle());
         request.setAttribute("articles", articles);
         request.setAttribute("markers",markers);
         request.getRequestDispatcher("/index.jsp").forward(request,response);

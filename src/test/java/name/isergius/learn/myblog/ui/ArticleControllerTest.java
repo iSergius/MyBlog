@@ -90,4 +90,13 @@ public class ArticleControllerTest {
         articleController.doGet(httpServletRequest,httpServletResponse);
         Mockito.verify(httpServletRequest).setAttribute("markers", markers);
     }
+    @Test
+    public void testSetTitle() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+        Mockito.when(article.getTitle()).thenReturn("My First Article");
+
+        articleController.doGet(httpServletRequest,httpServletResponse);
+
+        Mockito.verify(httpServletRequest).setAttribute("title", "My First Article");
+    }
 }

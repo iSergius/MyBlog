@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>- MyBlog -</title>
+  <title>${title}</title>
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <!-- Optional theme -->
@@ -26,7 +26,7 @@
     </div>
     <div class="markers col-lg-6">
       <c:forEach items="${markers}" var="marker">
-        <a href="#marker"> <h3><span class="marker text-primary">${marker.title}</span></h3></a>
+        <a href="/marker/${marker.id}"> <h3><span class="marker text-primary">${marker.title}</span></h3></a>
       </c:forEach>
     </div>
   </header>
@@ -45,7 +45,7 @@
         </div>
         <div class="panel-footer">
           <c:forEach items="${article.markers}" var="marker">
-            <a href="#marker"><span class="marker text-primary">${marker.title}</span></a>
+            <a href="/marker/${marker.id}"><span class="marker text-primary">${marker.title}</span></a>
           </c:forEach>
         </div>
 

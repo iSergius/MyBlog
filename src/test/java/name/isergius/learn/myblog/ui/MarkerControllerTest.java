@@ -40,6 +40,7 @@ public class MarkerControllerTest extends AbstractControllerTest {
         Mockito.when(marker.getArticles()).thenReturn(articles);
         Mockito.when(note.getPublishedMarkerBy(1)).thenReturn(marker);
         Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
+        Mockito.when(marker.getTitle()).thenReturn("News");
     }
 
     @Test
@@ -95,4 +96,12 @@ public class MarkerControllerTest extends AbstractControllerTest {
         Mockito.verify(httpServletRequest).setAttribute("markers", markers);
     }
 
+    @Test
+    public void testSetTitle() throws Exception {
+        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+
+        markerController.doGet(httpServletRequest,httpServletResponse);
+
+        Mockito.verify(httpServletRequest).setAttribute("title", "News");
+    }
 }
