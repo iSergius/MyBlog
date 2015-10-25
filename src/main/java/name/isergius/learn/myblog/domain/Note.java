@@ -33,4 +33,12 @@ public class Note {
     public Marker getPublishedMarkerBy(long id) {
         return markerDao.readBy(id,true);
     }
+
+    public List<Article> getAllArticles() {
+        return null;
+    }
+
+    public List<Marker> getAllMarkers() {
+        return null;
+    }
 }
