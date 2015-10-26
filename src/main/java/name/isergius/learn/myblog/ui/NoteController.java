@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Created by Kondratyev Sergey on 25.10.15.
@@ -26,9 +25,9 @@ public class NoteController extends HttpServlet {
     private void setModelAttributes(HttpServletRequest request) {
         ServletContext servletContext = request.getServletContext();
         Note note = (Note) servletContext.getAttribute("note");
-        List<Article> articles = note.getAllArticles();
-        List<Marker> markers = note.getAllMarkers();
-        request.setAttribute("articles",articles);
-        request.setAttribute("markers",markers);
+        Page<Article> articles = note.getArticles(10L);
+        Page<Marker> markers = note.getMarkers(10L);
+        request.setAttribute("articles",articles.result(0L));
+        request.setAttribute("markers",markers.result(0L));
     }
 }
