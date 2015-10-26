@@ -18,7 +18,7 @@ public class PageArticleIntegrationTest extends Assert {
     public void testShowArticle() throws Exception {
         open("/article/1");
         assertEquals("h1", $(Selectors.byText("MyBlog")).getTagName());
-        assertEquals("News",$("header").findElement(By.className("markers")).findElement(By.tagName("span")).getText());
+        $("header").$(".markers").$$("span").shouldHaveSize(2);
         assertEquals("h2", $(Selectors.byText("My First Article")).getTagName());
         assertEquals("My First Article", $("article").findElement(By.tagName("h2")).getText());
         assertEquals("Article content", $("article").findElement(By.tagName("p")).getText());

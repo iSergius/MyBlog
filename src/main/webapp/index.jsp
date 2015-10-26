@@ -26,7 +26,7 @@
     </div>
     <div class="markers col-lg-6">
       <c:forEach items="${markers}" var="marker">
-        <a href="/marker/${marker.id}"> <h3><span class="marker text-primary">${marker.title}</span></h3></a>
+         <h3> <span class="marker pull-left text-primary"> <a href="/marker/${marker.id}"> ${marker.title} </a> </span> </h3>
       </c:forEach>
     </div>
   </header>

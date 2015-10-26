@@ -16,7 +16,7 @@ public class PageIndexIntegrationTest extends Assert {
     public void testShowIndexPage() throws Exception {
         open("/");
         $(".markers").$$(".marker").shouldHaveSize(2);
-        $$("article").shouldHaveSize(2);
+        $$("article").shouldHaveSize(20);
         assertEquals("iSergius Copyright 2015", $(By.tagName("footer")).getText());
     }
 

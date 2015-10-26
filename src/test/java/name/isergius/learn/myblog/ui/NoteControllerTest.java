@@ -33,6 +33,10 @@ public class NoteControllerTest extends AbstractControllerTest {
     @Mock
     private Article article;
     @Mock
+    private Page<Article> articlePage;
+    @Mock
+    private Page<Marker> markerPage;
+    @Mock
     private List<Marker> markers;
     @Mock
     private List<Article> articles;
@@ -43,8 +47,10 @@ public class NoteControllerTest extends AbstractControllerTest {
         Mockito.when(httpServletRequest.getRequestDispatcher("/note.jsp")).thenReturn(requestDispatcher);
         Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
         Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
-        Mockito.when(note.getAllArticles()).thenReturn(articles);
-        Mockito.when(note.getAllMarkers()).thenReturn(markers);
+        Mockito.when(note.getArticles(10L)).thenReturn(articlePage);
+        Mockito.when(articlePage.result(0L)).thenReturn(articles);
+        Mockito.when(note.getMarkers(10L)).thenReturn(markerPage);
+        Mockito.when(markerPage.result(0L)).thenReturn(markers);
     }
 
     @Test
@@ -56,13 +62,13 @@ public class NoteControllerTest extends AbstractControllerTest {
     @Test
     public void testGetAllArticles() throws Exception {
         noteController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(note).getAllArticles();
+        Mockito.verify(note).getArticles(10L);
     }
 
     @Test
     public void testGetAllMarkers() throws Exception {
         noteController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(note).getAllMarkers();
+        Mockito.verify(note).getMarkers(10L);
     }
 
     @Test

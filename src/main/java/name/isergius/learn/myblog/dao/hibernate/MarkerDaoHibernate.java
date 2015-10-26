@@ -27,7 +27,7 @@ public class MarkerDaoHibernate extends AbstractDaoHibernate<Marker> implements 
             session = getSessionFactory().openSession();
             transaction = session.beginTransaction();
 
-            result = (List<Marker>) session.createQuery("select marker from Marker as marker join marker.articles as article where article.published = :pub")
+            result = (List<Marker>) session.createQuery("select distinct marker from Marker as marker join marker.articles as article where article.published = :pub")
                     .setBoolean("pub", published)
                     .list();
 
