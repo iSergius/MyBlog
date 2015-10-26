@@ -116,4 +116,12 @@ public class ArticleDaoTest extends AbstractDbTest {
         assertNotNull(articles);
         assertTrue(articles.get(0).getPublished());
     }
+
+    @Test
+    @DatabaseSetup("PortionTest.xml")
+    public void testReadPortion() throws Exception {
+        Portion<Article> portion = dao.read();
+
+        assertNotNull(portion);
+    }
 }

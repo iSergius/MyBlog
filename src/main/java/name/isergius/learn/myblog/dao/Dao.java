@@ -13,4 +13,6 @@ public interface Dao<T extends Model> {
 
     void deleteBy(long id) throws DaoException;
 
+    Portion<T> read();
+
 }

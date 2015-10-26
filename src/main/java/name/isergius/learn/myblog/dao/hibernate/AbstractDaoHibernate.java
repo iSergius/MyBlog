@@ -3,6 +3,8 @@ package name.isergius.learn.myblog.dao.hibernate;
 import name.isergius.learn.myblog.dao.Dao;
 import name.isergius.learn.myblog.dao.DaoException;
 import name.isergius.learn.myblog.dao.Model;
+import name.isergius.learn.myblog.dao.Portion;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -126,6 +128,16 @@ public abstract class AbstractDaoHibernate<T extends Model> implements Dao<T> {
                 session.close();
             }
         }
+    }
+
+    @Override
+    public Portion<T> read() {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        Query selectQuery = session.createQuery("from " + clazz.getName());
+        Query countQuery = session.createQuery("select count (e) from "+clazz.getName()+" as e");
+
+        return new PortionHibernate<>(session,selectQuery,countQuery);
     }
 
     protected SessionFactory getSessionFactory() {
