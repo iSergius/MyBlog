@@ -2,6 +2,8 @@ package name.isergius.learn.myblog.domain;
 
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.MarkerDao;
+import name.isergius.learn.myblog.ui.Page;
+import name.isergius.learn.myblog.dao.Portion;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,8 +32,17 @@ public class NoteTest extends Assert {
     private List<Article> articles;
     @Mock
     private List<Marker> markers;
+    @Mock
+    private Portion<Article> articlePortion;
+    @Mock
+    private Portion<Marker> markerPortion;
+    @Mock
+    private Page<Article> articlePage;
+    @Mock
+    private Page<Marker> markerPage;
 
     private Note note = null;
+
 
     @Before
     public void setUp() throws Exception {
@@ -73,5 +84,25 @@ public class NoteTest extends Assert {
         Marker marker = note.getPublishedMarkerBy(1L);
 
         assertNotNull(marker);
+    }
+
+    @Test
+    public void testGettingAllArticles() throws Exception {
+        Mockito.when(articleDao.read()).thenReturn(articlePortion);
+        Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
+
+        Page<Article> articles = note.getArticles(10L);
+
+        assertNotNull(articles);
+    }
+
+    @Test
+    public void testGettingAllMarkers() throws Exception {
+        Mockito.when(markerDao.read()).thenReturn(markerPortion);
+        Mockito.when(markerPortion.result(0L,10L)).thenReturn(markers);
+
+        Page<Marker> markers = note.getMarkers(10L);
+
+        assertNotNull(markers);
     }
 }

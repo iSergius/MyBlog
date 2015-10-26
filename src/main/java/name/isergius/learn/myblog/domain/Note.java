@@ -2,6 +2,8 @@ package name.isergius.learn.myblog.domain;
 
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.MarkerDao;
+import name.isergius.learn.myblog.ui.Page;
+import name.isergius.learn.myblog.dao.Portion;
 
 import java.util.List;
 
@@ -34,11 +36,13 @@ public class Note {
         return markerDao.readBy(id,true);
     }
 
-    public List<Article> getAllArticles() {
-        return null;
+    public Page<Article> getArticles(Long size) {
+        Portion<Article> portion = articleDao.read();
+        return new Page<>(portion,size);
     }
 
-    public List<Marker> getAllMarkers() {
-        return null;
+    public Page<Marker> getMarkers(Long size) {
+        Portion<Marker> portion = markerDao.read();
+        return new Page<>(portion,size);
     }
 }
