@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dataset SYSTEM "../../../../../db-schema/database.dtd">
+<dataset>
+    <article_t article_id="1" article_title="My Firs Article 1" article_published="true"/>
+    <article_t article_id="2" article_title="My Second Article 2" article_published="true"/>
+    <article_t article_id="3" article_title="My third Article 3" article_published="true"/>
+    <article_t article_id="4" article_title="My Firs Article 4" article_published="true"/>
+    <article_t article_id="5" article_title="My Second Article 5" article_published="true"/>
+    <article_t article_id="6" article_title="My third Article 6" article_published="true"/>
+    <article_t article_id="7" article_title="My Firs Article 7" article_published="true"/>
+    <article_t article_id="8" article_title="My Second Article 8" article_published="true"/>
+    <article_t article_id="9" article_title="My third Article 9" article_published="true"/>
+    <article_t article_id="10" article_title="My Firs Article 10" article_published="true"/>
+    <article_t article_id="11" article_title="My Second Article 11" article_published="true"/>
+    <article_t article_id="12" article_title="My third Article 12" article_published="true"/>
+    <article_t article_id="13" article_title="My Firs Article 13" article_published="true"/>
+    <article_t article_id="14" article_title="My Second Article 14" article_published="true"/>
+    <article_t article_id="15" article_title="My third Article 15" article_published="true"/>
+    <article_t article_id="16" article_title="My Firs Article 16" article_published="true"/>
+    <article_t article_id="17" article_title="My Second Article 17" article_published="true"/>
+    <article_t article_id="18" article_title="My third Article 18" article_published="true"/>
+    <article_t article_id="19" article_title="My Second Article 19" article_published="true"/>
+    <article_t article_id="20" article_title="My third Article 20" article_published="true"/>
+</dataset>
