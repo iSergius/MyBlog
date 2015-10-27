@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tool="http://www.springframework.org/schema/tool"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:securety="http://www.springframework.org/schema/security"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+                           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <bean id="urlMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+        <property name="mappings">
+            <props>
+                <prop key="/">indexController</prop>
+                <prop key="/article/*">articleController</prop>
+                <prop key="/marker/*">markerController</prop>
+                <prop key="/note/">noteController</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="indexController" class="org.springframework.web.servlet.mvc.ServletForwardingController">
+        <property name="servletName" value="articleController"/>
+    </bean>
+    <bean id="articleController" class="org.springframework.web.servlet.mvc.ServletForwardingController">
+        <property name="servletName" value="articleController"/>
+    </bean>
+    <bean id="markerController" class="org.springframework.web.servlet.mvc.ServletForwardingController">
+        <property name="servletName" value="articleController"/>
+    </bean>
+    <bean id="noteController" class="org.springframework.web.servlet.mvc.ServletForwardingController">
+        <property name="servletName" value="articleController"/>
+    </bean>
+
+    <bean id="servletContextAttributeExporter" class="org.springframework.web.context.support.ServletContextAttributeExporter" lazy-init="false" depends-on="note,blog">
+        <property name="attributes">
+            <map>
+                <entry key="note" value-ref="note"/>
+                <entry key="blog" value-ref="blog"/>
+            </map>
+        </property>
+    </bean>
+
+</beans>
