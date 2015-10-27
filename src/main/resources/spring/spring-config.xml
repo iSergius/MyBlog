@@ -10,7 +10,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
                            http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
-                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd">
 
     <bean id="articleDao" class="name.isergius.learn.myblog.dao.hibernate.ArticleDaoHibernate">
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
@@ -35,7 +36,7 @@
     </bean>
 
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="configLocation" value="hibernate/hibernate.cfg.xml"/>
+        <property name="configLocation" value="classpath:hibernate/hibernate.cfg.xml"/>
         <property name="dataSource" ref="dataSource"/>
         <property name="hibernateProperties" ref="hibernateProperties"/>
     </bean>
@@ -47,5 +48,6 @@
         <entry key="hibernate.cache.use_query_cache" value="false"/>
         <entry key="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </util:map>
+
 
 </beans>
