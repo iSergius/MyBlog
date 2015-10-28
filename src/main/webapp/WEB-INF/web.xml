@@ -21,15 +21,6 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>dispatcherServlet</servlet-name>
-        <url-pattern>/**</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>indexController</servlet-name>
-        <servlet-class>name.isergius.learn.myblog.ui.IndexController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>indexController</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>

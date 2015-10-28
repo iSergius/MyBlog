@@ -17,6 +17,11 @@
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="name.isergius.learn.myblog.ui"/>
+
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+
     <bean id="servletContextAttributeExporter" class="org.springframework.web.context.support.ServletContextAttributeExporter" lazy-init="false" depends-on="note,blog">
         <property name="attributes">
             <map>

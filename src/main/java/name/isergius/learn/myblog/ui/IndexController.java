@@ -4,28 +4,34 @@ import name.isergius.learn.myblog.domain.Article;
 import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 /**
  * Created by Kondratyev Sergey on 22.10.15.
  */
-public class IndexController extends HttpServlet {
+@Controller
+@RequestMapping("/")
+public class IndexController {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Note note = (Note) request.getServletContext().getAttribute("note");
-        Blog blog = (Blog) request.getServletContext().getAttribute("blog");
+    @Autowired
+    private Blog blog;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView doGet() {
+        ModelAndView modelAndView = new ModelAndView("index");
+        Note note = blog.getNote();
         List<Article> articles = note.getAllPublishedArticles();
         List<Marker> markers = note.getAllPublishedMarkers();
-        request.setAttribute("title", blog.getTitle());
-        request.setAttribute("articles", articles);
-        request.setAttribute("markers",markers);
-        request.getRequestDispatcher("/index.jsp").forward(request,response);
+        modelAndView.addObject("title", blog.getTitle());
+        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("markers",markers);
+
+        return modelAndView;
     }
 }

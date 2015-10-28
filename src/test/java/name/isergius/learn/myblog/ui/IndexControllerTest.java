@@ -4,80 +4,75 @@ import name.isergius.learn.myblog.domain.Article;
 import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Matchers;
-import org.mockito.Mock;
+import org.kubek2k.springockito.annotations.ReplaceWithMock;
+import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kondratyev Sergey on 22.10.15.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class IndexControllerTest {
 
+@ContextConfiguration(loader = SpringockitoContextLoader.class,
+        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
+public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
+
+    @Autowired
     private IndexController indexController;
-    @Mock
-    private HttpServletRequest httpServletRequest;
-    @Mock
-    private HttpServletResponse httpServletResponse;
-    @Mock
-    private RequestDispatcher requestDispatcher;
-    @Mock
-    private ServletContext servletContext;
-    @Mock
-    private Blog blog;
-    @Mock
+    @ReplaceWithMock
+    @Autowired
     private Note note;
-    @Mock
+    @ReplaceWithMock
+    @Autowired
+    private Blog blog;
     private List<Article> articles;
-    @Mock
     private List<Marker> markers;
-
     @Before
     public void setUp() throws Exception {
-        indexController = new IndexController();
-        Mockito.when(httpServletRequest.getRequestDispatcher("/index.jsp")).thenReturn(requestDispatcher);
-        Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
-        Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
-        Mockito.when(servletContext.getAttribute("blog")).thenReturn(blog);
+        articles = Mockito.mock(List.class);
+        markers = Mockito.mock(List.class);
+        Mockito.when(articles.get(0)).thenReturn(Article.class.newInstance());
         Mockito.when(note.getAllPublishedArticles()).thenReturn(articles);
         Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
+        Mockito.when(blog.getNote()).thenReturn(note);
         Mockito.when(blog.getTitle()).thenReturn("MyBlog");
     }
 
     @Test
-    public void testArticleViewRoute() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-        indexController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(requestDispatcher).forward(Matchers.any(HttpServletRequest.class), Matchers.any(HttpServletResponse.class));
+    public void testSetArticlesInModel() throws Exception {
+        ModelAndView modelAndView = indexController.doGet();
+        Map<String, Object> model = modelAndView.getModel();
+
+        Assert.assertTrue(model.containsKey("articles"));
+        List<Article> articles = (List<Article>)model.get("articles");
+        Assert.assertEquals(this.articles, articles);
     }
 
     @Test
-    public void testSettingPublishedArticlesInRequestAttribute() throws Exception {
-        indexController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletRequest).setAttribute("articles",articles);
+    public void testSetMarkersInModel() throws Exception {
+        ModelAndView modelAndView = indexController.doGet();
+        Map<String, Object> model = modelAndView.getModel();
+
+        Assert.assertTrue(model.containsKey("markers"));
+        List<Marker> markers = (List<Marker>)model.get("markers");
+        Assert.assertEquals(this.markers, markers);
+
     }
 
     @Test
-    public void testSettingPublishedMarkers() throws Exception {
-        indexController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletRequest).setAttribute("markers", markers);
-    }
-    @Test
-    public void testSetTitle() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-
-        indexController.doGet(httpServletRequest,httpServletResponse);
-
-        Mockito.verify(httpServletRequest).setAttribute("title", "MyBlog");
+    public void testSetTitleInModel() throws Exception {
+        ModelAndView modelAndView = indexController.doGet();
+        Map<String, Object> model = modelAndView.getModel();
+        Assert.assertTrue(model.containsKey("title"));
+        Assert.assertEquals("MyBlog",model.get("title"));
     }
 }
