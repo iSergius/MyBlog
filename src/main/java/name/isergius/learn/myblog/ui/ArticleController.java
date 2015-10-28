@@ -1,54 +1,40 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
 
 /**
  * Created by Kondratyev Sergey on 16.10.15.
  */
-public class ArticleController extends HttpServlet {
+@Controller
+@RequestMapping("/article")
+public class ArticleController {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    @Autowired
+    private Blog blog;
 
-        if (checkRequest(request)) {
-            response.sendError(404);
-            return;
-        }
-        Long articleId = Long.valueOf(request.getPathInfo().substring(1));
-
-        setModelAttributes(request,articleId);
-
-        request.getRequestDispatcher("/article.jsp").forward(request, response);
-    }
-
-    private boolean checkRequest(HttpServletRequest request) {
-        String pathInfo = request.getPathInfo();
-        if (pathInfo == null || !Pattern.matches("/\\d+", pathInfo)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    private void setModelAttributes(HttpServletRequest request, Long articleId) {
-        ServletContext servletContext = request.getServletContext();
-        Note note = (Note) servletContext.getAttribute("note");
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    protected ModelAndView doGet(@PathVariable("id") long articleId) {
+        ModelAndView modelAndView = new ModelAndView("article");
+        Note note = blog.getNote();
         Article article = note.getPublishedArticleBy(articleId);
         List<Marker> markers = note.getAllPublishedMarkers();
-        request.setAttribute("title",article.getTitle());
-        request.setAttribute("article",article);
-        request.setAttribute("markers",markers);
+
+        modelAndView.addObject("title", article.getTitle());
+        modelAndView.addObject("article", article);
+        modelAndView.addObject("markers", markers);
+
+        return modelAndView;
     }
 
 }

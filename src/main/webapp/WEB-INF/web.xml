@@ -24,14 +24,6 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>articleController</servlet-name>
-        <servlet-class>name.isergius.learn.myblog.ui.ArticleController</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>articleController</servlet-name>
-        <url-pattern>/article/*</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <servlet-name>markerController</servlet-name>
         <servlet-class>name.isergius.learn.myblog.ui.MarkerController</servlet-class>
     </servlet>

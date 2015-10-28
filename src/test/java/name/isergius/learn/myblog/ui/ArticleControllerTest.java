@@ -1,102 +1,81 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Matchers;
-import org.mockito.Mock;
+import org.kubek2k.springockito.annotations.ReplaceWithMock;
+import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Kondratyev Sergey on 16.10.15.
  */
-@RunWith(MockitoJUnitRunner.class)
-public class ArticleControllerTest {
+@ContextConfiguration(loader = SpringockitoContextLoader.class,
+        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
+public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
 
+    @Autowired
     private ArticleController articleController;
-    @Mock
-    private HttpServletRequest httpServletRequest;
-    @Mock
-    private HttpServletResponse httpServletResponse;
-    @Mock
-    private RequestDispatcher requestDispatcher;
-    @Mock
-    private ServletContext servletContext;
-    @Mock
+    @ReplaceWithMock
+    @Autowired
     private Note note;
-    @Mock
-    private Article article;
-    @Mock
+    @ReplaceWithMock
+    @Autowired
+    private Blog blog;
+    private List<Article> articles;
     private List<Marker> markers;
-
+    private Article article;
     @Before
     public void setUp() throws Exception {
-        articleController = new ArticleController();
-        Mockito.when(httpServletRequest.getRequestDispatcher("/article.jsp")).thenReturn(requestDispatcher);
-        Mockito.when(httpServletRequest.getServletContext()).thenReturn(servletContext);
-        Mockito.when(servletContext.getAttribute("note")).thenReturn(note);
-        Mockito.when(note.getPublishedArticleBy(1L)).thenReturn(article);
-        Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
-    }
-
-    @Test
-    public void testArticleViewRoute() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(requestDispatcher).forward(Matchers.any(HttpServletRequest.class), Matchers.any(HttpServletResponse.class));
-    }
-
-    @Test
-    public void testGettingRightArticle() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(note).getPublishedArticleBy(1L);
-    }
-
-    @Test
-    public void testWrongIdUrl() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1a");
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletResponse).sendError(404);
-    }
-
-    @Test
-    public void testNullIdUrl() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn(null);
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletResponse).sendError(404);
-    }
-
-    @Test
-    public void testSettingArticleInRequestAttribute() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletRequest).setAttribute("article", article);
-    }
-
-    @Test
-    public void testSettingMarkersInRequestAttribute() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
-        articleController.doGet(httpServletRequest,httpServletResponse);
-        Mockito.verify(httpServletRequest).setAttribute("markers", markers);
-    }
-    @Test
-    public void testSetTitle() throws Exception {
-        Mockito.when(httpServletRequest.getPathInfo()).thenReturn("/1");
+        articles = Mockito.mock(List.class);
+        markers = Mockito.mock(List.class);
+        article = Mockito.mock(Article.class);
         Mockito.when(article.getTitle()).thenReturn("My First Article");
+        Mockito.when(articles.get(0)).thenReturn(Article.class.newInstance());
+        Mockito.when(note.getAllPublishedArticles()).thenReturn(articles);
+        Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
+        Mockito.when(note.getPublishedArticleBy(1L)).thenReturn(article);
+        Mockito.when(blog.getNote()).thenReturn(note);
+        Mockito.when(blog.getTitle()).thenReturn("MyBlog");
+    }
 
-        articleController.doGet(httpServletRequest,httpServletResponse);
+    @Test
+    public void testSetArticlesInModel() throws Exception {
+        ModelAndView modelAndView = articleController.doGet(1L);
+        Map<String, Object> model = modelAndView.getModel();
 
-        Mockito.verify(httpServletRequest).setAttribute("title", "My First Article");
+        Assert.assertTrue(model.containsKey("article"));
+        Article article = (Article)model.get("article");
+        Assert.assertEquals(this.article, article);
+    }
+
+    @Test
+    public void testSetMarkersInModel() throws Exception {
+        ModelAndView modelAndView = articleController.doGet(1L);
+        Map<String, Object> model = modelAndView.getModel();
+
+        Assert.assertTrue(model.containsKey("markers"));
+        List<Marker> markers = (List<Marker>)model.get("markers");
+        Assert.assertEquals(this.markers, markers);
+
+    }
+
+    @Test
+    public void testSetTitleInModel() throws Exception {
+        ModelAndView modelAndView = articleController.doGet(1L);
+        Map<String, Object> model = modelAndView.getModel();
+        Assert.assertTrue(model.containsKey("title"));
+        Assert.assertEquals("My First Article",model.get("title"));
     }
 }
