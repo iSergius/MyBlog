@@ -31,14 +31,14 @@
         <servlet-name>markerController</servlet-name>
         <url-pattern>/marker/*</url-pattern>
     </servlet-mapping>
-    <servlet>
+<!--    <servlet>
         <servlet-name>noteController</servlet-name>
         <servlet-class>name.isergius.learn.myblog.ui.NoteController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>noteController</servlet-name>
         <url-pattern>/note/</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping>-->
 
     <resource-ref>
         <description>MyBlog Datasource</description>

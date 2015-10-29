@@ -1,33 +1,35 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.Blog;
 import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by Kondratyev Sergey on 25.10.15.
  */
-public class NoteController extends HttpServlet {
+@Controller
+@RequestMapping("/note")
+public class NoteController {
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        setModelAttributes(request);
-        request.getRequestDispatcher("/note.jsp").forward(request,response);
-    }
+    @Autowired
+    private Blog blog;
 
-    private void setModelAttributes(HttpServletRequest request) {
-        ServletContext servletContext = request.getServletContext();
-        Note note = (Note) servletContext.getAttribute("note");
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView main() {
+        ModelAndView modelAndView = new ModelAndView("note");
+        Note note = blog.getNote();
         Page<Article> articles = note.getArticles(10L);
         Page<Marker> markers = note.getMarkers(10L);
-        request.setAttribute("articles",articles.result(0L));
-        request.setAttribute("markers",markers.result(0L));
+        modelAndView.addObject("articles",articles.result(0L));
+        modelAndView.addObject("markers", markers.result(0L));
+        modelAndView.addObject("title",blog.getTitle());
+        return modelAndView;
     }
+
 }
