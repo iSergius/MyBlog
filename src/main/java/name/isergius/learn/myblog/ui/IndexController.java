@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -34,4 +35,18 @@ public class IndexController {
 
         return modelAndView;
     }
+
+    @RequestMapping(value = "/filter", params = "marker", method = RequestMethod.GET)
+    public ModelAndView filter(@RequestParam("marker") long id) {
+        ModelAndView modelAndView = new ModelAndView("index");
+        Note note = blog.getNote();
+        Marker marker = note.getPublishedMarkerBy(id);
+        List<Article> articles = marker.getArticles();
+        List<Marker> markers = note.getAllPublishedMarkers();
+        modelAndView.addObject("title", marker.getTitle());
+        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("markers", markers);
+        return  modelAndView;
+    }
+
 }

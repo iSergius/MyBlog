@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selectors;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,5 +26,11 @@ public class PageIndexIntegrationTest extends Assert {
         open("/");
         $(".markers").$(Selectors.byText("News")).followLink();
         assertEquals("News",title());
+    }
+
+    @Test
+    public void testShowFilterMarker() throws Exception {
+        open("/filter?marker=1");
+        $$("article").filter(Condition.text("News")).shouldHaveSize($$("article").size());
     }
 }
