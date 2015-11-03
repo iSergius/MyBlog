@@ -72,6 +72,18 @@ public class ArticleController {
         return modelAndView;
     }
 
+    @RequestMapping(path = "/new", method = RequestMethod.GET)
+    public ModelAndView create() {
+        ModelAndView modelAndView = new ModelAndView("article-editor");
+        Note note = blog.getNote();
+        Page<Marker> markers = note.getMarkers(1000L);
+        modelAndView.addObject("markers",markers.result(0L));
+        modelAndView.addObject("title", "New Article");
+        Article article = new Article();
+        modelAndView.addObject("article", article);
+        return modelAndView;
+    }
+
     @InitBinder
     public void binder(WebDataBinder binder) {
         binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditor("yyyy-MM-dd"));

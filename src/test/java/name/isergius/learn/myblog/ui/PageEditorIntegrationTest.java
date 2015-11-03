@@ -1,9 +1,11 @@
 package name.isergius.learn.myblog.ui;
 
+import com.codeborne.selenide.Condition;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
 import com.github.springtestdbunit.assertion.DatabaseAssertionMode;
 import name.isergius.learn.myblog.dao.AbstractDbTest;
 import org.junit.Test;
+import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -23,6 +25,11 @@ public class PageEditorIntegrationTest extends AbstractDbTest {
     public void testSaveArticle() throws Exception {
         open("/article/1/edit");
         $("form").$(".btn").click();
-        sleep(1000);
+    }
+
+    @Test
+    public void testNewArticle() throws Exception {
+        open("/article/new");
+        $("form").$(By.name("title")).shouldBe(Condition.empty);
     }
 }

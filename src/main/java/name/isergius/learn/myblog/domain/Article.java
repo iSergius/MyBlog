@@ -3,6 +3,7 @@ package name.isergius.learn.myblog.domain;
 import name.isergius.learn.myblog.dao.Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,11 +19,15 @@ public class Article extends Model {
 
     public Article() {
         super();
+        new Article("");
     }
 
     public Article(String title) {
         super();
         this.title = title;
+        this.content = "";
+        this.markers = new ArrayList<>();
+        this.published = false;
     }
 
     public String getTitle() {
