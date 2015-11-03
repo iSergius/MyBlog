@@ -95,7 +95,7 @@ public abstract class AbstractDaoHibernate<T extends Model> implements Dao<T> {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DaoException("Update not contain entity");
+            throw new DaoException("Update error");
         } finally {
             if (session != null) {
                 session.close();

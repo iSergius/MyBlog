@@ -105,4 +105,20 @@ public class NoteTest extends Assert {
 
         assertNotNull(markers);
     }
+
+    @Test
+    public void testGetArticleById() throws Exception {
+        Mockito.when(articleDao.readBy(1L)).thenReturn(article);
+
+        Article article = note.getArticleBy(1L);
+
+        assertNotNull(article);
+    }
+
+    @Test
+    public void testSaveArticle() throws Exception {
+        note.save(article);
+
+        Mockito.verify(articleDao).update(article);
+    }
 }

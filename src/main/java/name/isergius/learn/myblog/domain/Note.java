@@ -1,6 +1,7 @@
 package name.isergius.learn.myblog.domain;
 
 import name.isergius.learn.myblog.dao.ArticleDao;
+import name.isergius.learn.myblog.dao.DaoException;
 import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.ui.Page;
 import name.isergius.learn.myblog.dao.Portion;
@@ -44,5 +45,23 @@ public class Note {
     public Page<Marker> getMarkers(Long size) {
         Portion<Marker> portion = markerDao.read();
         return new Page<>(portion,size);
+    }
+
+    public Article getArticleBy(long id) {
+        Article result = null;
+        try {
+            result = articleDao.readBy(id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    public void save(Article article) {
+        try {
+            articleDao.update(article);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
     }
 }
