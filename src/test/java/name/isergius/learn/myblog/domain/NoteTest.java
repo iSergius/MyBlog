@@ -8,10 +8,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -120,5 +122,14 @@ public class NoteTest extends Assert {
         note.save(article);
 
         Mockito.verify(articleDao).update(article);
+    }
+
+    @Test
+    public void testSavePublishedArticle() throws Exception {
+        Mockito.when(article.getPublished()).thenReturn(true);
+
+        note.save(article);
+
+        Mockito.verify(article).setPublishedDate(Matchers.any(LocalDate.class));
     }
 }

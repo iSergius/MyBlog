@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -59,7 +60,7 @@ public class ArticleController {
 
     @RequestMapping(path = "/{id}/edit", method = RequestMethod.POST)
     public ModelAndView save(Article article) {
-        ModelAndView modelAndView = new ModelAndView("article-editor");
+        ModelAndView modelAndView = new ModelAndView();
         Note note = blog.getNote();
         Page<Marker> markers = note.getMarkers(1000L);
         note.save(article);
@@ -67,6 +68,7 @@ public class ArticleController {
         modelAndView.addObject("markers",markers.result(0L));
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article", article);
+        modelAndView.setView(new RedirectView("edit"));
         return modelAndView;
     }
 

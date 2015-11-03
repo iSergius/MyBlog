@@ -25,7 +25,7 @@
 
   </header>
   <article>
-      <form:form method="post" modelAttribute="article" action="edit" cssClass="row">
+      <form:form method="post" modelAttribute="article" action="edit" cssClass="row" >
           <form:hidden path="id"/>
           <div class="col-lg-10">
               <div class="form-group">
@@ -42,8 +42,8 @@
                   <form:checkboxes title="Markers:" path="markers" id="markers" items="${markers}" itemLabel="title" itemValue="id" element="div"/>
               </div>
               <div class="form-group">
-                  <form:label path="publishedDate">Date Published</form:label>
-                  <form:input cssClass="form-control" path="publishedDate"/>
+                  <label>Published date</label>
+                  <p>${article.publishedDate}</p>
               </div>
               <div class="form-group">
                   <form:label path="published">Is Published</form:label>

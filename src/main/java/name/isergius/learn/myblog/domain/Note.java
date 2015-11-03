@@ -6,6 +6,7 @@ import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.ui.Page;
 import name.isergius.learn.myblog.dao.Portion;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -58,6 +59,7 @@ public class Note {
     }
 
     public void save(Article article) {
+        if (article.getPublished()) article.setPublishedDate(LocalDate.now());
         try {
             articleDao.update(article);
         } catch (DaoException e) {
