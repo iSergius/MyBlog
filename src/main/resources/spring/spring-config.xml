@@ -29,6 +29,7 @@
     <bean id="blog" class="name.isergius.learn.myblog.domain.Blog">
         <constructor-arg name="title" value="MyBlog"/>
         <property name="note" ref="note"/>
+        <property name="markerDao" ref="markerDao"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

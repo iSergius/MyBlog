@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.domain;
 
+import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.dao.Model;
 
 /**
@@ -9,6 +10,7 @@ public class Blog extends Model {
 
     private String title;
     private Note note;
+    private MarkerDao markerDao;
 
     public Blog() {}
 
@@ -30,5 +32,17 @@ public class Blog extends Model {
 
     public Note getNote() {
         return note;
+    }
+
+    public MarkerDao getMarkerDao() {
+        return markerDao;
+    }
+
+    public void setMarkerDao(MarkerDao markerDao) {
+        this.markerDao = markerDao;
+    }
+
+    public Marker getMarkerBy(long id) {
+        return markerDao.readBy(id,true);
     }
 }

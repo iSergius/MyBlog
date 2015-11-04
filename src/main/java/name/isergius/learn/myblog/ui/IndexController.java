@@ -40,7 +40,7 @@ public class IndexController {
     public ModelAndView filter(@RequestParam("marker") long id) {
         ModelAndView modelAndView = new ModelAndView("index");
         Note note = blog.getNote();
-        Marker marker = note.getPublishedMarkerBy(id);
+        Marker marker = blog.getMarkerBy(id);
         List<Article> articles = marker.getArticles();
         List<Marker> markers = note.getAllPublishedMarkers();
         modelAndView.addObject("title", marker.getTitle());
