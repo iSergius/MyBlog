@@ -30,6 +30,7 @@
         <constructor-arg name="title" value="MyBlog"/>
         <property name="note" ref="note"/>
         <property name="markerDao" ref="markerDao"/>
+        <property name="articleDao" ref="articleDao"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.domain;
 
+import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.dao.Portion;
 import name.isergius.learn.myblog.ui.Page;
@@ -22,6 +23,8 @@ public class BlogTest {
     @Mock
     private MarkerDao markerDao;
     @Mock
+    private ArticleDao articleDao;
+    @Mock
     private List<Marker> markers;
     @Mock
     private Portion<Marker> markerPortion;
@@ -29,6 +32,8 @@ public class BlogTest {
     private Page<Marker> markerPage;
     @Mock
     private Marker marker;
+    @Mock
+    private Article article;
 
     private Blog blog = null;
 
@@ -36,6 +41,7 @@ public class BlogTest {
     public void setUp() throws Exception {
         blog = new Blog();
         blog.setMarkerDao(markerDao);
+        blog.setArticleDao(articleDao);
     }
 
     @Test
@@ -54,5 +60,15 @@ public class BlogTest {
         List<Marker> markers = blog.getAllMarkers();
 
         Assert.assertNotNull(markers);
+    }
+
+    @Test
+    public void testGetPublishedArticleBy() throws Exception {
+        Mockito.when(articleDao.readBy(1L,true)).thenReturn(article);
+        Mockito.when(article.getPublished()).thenReturn(true);
+
+        Article article = blog.getArticleBy(1L);
+
+        Assert.assertTrue(article.getPublished());
     }
 }

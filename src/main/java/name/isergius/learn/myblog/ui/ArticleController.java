@@ -34,7 +34,7 @@ public class ArticleController {
     public ModelAndView show(@PathVariable("id") long articleId) {
         ModelAndView modelAndView = new ModelAndView("article");
         Note note = blog.getNote();
-        Article article = note.getPublishedArticleBy(articleId);
+        Article article = blog.getArticleBy(articleId);
         List<Marker> markers = blog.getAllMarkers();
 
         modelAndView.addObject("title", article.getTitle());

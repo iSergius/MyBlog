@@ -52,16 +52,6 @@ public class NoteTest extends Assert {
     }
 
     @Test
-    public void testGetPublishedArticleBy() throws Exception {
-        Mockito.when(articleDao.readBy(1L,true)).thenReturn(article);
-        Mockito.when(article.getPublished()).thenReturn(true);
-
-        Article article = note.getPublishedArticleBy(1L);
-
-        assertTrue(article.getPublished());
-    }
-
-    @Test
     public void testGettingAllPublishedArticles() throws Exception {
         Mockito.when(articleDao.readAll(true)).thenReturn(articles);
 
