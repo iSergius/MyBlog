@@ -42,7 +42,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
         markers = Mockito.mock(List.class);
         Mockito.when(articles.get(0)).thenReturn(Article.class.newInstance());
         Mockito.when(note.getAllPublishedArticles()).thenReturn(articles);
-        Mockito.when(note.getAllPublishedMarkers()).thenReturn(markers);
+        Mockito.when(blog.getAllMarkers()).thenReturn(markers);
         Mockito.when(blog.getNote()).thenReturn(note);
         Mockito.when(blog.getTitle()).thenReturn("MyBlog");
     }

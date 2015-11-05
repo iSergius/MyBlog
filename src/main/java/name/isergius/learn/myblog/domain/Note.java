@@ -26,17 +26,19 @@ public class Note {
         return articleDao.readBy(id, true);
     }
 
+    /*@Deprecated
     public List<Marker> getAllPublishedMarkers() {
-        return markerDao.readAll(true);
-    }
+        return markerDao.readAll(true).result(0L,1000L);
+    }*/
 
     public List<Article> getAllPublishedArticles() {
         return articleDao.readAll(true);
     }
 
+    /*@Deprecated
     public Marker getPublishedMarkerBy(long id) {
         return markerDao.readBy(id,true);
-    }
+    }*/
 
     public Page<Article> getArticles(Long size) {
         Portion<Article> portion = articleDao.read();

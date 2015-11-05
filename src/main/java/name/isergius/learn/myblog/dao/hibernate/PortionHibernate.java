@@ -30,6 +30,7 @@ public class PortionHibernate<T extends Model> implements Portion<T> {
     @Override
     public List<T> result(Long index, Long size) {
         if (result == null) {
+            if (size == 0) size = count();
             try {
                 result = (List<T>) selectQuery
                         .setFirstResult(index.intValue())

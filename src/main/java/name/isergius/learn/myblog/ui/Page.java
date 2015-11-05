@@ -20,8 +20,12 @@ public class Page<T extends Model> {
         this.portion = portion;
         this.size = size;
         long countItems = portion.count();
-        pageCount = countItems / size;
-        if (countItems % size != 0) pageCount++;
+        if (size == 0L) {
+            pageCount = 1L;
+        } else {
+            pageCount = countItems / size;
+            if (countItems % size != 0) pageCount++;
+        }
     }
 
     public List<T> result(Long page) {

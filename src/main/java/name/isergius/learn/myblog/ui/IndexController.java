@@ -28,7 +28,7 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView("index");
         Note note = blog.getNote();
         List<Article> articles = note.getAllPublishedArticles();
-        List<Marker> markers = note.getAllPublishedMarkers();
+        List<Marker> markers = blog.getAllMarkers();
         modelAndView.addObject("title", blog.getTitle());
         modelAndView.addObject("articles", articles);
         modelAndView.addObject("markers",markers);
@@ -42,7 +42,7 @@ public class IndexController {
         Note note = blog.getNote();
         Marker marker = blog.getMarkerBy(id);
         List<Article> articles = marker.getArticles();
-        List<Marker> markers = note.getAllPublishedMarkers();
+        List<Marker> markers = blog.getAllMarkers();
         modelAndView.addObject("title", marker.getTitle());
         modelAndView.addObject("articles", articles);
         modelAndView.addObject("markers", markers);

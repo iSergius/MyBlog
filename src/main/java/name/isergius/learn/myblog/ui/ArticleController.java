@@ -35,7 +35,7 @@ public class ArticleController {
         ModelAndView modelAndView = new ModelAndView("article");
         Note note = blog.getNote();
         Article article = note.getPublishedArticleBy(articleId);
-        List<Marker> markers = note.getAllPublishedMarkers();
+        List<Marker> markers = blog.getAllMarkers();
 
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article", article);
