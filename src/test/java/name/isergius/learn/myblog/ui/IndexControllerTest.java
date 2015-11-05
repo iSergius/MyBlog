@@ -40,8 +40,10 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
     public void setUp() throws Exception {
         articles = Mockito.mock(List.class);
         markers = Mockito.mock(List.class);
+        Page<Article> articlePage = Mockito.mock(Page.class);
         Mockito.when(articles.get(0)).thenReturn(Article.class.newInstance());
-        Mockito.when(note.getAllPublishedArticles()).thenReturn(articles);
+        Mockito.when(articlePage.result(0L)).thenReturn(articles);
+        Mockito.when(blog.getArticles(10L)).thenReturn(articlePage);
         Mockito.when(blog.getAllMarkers()).thenReturn(markers);
         Mockito.when(blog.getNote()).thenReturn(note);
         Mockito.when(blog.getTitle()).thenReturn("MyBlog");
@@ -49,7 +51,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testSetArticlesInModel() throws Exception {
-        ModelAndView modelAndView = indexController.doGet();
+        ModelAndView modelAndView = indexController.main();
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("articles"));
@@ -59,7 +61,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testSetMarkersInModel() throws Exception {
-        ModelAndView modelAndView = indexController.doGet();
+        ModelAndView modelAndView = indexController.main();
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("markers"));
@@ -70,7 +72,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testSetTitleInModel() throws Exception {
-        ModelAndView modelAndView = indexController.doGet();
+        ModelAndView modelAndView = indexController.main();
         Map<String, Object> model = modelAndView.getModel();
         Assert.assertTrue(model.containsKey("title"));
         Assert.assertEquals("MyBlog",model.get("title"));

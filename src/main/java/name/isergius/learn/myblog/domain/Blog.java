@@ -3,6 +3,7 @@ package name.isergius.learn.myblog.domain;
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.dao.Model;
+import name.isergius.learn.myblog.ui.Page;
 
 import java.util.List;
 
@@ -64,5 +65,9 @@ public class Blog extends Model {
 
     public Article getArticleBy(long id) {
         return articleDao.readBy(id,true);
+    }
+
+    public Page<Article> getArticles(long size) {
+        return new Page<>(articleDao.readAll(true),size);
     }
 }

@@ -24,13 +24,13 @@ public class IndexController {
     private Blog blog;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView doGet() {
+    public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView("index");
         Note note = blog.getNote();
-        List<Article> articles = note.getAllPublishedArticles();
+        Page<Article> articles = blog.getArticles(10L);
         List<Marker> markers = blog.getAllMarkers();
         modelAndView.addObject("title", blog.getTitle());
-        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("articles", articles.result(0L));
         modelAndView.addObject("markers",markers);
 
         return modelAndView;

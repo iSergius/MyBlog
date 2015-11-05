@@ -52,15 +52,6 @@ public class NoteTest extends Assert {
     }
 
     @Test
-    public void testGettingAllPublishedArticles() throws Exception {
-        Mockito.when(articleDao.readAll(true)).thenReturn(articles);
-
-        List<Article> articles = note.getAllPublishedArticles();
-
-        assertNotNull(articles);
-    }
-
-    @Test
     public void testGettingAllArticles() throws Exception {
         Mockito.when(articleDao.read()).thenReturn(articlePortion);
         Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);

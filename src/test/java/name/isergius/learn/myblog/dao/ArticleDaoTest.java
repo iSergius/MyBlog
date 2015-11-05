@@ -112,9 +112,9 @@ public class ArticleDaoTest extends AbstractDbTest {
     @Test
     @DatabaseSetup("ArticleDaoTest.testReadPublishedBy.xml")
     public void testReadAllPublished() throws Exception {
-        List<Article> articles = dao.readAll(true);
+        Portion<Article> articles = dao.readAll(true);
         assertNotNull(articles);
-        assertTrue(articles.get(0).getPublished());
+        assertTrue(articles.result(0L,0L).get(0).getPublished());
     }
 
     @Test

@@ -27,9 +27,15 @@ public class BlogTest {
     @Mock
     private List<Marker> markers;
     @Mock
+    private List<Article> articles;
+    @Mock
     private Portion<Marker> markerPortion;
     @Mock
+    private Portion<Article> articlePortion;
+    @Mock
     private Page<Marker> markerPage;
+    @Mock
+    private Page<Article> articlePage;
     @Mock
     private Marker marker;
     @Mock
@@ -70,5 +76,16 @@ public class BlogTest {
         Article article = blog.getArticleBy(1L);
 
         Assert.assertTrue(article.getPublished());
+    }
+
+    @Test
+    public void testGettingAllPublishedArticles() throws Exception {
+        Mockito.when(articleDao.readAll(true)).thenReturn(articlePortion);
+        Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
+        Mockito.when(articlePortion.count()).thenReturn(20L);
+
+        Page<Article> articles = blog.getArticles(10L);
+
+        Assert.assertNotNull(articles);
     }
 }
