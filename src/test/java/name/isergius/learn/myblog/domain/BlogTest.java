@@ -88,4 +88,15 @@ public class BlogTest {
 
         Assert.assertNotNull(articles);
     }
+
+    @Test
+    public void testGetArticlesHasMarkerById() throws Exception {
+        Mockito.when(articleDao.readByMarker(1L,true)).thenReturn(articlePortion);
+        Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
+        Mockito.when(articlePortion.count()).thenReturn(20L);
+
+        Page<Article> articlePage = blog.getArticlesHasMarkerBy(1L,10L);
+
+        Assert.assertNotNull(articlePage);
+    }
 }

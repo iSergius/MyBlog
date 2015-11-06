@@ -26,7 +26,7 @@
             </div>
             <div class="markers col-lg-6">
                 <c:forEach items="${markers}" var="marker">
-                    <a href="#marker"> <h3><span class="marker text-primary">${marker.title}</span></h3></a>
+                    <h3><a href="/?marker=${marker.id}"> <span class="marker text-primary">${marker.title}</span></a></h3>
                 </c:forEach>
             </div>
         </header>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="panel-footer">
                     <c:forEach items="${article.markers}" var="marker">
-                        <a href="#marker"><span class="marker text-primary">${marker.title}</span></a>
+                        <a href="/?marker=${marker.id}"><span class="marker text-primary">${marker.title}</span></a>
                     </c:forEach>
                 </div>
 

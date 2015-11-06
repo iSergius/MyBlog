@@ -10,4 +10,6 @@ public interface ArticleDao extends Dao<Article> {
     Article readBy(long id, boolean published);
 
     Portion<Article> readAll(boolean published);
+
+    Portion<Article> readByMarker(long markerId, boolean published);
 }

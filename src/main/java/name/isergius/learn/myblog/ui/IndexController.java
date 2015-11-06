@@ -36,15 +36,15 @@ public class IndexController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/filter", params = "marker", method = RequestMethod.GET)
+    @RequestMapping(params = "marker", method = RequestMethod.GET)
     public ModelAndView filter(@RequestParam("marker") long id) {
         ModelAndView modelAndView = new ModelAndView("index");
         Note note = blog.getNote();
         Marker marker = blog.getMarkerBy(id);
-        List<Article> articles = marker.getArticles();
+        Page<Article> articlePage = blog.getArticlesHasMarkerBy(id,10L);
         List<Marker> markers = blog.getAllMarkers();
         modelAndView.addObject("title", marker.getTitle());
-        modelAndView.addObject("articles", articles);
+        modelAndView.addObject("articles", articlePage.result(0L));
         modelAndView.addObject("markers", markers);
         return  modelAndView;
     }

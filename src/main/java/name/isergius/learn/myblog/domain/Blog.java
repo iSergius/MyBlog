@@ -70,4 +70,8 @@ public class Blog extends Model {
     public Page<Article> getArticles(long size) {
         return new Page<>(articleDao.readAll(true),size);
     }
+
+    public Page<Article> getArticlesHasMarkerBy(long id, long size) {
+        return new Page<>(articleDao.readByMarker(id,true),size);
+    }
 }

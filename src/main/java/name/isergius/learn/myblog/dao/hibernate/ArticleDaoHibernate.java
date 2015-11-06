@@ -54,4 +54,16 @@ public class ArticleDaoHibernate extends AbstractDaoHibernate<Article> implement
                 .setBoolean("published", published);
         return new PortionHibernate<>(session,selectQuery,countQuery);
     }
+
+    @Override
+    public Portion<Article> readByMarker(long markerId, boolean published) {
+        Session session = getSessionFactory().openSession();
+        Query selectQuery = session.createQuery("select distinct article from Article article join article.markers as marker where article.published = :published and marker.id = :id")
+                .setBoolean("published", published)
+                .setLong("id",markerId);
+        Query countQuery = session.createQuery("select distinct count (article) from Article article join article.markers as marker where article.published = :published and marker.id = :id")
+                .setBoolean("published", published)
+                .setLong("id", markerId);
+        return new PortionHibernate<>(session,selectQuery,countQuery);
+    }
 }

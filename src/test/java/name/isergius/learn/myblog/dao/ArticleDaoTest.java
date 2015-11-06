@@ -124,4 +124,12 @@ public class ArticleDaoTest extends AbstractDbTest {
 
         assertNotNull(portion);
     }
+
+    @Test
+    @DatabaseSetup("PortionTest.xml")
+    public void testReadByMarker() throws Exception {
+        Portion<Article> portion = dao.readByMarker(1L,true);
+
+        assertNotNull(portion);
+    }
 }
