@@ -82,6 +82,8 @@ public class NoteTest extends Assert {
 
     @Test
     public void testSaveArticle() throws Exception {
+        Mockito.when(article.getId()).thenReturn(1L);
+
         note.save(article);
 
         Mockito.verify(articleDao).update(article);
@@ -94,5 +96,14 @@ public class NoteTest extends Assert {
         note.save(article);
 
         Mockito.verify(article).setPublishedDate(Matchers.any(LocalDate.class));
+    }
+
+    @Test
+    public void testSaveNewArticle() throws Exception {
+        Mockito.when(article.getId()).thenReturn(null);
+
+        note.save(article);
+
+        Mockito.verify(articleDao).create(article);
     }
 }

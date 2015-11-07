@@ -42,11 +42,21 @@ public class Note {
     }
 
     public void save(Article article) {
+
         if (article.getPublished()) article.setPublishedDate(LocalDate.now());
-        try {
-            articleDao.update(article);
-        } catch (DaoException e) {
-            e.printStackTrace();
+
+        if (article.getId() == null) {
+            try {
+                articleDao.create(article);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                articleDao.update(article);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

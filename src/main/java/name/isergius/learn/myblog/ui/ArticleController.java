@@ -58,7 +58,7 @@ public class ArticleController {
         return modelAndView;
     }
 
-    @RequestMapping(path = "/{id}/edit", method = RequestMethod.POST)
+    @RequestMapping(path = {"/{id}/edit","/edit"}, method = RequestMethod.POST)
     public ModelAndView save(Article article) {
         ModelAndView modelAndView = new ModelAndView();
         Note note = blog.getNote();
