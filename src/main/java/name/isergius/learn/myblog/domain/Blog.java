@@ -2,7 +2,6 @@ package name.isergius.learn.myblog.domain;
 
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.MarkerDao;
-import name.isergius.learn.myblog.dao.Model;
 import name.isergius.learn.myblog.ui.Page;
 
 import java.util.List;
@@ -10,7 +9,7 @@ import java.util.List;
 /**
  * Created by Kondratyev Sergey on 23.10.15.
  */
-public class Blog extends Model {
+public class Blog {
 
     private String title;
     private Note note;

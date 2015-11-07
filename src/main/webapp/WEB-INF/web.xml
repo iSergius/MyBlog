@@ -8,7 +8,10 @@
     </listener>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring/spring-config.xml</param-value>
+        <param-value>
+            classpath:spring/spring-config.xml
+            classpath:spring/aop-config.xml
+        </param-value>
     </context-param>
     <servlet>
         <servlet-name>dispatcherServlet</servlet-name>

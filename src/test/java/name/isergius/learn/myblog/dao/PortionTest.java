@@ -3,13 +3,12 @@ package name.isergius.learn.myblog.dao;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 import name.isergius.learn.myblog.dao.hibernate.PortionHibernate;
 import name.isergius.learn.myblog.domain.Article;
-import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -32,11 +31,9 @@ public class PortionTest extends AbstractDbTest {
     @Test
     @DatabaseSetup("PortionTest.xml")
     public void testCount() {
-        Session session = sessionFactory.openSession();
-        Query selectQuery = session.createQuery("from Article");
-        Query countQuery = session.createQuery("select count (a) from Article a");
-
-        portion = new PortionHibernate<>(session,selectQuery,countQuery);
+        String selectQuery = "from Article";
+        String count = "select count (a) from Article a";
+        portion = new PortionHibernate<>(sessionFactory,selectQuery,count,new HashMap<String,Object>());
 
         assertEquals(new Long(20), portion.count());
     }
@@ -44,11 +41,10 @@ public class PortionTest extends AbstractDbTest {
     @Test
     @DatabaseSetup("PortionTest.xml")
     public void testResult() {
-        Session session = sessionFactory.openSession();
-        Query selectQuery = session.createQuery("from Article");
-        Query countQuery = session.createQuery("select count (a) from Article a");
+        String selectQuery = "from Article";
+        String count = "select count (a) from Article a";
+        portion = new PortionHibernate<>(sessionFactory,selectQuery,count,new HashMap<String,Object>());
 
-        portion = new PortionHibernate<>(session,selectQuery,countQuery);
         List<Article> articles = portion.result(0L,10L);
 
         assertNotNull(articles);

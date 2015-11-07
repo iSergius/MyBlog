@@ -3,10 +3,11 @@ package name.isergius.learn.myblog.dao.hibernate;
 import name.isergius.learn.myblog.dao.ArticleDao;
 import name.isergius.learn.myblog.dao.Portion;
 import name.isergius.learn.myblog.domain.Article;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Kondratyev Sergey on 05.10.15.
@@ -19,51 +20,31 @@ public class ArticleDaoHibernate extends AbstractDaoHibernate<Article> implement
 
     @Override
     public Article readBy(long id, boolean published) {
-        Session session = null;
-        Transaction transaction = null;
-        Article result = null;
-
-        try {
-            session = getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-
-            result = (Article) session.createQuery("from Article a where a.published = :published and a.id = :id")
+        Session session = getSessionFactory().openSession();
+        Article result = (Article) session.createQuery("from Article a where a.published = :published and a.id = :id")
                                     .setBoolean("published", published)
                                     .setLong("id",id)
                                     .uniqueResult();
-
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
+        session.close();
         return result;
     }
 
     @Override
     public Portion<Article> readAll(boolean published) {
-        Session session = getSessionFactory().openSession();
-        Query selectQuery = session.createQuery("from Article a where a.published = :published")
-                    .setBoolean("published", published);
-        Query countQuery = session.createQuery("select count (a) from Article a where a.published = :published")
-                .setBoolean("published", published);
-        return new PortionHibernate<>(session,selectQuery,countQuery);
+        Map<String,Object> properties = new HashMap<>();
+        String selectQuery = "from Article a where a.published = :published";
+        String countQuery = "select count (a) from Article a where a.published = :published";
+        properties.put("published", published);
+        return new PortionHibernate<>(getSessionFactory(),selectQuery,countQuery,properties);
     }
 
     @Override
     public Portion<Article> readByMarker(long markerId, boolean published) {
-        Session session = getSessionFactory().openSession();
-        Query selectQuery = session.createQuery("select distinct article from Article article join article.markers as marker where article.published = :published and marker.id = :id")
-                .setBoolean("published", published)
-                .setLong("id",markerId);
-        Query countQuery = session.createQuery("select distinct count (article) from Article article join article.markers as marker where article.published = :published and marker.id = :id")
-                .setBoolean("published", published)
-                .setLong("id", markerId);
-        return new PortionHibernate<>(session,selectQuery,countQuery);
+        Map<String,Object> properties = new HashMap<>();
+        String selectQuery = "select distinct article from Article article join article.markers as marker where article.published = :published and marker.id = :id";
+        String countQuery = "select distinct count (article) from Article article join article.markers as marker where article.published = :published and marker.id = :id";
+        properties.put("published", published);
+        properties.put("id", markerId);
+        return new PortionHibernate<>(getSessionFactory(),selectQuery,countQuery,properties);
     }
 }

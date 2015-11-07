@@ -54,7 +54,7 @@ public class ArticleDaoTest extends AbstractDbTest {
     @ExpectedDatabase()
     public void testUpdate() throws Exception {
         Article article = new Article("Changed title");
-        article.setId(1l);
+        article.setId(1L);
         dao.update(article);
     }
 

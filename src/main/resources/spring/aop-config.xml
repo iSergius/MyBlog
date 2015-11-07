@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tool="http://www.springframework.org/schema/tool"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+                           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+                           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <aop:config >
+        <aop:pointcut id="blogCut" expression="execution(* name.isergius.learn.myblog.domain.Blog.*(..))"/>
+        <aop:pointcut id="noteCut" expression="execution(* name.isergius.learn.myblog.domain.Note.*(..))"/>
+        <aop:pointcut id="allDaoCut" expression="execution(* name.isergius.learn.myblog.dao.hibernate.*.*(..))"/>
+        <aop:advisor advice-ref="blogTx" pointcut-ref="blogCut"/>
+        <aop:advisor advice-ref="noteTx" pointcut-ref="noteCut"/>
+        <aop:advisor advice-ref="daoTx" pointcut-ref="allDaoCut"/>
+    </aop:config>
+
+    <tx:advice id="blogTx" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="getArticleBy" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getArticles" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getArticlesHasMarkerBy" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getMarkerBy" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getAllMarkers" propagation="REQUIRES_NEW" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+    <tx:advice id="noteTx" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="getArticleBy" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getArticles" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="getMarkers" propagation="REQUIRES_NEW" read-only="true"/>
+            <tx:method name="save" propagation="REQUIRES_NEW" read-only="false"/>
+        </tx:attributes>
+    </tx:advice>
+    <tx:advice id="daoTx" transaction-manager="txManager">
+        <tx:attributes>
+            <tx:method name="PortionHibernate" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+        </tx:attributes>
+    </tx:advice>
+
+
+</beans>
