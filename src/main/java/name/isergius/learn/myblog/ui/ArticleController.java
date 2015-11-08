@@ -68,7 +68,7 @@ public class ArticleController {
         modelAndView.addObject("markers",markers.result(0L));
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article", article);
-        modelAndView.setView(new RedirectView("edit"));
+        modelAndView.setView(new RedirectView("/article/"+article.getId()+"/edit",false));
         return modelAndView;
     }
 

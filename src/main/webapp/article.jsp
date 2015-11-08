@@ -5,7 +5,7 @@
   Time: 18:12
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -26,7 +26,7 @@
             </div>
             <div class="markers col-lg-6">
                 <c:forEach items="${markers}" var="marker">
-                    <h3><a href="/?marker=${marker.id}"> <span class="marker text-primary">${marker.title}</span></a></h3>
+                    <h3> <span class="marker pull-left text-primary"> <a href="/?marker=${marker.id}"> ${marker.title} </a> </span> </h3>
                 </c:forEach>
             </div>
         </header>

@@ -5,7 +5,7 @@
   Time: 18:47
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -25,7 +25,7 @@
 
   </header>
   <article>
-      <form:form method="post" modelAttribute="article" action="edit" cssClass="row" >
+      <form:form method="post" modelAttribute="article" action="edit" cssClass="row" acceptCharset="UTF-8">
           <form:hidden path="id"/>
           <div class="col-lg-10">
               <div class="form-group">
