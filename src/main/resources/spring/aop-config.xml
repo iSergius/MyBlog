@@ -19,6 +19,7 @@
 
     <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="prepareConnection" value="true"/>
     </bean>
 
     <aop:config >
@@ -49,8 +50,7 @@
     </tx:advice>
     <tx:advice id="daoTx" transaction-manager="txManager">
         <tx:attributes>
-            <tx:method name="PortionHibernate" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
-            <tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED" read-only="false"/>
+            <tx:method name="*" propagation="REQUIRED" read-only="false"/>
         </tx:attributes>
     </tx:advice>
 
