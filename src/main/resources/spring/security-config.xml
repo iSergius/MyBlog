@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:tool="http://www.springframework.org/schema/tool"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jee="http://www.springframework.org/schema/jee"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+                           http://www.springframework.org/schema/tool http://www.springframework.org/schema/tool/spring-tool.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                           http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
+                           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:http use-expressions="true">
+        <security:intercept-url pattern="/note" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/article/*/edit" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/article/new" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/login" requires-channel="https" access="permitAll()"/>
+        <security:form-login login-page="/login"
+                             default-target-url="/note"
+                             authentication-failure-url="/login?error=true"
+                             username-parameter="username"
+                             password-parameter="password"/>
+        <security:logout logout-url="/logout" logout-success-url="/"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+                <security:user name="admin@localhost" password="password" authorities="ROLE_ADMIN"/>
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+</beans>

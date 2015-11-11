@@ -19,9 +19,20 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <div class="">
+    <div class="container-fluid">
         <header class="row">
-
+            <nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">Home</a></li>
+                        <li class="active"><a href="/#">Note</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-right" action="/logout" method="post">
+                        <input class="btn btn-link" type="submit" value="Log out" />
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </div>
+            </nav>
         </header>
         <div class="row">
             <div id="articlesTable" class="col-lg-8">
