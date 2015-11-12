@@ -49,4 +49,28 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="4" author="Kondratyev Sergey">
+        <createTable tableName="user_t">
+            <column name="user_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="user_pk"/>
+            </column>
+            <column name="user_username" type="VARCHAR(140)"/>
+            <column name="user_password" type="VARCHAR"/>
+            <column name="user_enabled" type="BOOLEAN" defaultValue="false"/>
+        </createTable>
+
+        <createTable tableName="authority_t">
+            <column name="authority_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="authorirty_pk"/>
+            </column>
+            <column name="user_id" type="INT"/>
+            <column name="authority_title" type="VARCHAR(140)"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="authority_t" baseColumnNames="user_id"
+                                 constraintName="authority_user_fk"
+                                 referencedTableName="user_t"
+                                 referencedColumnNames="user_id"/>
+    </changeSet>
+
 </databaseChangeLog>

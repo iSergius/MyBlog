@@ -87,3 +87,9 @@ INSERT INTO article_t(article_title, article_published, article_content, article
 VALUES ('My Note',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
 VALUES (20,2);
+
+--changeset Kondratyev Sergey:3 context:it
+INSERT INTO user_t(user_username,user_password,user_enabled)
+VALUES ('admin@localhost','$2a$10$eQV9Qknz5Gk6t8hJZQtTTOXg0XEid75uPZoX9Ga08dYF6prTODW6K',TRUE);
+INSERT INTO authority_t(user_id, authority_title)
+VALUES ((SELECT user_id FROM user_t WHERE user_username = 'admin@localhost'),'ROLE_ADMIN');

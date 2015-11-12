@@ -6,6 +6,7 @@ import name.isergius.learn.myblog.domain.Marker;
 import name.isergius.learn.myblog.domain.Note;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.kubek2k.springockito.annotations.ReplaceWithMock;
 import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
@@ -22,7 +23,7 @@ import java.util.Map;
 /**
  * Created by Kondratyev Sergey on 25.10.15.
  */
-
+@Ignore
 @ContextConfiguration(loader = SpringockitoContextLoader.class,
         locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
 public class NoteControllerTest extends AbstractJUnit4SpringContextTests {

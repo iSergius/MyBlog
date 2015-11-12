@@ -16,10 +16,12 @@
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http use-expressions="true">
-        <security:intercept-url pattern="/note" access="hasRole('ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/article/*/edit" access="hasRole('ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/article/new" access="hasRole('ROLE_ADMIN')"/>
-        <security:intercept-url pattern="/login" requires-channel="https" access="permitAll()"/>
+        <security:intercept-url pattern="/" requires-channel="http"/>
+        <security:intercept-url pattern="/article/*" requires-channel="http"/>
+        <security:intercept-url pattern="/note" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
+        <security:intercept-url pattern="/article/*/edit" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
+        <security:intercept-url pattern="/article/new" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
+        <security:intercept-url pattern="/login" access="permitAll()" requires-channel="https"/>
         <security:form-login login-page="/login"
                              default-target-url="/note"
                              authentication-failure-url="/login?error=true"
@@ -29,11 +31,13 @@
     </security:http>
 
     <security:authentication-manager>
-        <security:authentication-provider>
-            <security:user-service>
-                <security:user name="admin@localhost" password="password" authorities="ROLE_ADMIN"/>
-            </security:user-service>
+        <security:authentication-provider user-service-ref="userService">
+            <security:password-encoder ref="bcrypt"/>
         </security:authentication-provider>
     </security:authentication-manager>
+
+    <bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <constructor-arg name="strength" value="11"/>
+    </bean>
 
 </beans>
