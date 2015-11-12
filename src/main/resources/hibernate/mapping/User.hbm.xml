@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+    <class name="name.isergius.learn.myblog.domain.User" table="user_t" >
+        <id name="id" column="user_id" type="long">
+            <generator class="identity"/>
+        </id>
+        <property name="username" column="user_username" type="string" />
+        <property name="password" column="user_password" type="string"/>
+        <property name="enabled" column="user_enabled" type="boolean"/>
+        <set name="authorities" table="authority_t">
+            <key>
+                <column name="user_id"/>
+            </key>
+            <one-to-many class="name.isergius.learn.myblog.domain.Authority" not-found="ignore"/>
+        </set>
+    </class>
+</hibernate-mapping>

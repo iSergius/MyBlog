@@ -8,5 +8,7 @@
         <!-- <property name="hbm2ddl.auto">update</property> -->
         <mapping resource="hibernate/mapping/Article.hbm.xml"/>
         <mapping resource="hibernate/mapping/Marker.hbm.xml"/>
+        <mapping resource="hibernate/mapping/User.hbm.xml"/>
+        <mapping resource="hibernate/mapping/Authority.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

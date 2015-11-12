@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<dataset>
+    <user_t user_id="1" user_username="admin@localhost" user_password="password" user_enabled="true"/>
+    <authority_t authority_id="1" user_id="1" authority_title="ROLE_ADMIN"/>
+</dataset>
