@@ -25,7 +25,7 @@ import java.util.Map;
  */
 @Ignore
 @ContextConfiguration(loader = SpringockitoContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml"})
 public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
@@ -42,8 +42,6 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Before
     public void setUp() throws Exception {
-        System.out.println("!!!!!!!!!!!!!!!!!!! class: "+note.getClass());
-        System.out.println("!!!!!!!!!!!!!!!!!!! class: " + blog.getClass());
         articles.add(new Article());
         article = Mockito.mock(Article.class);
         Page<Marker> markersPage = Mockito.mock(Page.class);

@@ -151,6 +151,7 @@
                 <jdbc.password>r_BD88gk1h</jdbc.password>
                 <database.hibernate.dialect>org.hibernate.dialect.PostgreSQL94Dialect</database.hibernate.dialect>
                 <database.schemaNames>public</database.schemaNames>
+                <keystore.pass>V1key0_stRe</keystore.pass>
             </properties>
 
             <build>
@@ -240,6 +241,9 @@
                         <artifactId>tomcat7-maven-plugin</artifactId>
                         <version>2.2</version>
                         <configuration>
+                            <httpsPort>8443</httpsPort>
+                            <keystoreFile>${user.home}/.keystore</keystoreFile>
+                            <keystorePass>${keystore.pass}</keystorePass>
                             <contextFile>target/test-classes/context.xml</contextFile>
                             <warFile>/target/MyBlog-0.0.1.war</warFile>
                             <path>/</path>

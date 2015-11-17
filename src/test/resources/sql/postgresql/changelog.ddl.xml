@@ -67,10 +67,14 @@
             <column name="authority_title" type="VARCHAR(140)"/>
         </createTable>
 
-        <addForeignKeyConstraint baseTableName="authority_t" baseColumnNames="user_id"
+        <addForeignKeyConstraint baseTableName="authority_t"
+                                 baseColumnNames="user_id"
                                  constraintName="authority_user_fk"
                                  referencedTableName="user_t"
                                  referencedColumnNames="user_id"/>
+        <addUniqueConstraint tableName="user_t"
+                             columnNames="user_username"
+                             constraintName="user_username_uq"/>
     </changeSet>
 
 </databaseChangeLog>

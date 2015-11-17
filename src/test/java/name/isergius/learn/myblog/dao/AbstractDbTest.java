@@ -19,7 +19,10 @@ import org.springframework.test.context.transaction.TransactionalTestExecutionLi
 //@RunWith(UnitilsJUnit4TestClassRunner.class)
 //@SpringApplicationContext({"spring/spring-config.xml","test-spring-config.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({"classpath:spring/spring-config.xml", "classpath:test-spring-config.xml","classpath:spring/aop-config.xml"})
+@ContextConfiguration({"classpath:spring/spring-config.xml",
+                        "classpath:test-spring-config.xml",
+                        "classpath:spring/aop-config.xml",
+                        "classpath:spring/security-config.xml"})
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,

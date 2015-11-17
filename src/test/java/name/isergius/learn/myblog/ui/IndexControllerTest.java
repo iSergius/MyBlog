@@ -24,7 +24,7 @@ import java.util.Map;
  */
 @Ignore
 @ContextConfiguration(loader = SpringockitoContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml"})
 public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired

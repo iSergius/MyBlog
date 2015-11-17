@@ -3,6 +3,7 @@ package name.isergius.learn.myblog.domain;
 import name.isergius.learn.myblog.dao.Model;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -16,6 +17,21 @@ public class User extends Model {
     private Set<GrantedAuthority> authorities;
 
     public User() {
+    }
+
+    public User(String username, String password) {
+        this(username,password,false,new HashSet<>());
+    }
+
+    public User(String username, String password, boolean enabled) {
+        this(username,password,enabled,new HashSet<>());
+    }
+
+    public User(String username, String password, boolean enabled, Set<GrantedAuthority> authorities) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.authorities = authorities;
     }
 
     public String getUsername() {

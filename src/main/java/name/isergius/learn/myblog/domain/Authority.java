@@ -13,6 +13,13 @@ public class Authority extends Model implements GrantedAuthority {
     private String title;
     private Set<User> users;
 
+    public Authority() {
+    }
+
+    public Authority(String title) {
+        this.title = title;
+    }
+
     public String getTitle() {
         return title;
     }
