@@ -15,18 +15,22 @@
                            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+       xmlns:aop="http://www.springframework.org/schema/aop">
 
     <mvc:annotation-driven/>
     <context:component-scan base-package="name.isergius.learn.myblog.ui"/>
 
     <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
 
-    <bean id="servletContextAttributeExporter" class="org.springframework.web.context.support.ServletContextAttributeExporter" lazy-init="false" depends-on="note,blog">
+    <bean id="servletContextAttributeExporter"
+          class="org.springframework.web.context.support.ServletContextAttributeExporter"
+          lazy-init="false"
+          depends-on="noteService,blogService">
         <property name="attributes">
             <map>
-                <entry key="note" value-ref="note"/>
-                <entry key="blog" value-ref="blog"/>
+                <entry key="note" value-ref="noteService"/>
+                <entry key="blog" value-ref="blogService"/>
             </map>
         </property>
     </bean>
@@ -36,5 +40,6 @@
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
 
 </beans>

@@ -1,11 +1,9 @@
 package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.dao.MarkerDao;
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.Blog;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.Note;
+import name.isergius.learn.myblog.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -26,16 +24,19 @@ import java.util.List;
 public class ArticleController {
 
     @Autowired
-    private Blog blog;
+    @Qualifier("blogService")
+    private BlogService blogService;
+    @Autowired
+    private NoteService noteService;
     @Autowired
     private MarkerDao markerDao;
 
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public ModelAndView show(@PathVariable("id") long articleId) {
         ModelAndView modelAndView = new ModelAndView("article");
-        Note note = blog.getNote();
-        Article article = blog.getArticleBy(articleId);
-        List<Marker> markers = blog.getAllMarkers();
+
+        Article article = blogService.retrieveArticleBy(articleId);
+        List<Marker> markers = blogService.retrieveAllMarkers();
 
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article", article);
@@ -47,9 +48,8 @@ public class ArticleController {
     @RequestMapping(path = "/{id}/edit", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView("article-editor");
-        Note note = blog.getNote();
-        Article article = note.getArticleBy(id);
-        Page<Marker> markers = note.getMarkers(1000L);
+        Article article = noteService.getArticleBy(id);
+        Page<Marker> markers = noteService.getMarkers(1000L);
 
         modelAndView.addObject("markers",markers.result(0L));
         modelAndView.addObject("title", article.getTitle());
@@ -61,9 +61,8 @@ public class ArticleController {
     @RequestMapping(path = {"/{id}/edit","/edit"}, method = RequestMethod.POST)
     public ModelAndView save(Article article) {
         ModelAndView modelAndView = new ModelAndView();
-        Note note = blog.getNote();
-        Page<Marker> markers = note.getMarkers(1000L);
-        note.save(article);
+        Page<Marker> markers = noteService.getMarkers(1000L);
+        noteService.save(article);
 
         modelAndView.addObject("markers",markers.result(0L));
         modelAndView.addObject("title", article.getTitle());
@@ -75,8 +74,7 @@ public class ArticleController {
     @RequestMapping(path = "/new", method = RequestMethod.GET)
     public ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("article-editor");
-        Note note = blog.getNote();
-        Page<Marker> markers = note.getMarkers(1000L);
+        Page<Marker> markers = noteService.getMarkers(1000L);
         modelAndView.addObject("markers",markers.result(0L));
         modelAndView.addObject("title", "New Article");
         Article article = new Article();

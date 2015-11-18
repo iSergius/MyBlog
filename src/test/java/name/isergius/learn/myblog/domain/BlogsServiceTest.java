@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Kondratyev Sergey on 04.11.15.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class BlogTest {
+public class BlogsServiceTest {
 
     @Mock
     private MarkerDao markerDao;
@@ -41,20 +41,21 @@ public class BlogTest {
     @Mock
     private Article article;
 
-    private Blog blog = null;
+    private BlogService blogService = null;
 
     @Before
     public void setUp() throws Exception {
-        blog = new Blog();
-        blog.setMarkerDao(markerDao);
-        blog.setArticleDao(articleDao);
+        BlogServiceImpl blogImpl = new BlogServiceImpl();
+        blogImpl.setMarkerDao(markerDao);
+        blogImpl.setArticleDao(articleDao);
+        blogService = blogImpl;
     }
 
     @Test
     public void testGettingPublishedMarker() throws Exception {
         Mockito.when(markerDao.readBy(1L, true)).thenReturn(marker);
 
-        Marker marker = blog.getMarkerBy(1L);
+        Marker marker = blogService.retrieveMarkerBy(1L);
 
         Assert.assertNotNull(marker);
     }
@@ -63,7 +64,7 @@ public class BlogTest {
     public void testGetAllPublishedMarkers() throws Exception {
         Mockito.when(markerDao.readAll(true)).thenReturn(markerPortion);
 
-        List<Marker> markers = blog.getAllMarkers();
+        List<Marker> markers = blogService.retrieveAllMarkers();
 
         Assert.assertNotNull(markers);
     }
@@ -73,7 +74,7 @@ public class BlogTest {
         Mockito.when(articleDao.readBy(1L,true)).thenReturn(article);
         Mockito.when(article.getPublished()).thenReturn(true);
 
-        Article article = blog.getArticleBy(1L);
+        Article article = blogService.retrieveArticleBy(1L);
 
         Assert.assertTrue(article.getPublished());
     }
@@ -84,7 +85,7 @@ public class BlogTest {
         Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
         Mockito.when(articlePortion.count()).thenReturn(20L);
 
-        Page<Article> articles = blog.getArticles(10L);
+        Page<Article> articles = blogService.retrieveArticles(10L);
 
         Assert.assertNotNull(articles);
     }
@@ -95,7 +96,7 @@ public class BlogTest {
         Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
         Mockito.when(articlePortion.count()).thenReturn(20L);
 
-        Page<Article> articlePage = blog.getArticlesHasMarkerBy(1L,10L);
+        Page<Article> articlePage = blogService.retrieveArticlesHasMarkerBy(1L, 10L);
 
         Assert.assertNotNull(articlePage);
     }

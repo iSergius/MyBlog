@@ -1,10 +1,8 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.Blog;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.Note;
+import name.isergius.learn.myblog.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,15 +19,15 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private Blog blog;
+    @Qualifier("blogService")
+    private BlogService blogService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView("index");
-        Note note = blog.getNote();
-        Page<Article> articles = blog.getArticles(10L);
-        List<Marker> markers = blog.getAllMarkers();
-        modelAndView.addObject("title", blog.getTitle());
+        Page<Article> articles = blogService.retrieveArticles(10L);
+        List<Marker> markers = blogService.retrieveAllMarkers();
+        modelAndView.addObject("title", blogService.getTitle());
         modelAndView.addObject("articles", articles.result(0L));
         modelAndView.addObject("markers",markers);
 
@@ -39,10 +37,9 @@ public class IndexController {
     @RequestMapping(params = "marker", method = RequestMethod.GET)
     public ModelAndView filter(@RequestParam("marker") long id) {
         ModelAndView modelAndView = new ModelAndView("index");
-        Note note = blog.getNote();
-        Marker marker = blog.getMarkerBy(id);
-        Page<Article> articlePage = blog.getArticlesHasMarkerBy(id,10L);
-        List<Marker> markers = blog.getAllMarkers();
+        Marker marker = blogService.retrieveMarkerBy(id);
+        Page<Article> articlePage = blogService.retrieveArticlesHasMarkerBy(id, 10L);
+        List<Marker> markers = blogService.retrieveAllMarkers();
         modelAndView.addObject("title", marker.getTitle());
         modelAndView.addObject("articles", articlePage.result(0L));
         modelAndView.addObject("markers", markers);

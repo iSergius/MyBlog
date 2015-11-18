@@ -1,10 +1,8 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.Blog;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.Note;
+import name.isergius.learn.myblog.domain.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,17 +16,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class NoteController {
 
     @Autowired
-    private Blog blog;
+    @Qualifier("noteService")
+    private NoteService noteService;
+
+    @Autowired
+    @Qualifier("blogService")
+    private BlogService blogService;
 
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView main() {
         ModelAndView modelAndView = new ModelAndView("note");
-        Note note = blog.getNote();
-        Page<Article> articles = note.getArticles(10L);
-        Page<Marker> markers = note.getMarkers(10L);
+        Page<Article> articles = noteService.getArticles(10L);
+        Page<Marker> markers = noteService.getMarkers(10L);
         modelAndView.addObject("articles",articles.result(0L));
         modelAndView.addObject("markers", markers.result(0L));
-        modelAndView.addObject("title",blog.getTitle());
+        modelAndView.addObject("title", blogService.getTitle());
         return modelAndView;
     }
 

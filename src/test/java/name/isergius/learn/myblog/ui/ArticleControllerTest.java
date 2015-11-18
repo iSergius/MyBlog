@@ -1,9 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.Blog;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.Note;
+import name.isergius.learn.myblog.domain.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -25,17 +22,17 @@ import java.util.Map;
  */
 @Ignore
 @ContextConfiguration(loader = SpringockitoContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml","classpath:spring/aop-config.xml"})
 public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     private ArticleController articleController;
     @ReplaceWithMock
     @Autowired
-    private Note note;
+    private NoteService noteService;
     @ReplaceWithMock
     @Autowired
-    private Blog blog;
+    private BlogService blogService;
     private List<Article> articles = new ArrayList<>();
     private List<Marker> markers = new ArrayList<>();
     private Article article;
@@ -47,15 +44,14 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
         Page<Marker> markersPage = Mockito.mock(Page.class);
         Page<Article> articlePage = Mockito.mock(Page.class);
         Mockito.when(article.getTitle()).thenReturn("My First Article");
-        Mockito.when(note.getMarkers(1000L)).thenReturn(markersPage);
-        Mockito.when(note.getArticleBy(1L)).thenReturn(article);
+        Mockito.when(noteService.getMarkers(1000L)).thenReturn(markersPage);
+        Mockito.when(noteService.getArticleBy(1L)).thenReturn(article);
         Mockito.when(markersPage.result(0L)).thenReturn(markers);
         Mockito.when(articlePage.result(10L)).thenReturn(articles);
-        Mockito.when(blog.getArticles(10L)).thenReturn(articlePage);
-        Mockito.when(blog.getAllMarkers()).thenReturn(markers);
-        Mockito.when(blog.getArticleBy(1L)).thenReturn(article);
-        Mockito.when(blog.getNote()).thenReturn(note);
-        Mockito.when(blog.getTitle()).thenReturn("MyBlog");
+        Mockito.when(blogService.retrieveArticles(10L)).thenReturn(articlePage);
+        Mockito.when(blogService.retrieveAllMarkers()).thenReturn(markers);
+        Mockito.when(blogService.retrieveArticleBy(1L)).thenReturn(article);
+        Mockito.when(blogService.getTitle()).thenReturn("MyBlog");
     }
 
     @Test
@@ -111,6 +107,6 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
     public void testEditSaveArticle() throws Exception {
         ModelAndView modelAndView = articleController.save(article);
 
-        Mockito.verify(note).save(article);
+        Mockito.verify(noteService).save(article);
     }
 }

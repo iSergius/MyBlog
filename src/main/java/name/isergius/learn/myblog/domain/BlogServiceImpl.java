@@ -9,16 +9,16 @@ import java.util.List;
 /**
  * Created by Kondratyev Sergey on 23.10.15.
  */
-public class Blog {
+public class BlogServiceImpl implements BlogService {
 
     private String title;
-    private Note note;
+    private NoteService note;
     private MarkerDao markerDao;
     private ArticleDao articleDao;
 
-    public Blog() {}
+    public BlogServiceImpl() {}
 
-    public Blog(String title) {
+    public BlogServiceImpl(String title) {
         this.title = title;
     }
 
@@ -28,14 +28,6 @@ public class Blog {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public void setNote(Note note) {
-        this.note = note;
-    }
-
-    public Note getNote() {
-        return note;
     }
 
     public MarkerDao getMarkerDao() {
@@ -54,23 +46,28 @@ public class Blog {
         this.articleDao = articleDao;
     }
 
-    public Marker getMarkerBy(long id) {
+    @Override
+    public Marker retrieveMarkerBy(long id) {
         return markerDao.readBy(id,true);
     }
 
-    public List<Marker> getAllMarkers() {
+    @Override
+    public List<Marker> retrieveAllMarkers() {
         return markerDao.readAll(true).result(0L,0L);
     }
 
-    public Article getArticleBy(long id) {
+    @Override
+    public Article retrieveArticleBy(long id) {
         return articleDao.readBy(id,true);
     }
 
-    public Page<Article> getArticles(long size) {
+    @Override
+    public Page<Article> retrieveArticles(long size) {
         return new Page<>(articleDao.readAll(true),size);
     }
 
-    public Page<Article> getArticlesHasMarkerBy(long id, long size) {
+    @Override
+    public Page<Article> retrieveArticlesHasMarkerBy(long id, long size) {
         return new Page<>(articleDao.readByMarker(id,true),size);
     }
 }

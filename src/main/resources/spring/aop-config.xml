@@ -22,9 +22,11 @@
         <property name="prepareConnection" value="true"/>
     </bean>
 
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
     <aop:config >
-        <aop:pointcut id="blogCut" expression="execution(* name.isergius.learn.myblog.domain.Blog.*(..))"/>
-        <aop:pointcut id="noteCut" expression="execution(* name.isergius.learn.myblog.domain.Note.*(..))"/>
+        <aop:pointcut id="blogCut" expression="execution(* name.isergius.learn.myblog.domain.BlogService.*(..))"/>
+        <aop:pointcut id="noteCut" expression="execution(* name.isergius.learn.myblog.domain.NoteService.*(..))"/>
         <aop:pointcut id="allDaoCut" expression="execution(* name.isergius.learn.myblog.dao.hibernate.*.*(..))"/>
         <aop:advisor advice-ref="blogTx" pointcut-ref="blogCut"/>
         <aop:advisor advice-ref="noteTx" pointcut-ref="noteCut"/>

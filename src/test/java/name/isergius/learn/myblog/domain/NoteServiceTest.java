@@ -20,7 +20,7 @@ import java.util.List;
  * Created by Kondratyev Sergey on 13.10.15.
  */
 @RunWith(MockitoJUnitRunner.class)
-public class NoteTest extends Assert {
+public class NoteServiceTest extends Assert {
 
     @Mock
     private ArticleDao articleDao;
@@ -43,12 +43,12 @@ public class NoteTest extends Assert {
     @Mock
     private Page<Marker> markerPage;
 
-    private Note note = null;
+    private NoteService noteService = null;
 
 
     @Before
     public void setUp() throws Exception {
-        note = new Note(articleDao,markerDao);
+        noteService = new NoteServiceImpl(articleDao,markerDao);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class NoteTest extends Assert {
         Mockito.when(articleDao.read()).thenReturn(articlePortion);
         Mockito.when(articlePortion.result(0L,10L)).thenReturn(articles);
 
-        Page<Article> articles = note.getArticles(10L);
+        Page<Article> articles = noteService.getArticles(10L);
 
         assertNotNull(articles);
     }
@@ -66,7 +66,7 @@ public class NoteTest extends Assert {
         Mockito.when(markerDao.read()).thenReturn(markerPortion);
         Mockito.when(markerPortion.result(0L,10L)).thenReturn(markers);
 
-        Page<Marker> markers = note.getMarkers(10L);
+        Page<Marker> markers = noteService.getMarkers(10L);
 
         assertNotNull(markers);
     }
@@ -75,7 +75,7 @@ public class NoteTest extends Assert {
     public void testGetArticleById() throws Exception {
         Mockito.when(articleDao.readBy(1L)).thenReturn(article);
 
-        Article article = note.getArticleBy(1L);
+        Article article = noteService.getArticleBy(1L);
 
         assertNotNull(article);
     }
@@ -84,7 +84,7 @@ public class NoteTest extends Assert {
     public void testSaveArticle() throws Exception {
         Mockito.when(article.getId()).thenReturn(1L);
 
-        note.save(article);
+        noteService.save(article);
 
         Mockito.verify(articleDao).update(article);
     }
@@ -93,7 +93,7 @@ public class NoteTest extends Assert {
     public void testSavePublishedArticle() throws Exception {
         Mockito.when(article.getPublished()).thenReturn(true);
 
-        note.save(article);
+        noteService.save(article);
 
         Mockito.verify(article).setPublishedDate(Matchers.any(LocalDate.class));
     }
@@ -102,7 +102,7 @@ public class NoteTest extends Assert {
     public void testSaveNewArticle() throws Exception {
         Mockito.when(article.getId()).thenReturn(null);
 
-        note.save(article);
+        noteService.save(article);
 
         Mockito.verify(articleDao).create(article);
     }

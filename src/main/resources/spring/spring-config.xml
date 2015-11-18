@@ -29,14 +29,13 @@
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <bean id="note" class="name.isergius.learn.myblog.domain.Note">
+    <bean id="noteService" class="name.isergius.learn.myblog.domain.NoteServiceImpl">
         <constructor-arg name="articleDao" ref="articleDao"/>
         <constructor-arg name="markerDao" ref="markerDao"/>
     </bean>
 
-    <bean id="blog" class="name.isergius.learn.myblog.domain.Blog">
+    <bean id="blogService" class="name.isergius.learn.myblog.domain.BlogServiceImpl">
         <constructor-arg name="title" value="MyBlog"/>
-        <property name="note" ref="note"/>
         <property name="markerDao" ref="markerDao"/>
         <property name="articleDao" ref="articleDao"/>
     </bean>
