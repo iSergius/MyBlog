@@ -8,15 +8,17 @@ import name.isergius.learn.myblog.ui.Page;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.kubek2k.springockito.annotations.ReplaceWithMock;
-import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.support.GenericXmlContextLoader;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -27,7 +29,7 @@ import java.util.Set;
  * Created by Kondratyev Sergey on 11.11.15.
  */
 
-@ContextConfiguration(loader = SpringockitoContextLoader.class,
+@ContextConfiguration(loader = GenericXmlContextLoader.class,
         locations = {"classpath:spring/webmvc-config.xml",
                 "classpath:spring/spring-config.xml",
                 "classpath:test-spring-config.xml",
@@ -37,12 +39,11 @@ public class UserServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
     @Qualifier("userService")
+    @InjectMocks
     private UserService userService;
-    @ReplaceWithMock
-    @Autowired
+    @Mock
     private UserDao userDao;
-    @ReplaceWithMock
-    @Autowired
+    @Mock
     private AuthorityDao authorityDao;
     private User user;
     private Set<GrantedAuthority> authorities = new HashSet<>();
@@ -50,6 +51,7 @@ public class UserServiceTest extends AbstractJUnit4SpringContextTests {
 
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         user = Mockito.mock(User.class);
         authority = Mockito.mock(GrantedAuthority.class);
     }

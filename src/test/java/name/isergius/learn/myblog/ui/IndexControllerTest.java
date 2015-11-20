@@ -1,16 +1,19 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.*;
+import name.isergius.learn.myblog.domain.Article;
+import name.isergius.learn.myblog.domain.BlogService;
+import name.isergius.learn.myblog.domain.Marker;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.kubek2k.springockito.annotations.ReplaceWithMock;
-import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.support.GenericXmlContextLoader;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -19,23 +22,21 @@ import java.util.Map;
 /**
  * Created by Kondratyev Sergey on 22.10.15.
  */
-@Ignore
-@ContextConfiguration(loader = SpringockitoContextLoader.class,
+
+@ContextConfiguration(loader = GenericXmlContextLoader.class,
         locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml","classpath:spring/aop-config.xml"})
 public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
+    @InjectMocks
     private IndexController indexController;
-    /*@ReplaceWithMock
-    @Autowired
-    private NoteService noteService;*/
-    @ReplaceWithMock
-    @Autowired
+    @Mock
     private BlogService blogService;
     private List<Article> articles;
     private List<Marker> markers;
     @Before
     public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
         articles = Mockito.mock(List.class);
         markers = Mockito.mock(List.class);
         Page<Article> articlePage = Mockito.mock(Page.class);
