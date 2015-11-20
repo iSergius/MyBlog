@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<validation-config xmlns="http://jboss.org/xml/ns/javax/validation/configuration"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/configuration"
+                   version="1.1">
+
+    <default-provider>org.hibernate.validator.HibernateValidator</default-provider>
+
+    <message-interpolator>org.hibernate.validator.messageinterpolation.ResourceBundleMessageInterpolator</message-interpolator>
+
+    <traversable-resolver>org.hibernate.validator.internal.engine.resolver.DefaultTraversableResolver</traversable-resolver>
+
+    <!--<constraint-validator-factory>org.hibernate.validator.internal.engine.constraintvalidation.ConstraintValidatorFactoryImpl</constraint-validator-factory>-->
+
+    <parameter-name-provider>org.hibernate.validator.internal.engine.DefaultParameterNameProvider</parameter-name-provider>
+
+    <executable-validation enabled="true">
+        <default-validated-executable-types>
+            <executable-type>ALL</executable-type>
+        </default-validated-executable-types>
+    </executable-validation>
+
+    <constraint-mapping>META-INF/Article.cm.xml</constraint-mapping>
+    <constraint-mapping>META-INF/Marker.cm.xml</constraint-mapping>
+    <constraint-mapping>META-INF/User.cm.xml</constraint-mapping>
+
+</validation-config>

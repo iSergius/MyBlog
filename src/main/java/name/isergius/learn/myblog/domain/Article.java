@@ -28,6 +28,7 @@ public class Article extends Model {
         this.content = "";
         this.markers = new ArrayList<>();
         this.published = false;
+        this.publishedDate = LocalDate.now();
     }
 
     public String getTitle() {

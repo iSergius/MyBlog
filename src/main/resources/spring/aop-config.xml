@@ -56,5 +56,16 @@
         </tx:attributes>
     </tx:advice>
 
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+    <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor"/>
+
+    <bean id="methodValidationInterceptor" class="org.springframework.validation.beanvalidation.MethodValidationInterceptor"/>
+
+    <aop:config>
+        <aop:pointcut id="daoCut" expression="execution(public * name.isergius.learn.myblog.dao.Dao+.*(..))"/>
+        <aop:advisor advice-ref="methodValidationInterceptor" pointcut-ref="daoCut"/>
+    </aop:config>
+
 
 </beans>

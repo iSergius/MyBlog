@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping validation-mapping-1.1.xsd"
+                     xmlns="http://jboss.org/xml/ns/javax/validation/mapping"
+                     version="1.1">
+    <bean class="name.isergius.learn.myblog.domain.Article">
+        <field name="title">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">140</element>
+            </constraint>
+        </field>
+        <field name="content">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">2000</element>
+            </constraint>
+        </field>
+        <field name="publishedDate">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+        </field>
+    </bean>
+</constraint-mappings>

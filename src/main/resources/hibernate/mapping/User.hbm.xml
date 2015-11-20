@@ -7,7 +7,7 @@
         <id name="id" column="user_id" type="long">
             <generator class="identity"/>
         </id>
-        <property name="username" column="user_username" type="string" />
+        <property name="username" column="user_username" type="string" unique="true"/>
         <property name="password" column="user_password" type="string"/>
         <property name="enabled" column="user_enabled" type="boolean"/>
         <set name="authorities" table="authority_t">

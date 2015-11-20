@@ -10,83 +10,83 @@ VALUES ('Note');
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
 VALUES ('My First Article',TRUE,'<p>Article content</p>','21.10.15');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (1,1);
+VALUES (1,(SELECT marker_id FROM marker_t WHERE marker_title = 'News'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
 VALUES ('My Note',TRUE,'Test Note','22.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (2,2);
+VALUES (2,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note1',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (3,2);
+VALUES (3,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note2',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (4,2);
+VALUES (4,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note3',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (5,2);
+VALUES (5,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note4',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (6,2);
+VALUES (6,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t( article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note5',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (7,2);
+VALUES (7,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t( article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note6',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (8,2);
+VALUES (8,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note7',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (9,2);
+VALUES (9,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note8',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (10,2);
+VALUES (10,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note9',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (11,2);
+VALUES (11,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note10',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (12,2);
+VALUES (12,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note11',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (13,2);
+VALUES (13,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note12',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (14,2);
+VALUES (14,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note13',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (15,2);
+VALUES (15,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note14',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (16,2);
+VALUES (16,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note15',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (17,2);
+VALUES (17,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note16',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (18,2);
+VALUES (18,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note17',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (19,2);
+VALUES (19,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 INSERT INTO article_t(article_title, article_published, article_content, article_published_date)
-VALUES ('My Note',TRUE,'Test Note','26.10.2015');
+VALUES ('My Note18',TRUE,'Test Note','26.10.2015');
 INSERT INTO article_marker_t(article_id, marker_id)
-VALUES (20,2);
+VALUES (20,(SELECT marker_id FROM marker_t WHERE marker_title = 'Note'));
 
 --changeset Kondratyev Sergey:3 context:it
 INSERT INTO user_t(user_username,user_password,user_enabled)

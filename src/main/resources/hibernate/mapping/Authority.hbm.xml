@@ -7,7 +7,7 @@
         <id name="id" column="authority_id" type="long">
             <generator class="identity"/>
         </id>
-        <property name="title" column="authority_title" type="string" />
+        <property name="title" column="authority_title" type="string" unique="true"/>
         <set name="users" table="authority_t">
             <key>
                 <column name="user_id"/>

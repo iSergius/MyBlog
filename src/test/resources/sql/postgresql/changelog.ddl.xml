@@ -28,28 +28,27 @@
             <column name="article_id" type="INT"/>
             <column name="marker_id" type="INT"/>
         </createTable>
-        <!--<addForeignKeyConstraint baseTableName="article_marker_t" baseColumnNames="article_id"
-                                 constraintName="article_fk"
-                                 referencedTableName="article_t"
-                                 referencedColumnNames="article_id"/>
-        <addForeignKeyConstraint baseTableName="article_marker_t" baseColumnNames="marker_id" constraintName="marker_fk"
-                                 referencedTableName="marker_t"
-                                 referencedColumnNames="marker_id"/>-->
+
     </changeSet>
 
     <changeSet id="2" author="Kondratyev Sergey">
+
         <addColumn tableName="article_t">
             <column name="article_content" type="VARCHAR(2000)"/>
         </addColumn>
+
     </changeSet>
 
     <changeSet id="3" author="Kondratyev Sergey">
+
         <addColumn tableName="article_t">
             <column name="article_published_date" type="DATE"/>
         </addColumn>
+
     </changeSet>
 
     <changeSet id="4" author="Kondratyev Sergey">
+
         <createTable tableName="user_t">
             <column name="user_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="user_pk"/>
@@ -72,9 +71,35 @@
                                  constraintName="authority_user_fk"
                                  referencedTableName="user_t"
                                  referencedColumnNames="user_id"/>
+
         <addUniqueConstraint tableName="user_t"
                              columnNames="user_username"
                              constraintName="user_username_uq"/>
+
+    </changeSet>
+
+    <changeSet id="5" author="Kondratyev Sergey" context="it">
+
+        <addForeignKeyConstraint baseTableName="article_marker_t"
+                                 baseColumnNames="article_id"
+                                 constraintName="article_fk"
+                                 referencedTableName="article_t"
+                                 referencedColumnNames="article_id"/>
+
+        <addForeignKeyConstraint baseTableName="article_marker_t"
+                                 baseColumnNames="marker_id"
+                                 constraintName="marker_fk"
+                                 referencedTableName="marker_t"
+                                 referencedColumnNames="marker_id"/>
+
+        <addUniqueConstraint tableName="article_t"
+                             columnNames="article_title"
+                             constraintName="article_title_uq"/>
+
+        <addUniqueConstraint tableName="marker_t"
+                             columnNames="marker_title"
+                             constraintName="marker_title_uq"/>
+
     </changeSet>
 
 </databaseChangeLog>

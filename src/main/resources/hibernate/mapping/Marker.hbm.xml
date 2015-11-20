@@ -7,7 +7,7 @@
         <id name="id" column="marker_id" type="long">
             <generator class="identity"/>
         </id>
-        <property name="title" column="marker_title" type="string" />
+        <property name="title" column="marker_title" type="string" unique="true"/>
         <bag name="articles" table="article_marker_t">
             <key>
                 <column name="marker_id"/>
