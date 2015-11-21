@@ -35,8 +35,10 @@
                                 <p>${error}</p>
                             </div>
                         </c:if>
-                        <div class="form-group">
-                            <input type="checkbox" name="remember" value="Remember Me">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" name="remember">  Remember me
+                            </label>
                         </div>
                         <div class="form-group">
                             <input class="form-control btn btn-primary" name="submit" type="submit" value="LogIn">

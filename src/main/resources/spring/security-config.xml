@@ -16,18 +16,44 @@
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
     <security:http use-expressions="true">
-        <security:intercept-url pattern="/" requires-channel="http"/>
-        <security:intercept-url pattern="/article/*" requires-channel="http"/>
-        <security:intercept-url pattern="/note" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
-        <security:intercept-url pattern="/article/*/edit" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
-        <security:intercept-url pattern="/article/new" access="hasRole('ROLE_ADMIN')" requires-channel="https"/>
-        <security:intercept-url pattern="/login" access="permitAll()" requires-channel="https"/>
+
+        <security:intercept-url pattern="/"
+                                requires-channel="http"/>
+
+        <security:intercept-url pattern="/article/*"
+                                requires-channel="http"/>
+
+        <security:intercept-url pattern="/note"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
+        <security:intercept-url pattern="/note/*"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
+        <security:intercept-url pattern="/article/*/edit"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
+        <security:intercept-url pattern="/article/new"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
+        <security:intercept-url pattern="/login"
+                                access="permitAll()"
+                                requires-channel="https"/>
+
         <security:form-login login-page="/login"
                              default-target-url="/note"
                              authentication-failure-url="/login?error=true"
                              username-parameter="username"
                              password-parameter="password"/>
-        <security:logout logout-url="/logout" logout-success-url="/"/>
+
+        <security:logout logout-url="/logout"
+                         logout-success-url="/"/>
+
+        <security:remember-me remember-me-parameter="remember"/>
+
     </security:http>
 
     <security:authentication-manager>
