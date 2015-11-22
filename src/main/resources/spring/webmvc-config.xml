@@ -18,23 +18,13 @@
                            http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
        xmlns:aop="http://www.springframework.org/schema/aop">
 
-    <mvc:annotation-driven/>
-    <context:component-scan base-package="name.isergius.learn.myblog.ui"/>
+    <mvc:annotation-driven validator="validator" />
 
-    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/>
+    <context:component-scan base-package="name.isergius.learn.myblog.ui" />
 
-    <bean id="servletContextAttributeExporter"
-          class="org.springframework.web.context.support.ServletContextAttributeExporter"
-          lazy-init="false"
-          depends-on="noteService,blogService">
-        <property name="attributes">
-            <map>
-                <entry key="note" value-ref="noteService"/>
-                <entry key="blog" value-ref="blogService"/>
-            </map>
-        </property>
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+        <property name="useTrailingSlashMatch" value="true"/>
     </bean>
-
 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>

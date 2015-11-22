@@ -15,27 +15,23 @@
                            http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
                            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
 
-    <security:http use-expressions="true">
+    <security:http use-expressions="true" request-matcher="regex">
 
         <security:intercept-url pattern="/"
                                 requires-channel="http"/>
 
-        <security:intercept-url pattern="/article/*"
+        <security:intercept-url pattern="/article/\d/?"
                                 requires-channel="http"/>
 
-        <security:intercept-url pattern="/note"
+        <security:intercept-url pattern="/note/?"
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
 
-        <security:intercept-url pattern="/note/*"
+        <security:intercept-url pattern="/article/\d/edit/?"
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
 
-        <security:intercept-url pattern="/article/*/edit"
-                                access="hasRole('ROLE_ADMIN')"
-                                requires-channel="https"/>
-
-        <security:intercept-url pattern="/article/new"
+        <security:intercept-url pattern="/article/new/?"
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
 
