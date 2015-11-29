@@ -24,7 +24,11 @@ import java.util.Map;
  */
 
 @ContextConfiguration(loader = GenericXmlContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml","classpath:spring/aop-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml",
+                "classpath:spring/spring-config.xml",
+                "classpath:test-spring-config.xml",
+                "classpath:spring/security-config.xml",
+                "classpath:spring/aop-config.xml"})
 public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired

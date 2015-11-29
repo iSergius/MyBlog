@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -79,6 +76,14 @@ public class ArticleController {
         modelAndView.addObject("title", "New Article");
         Article article = new Article();
         modelAndView.addObject("article", article);
+        return modelAndView;
+    }
+
+    @RequestMapping(path = "/{id}/delete", method = RequestMethod.POST)
+    public ModelAndView delete(@PathVariable("id") long id) {
+        ModelAndView modelAndView = new ModelAndView();
+        noteService.deleteArticle(id);
+        modelAndView.setView(new RedirectView("/note"));
         return modelAndView;
     }
 

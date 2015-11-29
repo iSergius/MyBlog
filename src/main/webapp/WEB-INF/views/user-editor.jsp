@@ -38,7 +38,7 @@
         </header>
         <div class="container">
             <div class="row">
-                <form method="post" action="/user/edit" class="col-lg-offset-4 col-lg-4"">
+                <form method="post" action="/user/edit" class="col-lg-offset-4 col-lg-4">
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     <input type="hidden" name="id" value="${user.id}"/>
                     <div class="form-group">

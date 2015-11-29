@@ -15,6 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.support.GenericXmlContextLoader;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -26,7 +30,11 @@ import java.util.Map;
  */
 
 @ContextConfiguration(loader = GenericXmlContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml","classpath:spring/aop-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml",
+                "classpath:spring/spring-config.xml",
+                "classpath:test-spring-config.xml",
+                "classpath:spring/security-config.xml",
+                "classpath:spring/aop-config.xml"})
 public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
@@ -36,12 +44,16 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
     private NoteService noteService;
     @Mock
     private BlogService blogService;
+
+    private MockMvc mockMvc;
+
     private List<Article> articles = new ArrayList<>();
     private List<Marker> markers = new ArrayList<>();
     private Article article;
 
     @Before
     public void setUp() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
         MockitoAnnotations.initMocks(this);
         articles.add(new Article());
         article = Mockito.mock(Article.class);
@@ -112,5 +124,13 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
         ModelAndView modelAndView = articleController.save(article);
 
         Mockito.verify(noteService).save(article);
+    }
+
+    @Test
+    public void testDelete() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.post("/article/1/delete"))
+                .andExpect(MockMvcResultMatchers.redirectedUrl("/note"));
+
+        Mockito.verify(noteService).deleteArticle(1L);
     }
 }

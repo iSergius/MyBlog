@@ -63,4 +63,40 @@ public class NoteServiceImpl implements NoteService {
             }
         }
     }
+
+    @Override
+    public void save(Marker marker) {
+
+        if (marker.getId() == null) {
+            try {
+                markerDao.create(marker);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                markerDao.update(marker);
+            } catch (DaoException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void deleteArticle(long id) {
+        try {
+            articleDao.deleteBy(id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deleteMarker(long id) {
+        try {
+            markerDao.deleteBy(id);
+        } catch (DaoException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -25,7 +25,11 @@ import java.util.Map;
  * Created by Kondratyev Sergey on 25.10.15.
  */
 @ContextConfiguration(loader = GenericXmlContextLoader.class,
-        locations = {"classpath:spring/webmvc-config.xml","classpath:spring/spring-config.xml","classpath:test-spring-config.xml","classpath:spring/security-config.xml","classpath:spring/aop-config.xml"})
+        locations = {"classpath:spring/webmvc-config.xml",
+                "classpath:spring/spring-config.xml",
+                "classpath:test-spring-config.xml",
+                "classpath:spring/security-config.xml",
+                "classpath:spring/aop-config.xml"})
 public class NoteControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Autowired
