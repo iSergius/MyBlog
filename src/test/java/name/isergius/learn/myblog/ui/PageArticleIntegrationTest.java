@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 
-import java.time.LocalDate;
-
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -15,7 +13,7 @@ import static com.codeborne.selenide.Selenide.open;
  */
 
 public class PageArticleIntegrationTest extends Assert {
-    //@Ignore
+
     @Test
     public void testShowArticle() throws Exception {
         open("/article/1");
@@ -24,7 +22,7 @@ public class PageArticleIntegrationTest extends Assert {
         assertEquals("h2", $(Selectors.byText("My First Article")).getTagName());
         assertEquals("My First Article", $("article").findElement(By.tagName("h2")).getText());
         assertEquals("Article content", $("article").findElement(By.tagName("p")).getText());
-        assertEquals(LocalDate.now().toString(),$("article").findElement(By.className("date")).getText());
+        assertEquals("2015-10-21",$("article").findElement(By.className("date")).getText());
         assertEquals("News",$("article").findElement(By.className("marker")).getText());
         assertEquals("iSergius Copyright 2015", $(By.tagName("footer")).getText());
     }

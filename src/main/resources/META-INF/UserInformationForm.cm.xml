@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<constraint-mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                     xsi:schemaLocation="http://jboss.org/xml/ns/javax/validation/mapping validation-mapping-1.1.xsd"
+                     xmlns="http://jboss.org/xml/ns/javax/validation/mapping"
+                     version="1.1">
+    <bean class="name.isergius.learn.myblog.ui.UserInformationForm">
+
+        <field name="userName">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+            <constraint annotation="org.hibernate.validator.constraints.Email"/>
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">140</element>
+            </constraint>
+        </field>
+        <field name="fullName">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">140</element>
+            </constraint>
+        </field>
+        <field name="about">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">255</element>
+            </constraint>
+        </field>
+
+        <field name="newEmail">
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Email"/>
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Equal">
+                <element name="group">email</element>
+            </constraint>
+        </field>
+        <field name="confirmEmail">
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Email"/>
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Equal">
+                <element name="group">email</element>
+            </constraint>
+        </field>
+
+        <field name="newPassword">
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Password"/>
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Equal">
+                <element name="group">password</element>
+            </constraint>
+        </field>
+        <field name="confirmPassword">
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Password"/>
+            <constraint annotation="name.isergius.learn.myblog.ui.validator.Equal">
+                <element name="group">email</element>
+            </constraint>
+        </field>
+
+        <field name="password">
+            <constraint annotation="javax.validation.constraints.NotNull"/>
+        </field>
+
+    </bean>
+
+</constraint-mappings>

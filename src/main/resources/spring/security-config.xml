@@ -27,6 +27,14 @@
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
 
+        <security:intercept-url pattern="/user/?"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
+        <security:intercept-url pattern="/user/edit/?"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
         <security:intercept-url pattern="/article/\d/edit/?"
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
@@ -50,6 +58,8 @@
 
         <security:remember-me remember-me-parameter="remember"/>
 
+        <security:custom-filter ref="userInformationSessionInjector" position="LAST"/>
+
     </security:http>
 
     <security:authentication-manager>
@@ -60,6 +70,10 @@
 
     <bean id="bcrypt" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
         <constructor-arg name="strength" value="11"/>
+    </bean>
+    
+    <bean id="userInformationSessionInjector" class="name.isergius.learn.myblog.ui.UserInformationBinderFilter">
+        <property name="userService" ref="userService"/>
     </bean>
 
 </beans>

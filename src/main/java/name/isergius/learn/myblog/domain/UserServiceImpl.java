@@ -4,6 +4,10 @@ import name.isergius.learn.myblog.dao.AuthorityDao;
 import name.isergius.learn.myblog.dao.DaoException;
 import name.isergius.learn.myblog.dao.UserDao;
 import name.isergius.learn.myblog.ui.Page;
+import name.isergius.learn.myblog.ui.UserInformationForm;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -65,6 +69,27 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void updateUser(UserInformationForm userInformationForm) throws UserServiceException {
+        User user = null;
+        try {
+            user = userDao.readBy(userInformationForm.getId());
+        } catch (DaoException e) {
+            throw new UserServiceException("User is not found");
+        }
+        if (passwordEncoder.matches(userInformationForm.getPassword(),user.getPassword())) {
+            userInformationForm.exportTo(user);
+            encodeUserPassword(user);
+            try {
+                userDao.update(user);
+            } catch (DaoException e) {
+                throw new UserServiceException(e.getMessage(),e);
+            }
+        } else {
+            throw new UserServiceException("Password incorrect");
+        }
+    }
+
+    @Override
     public Page<User> getUsers(Long size) {
         return new Page<>(userDao.read(),size);
     }
@@ -72,6 +97,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Authority> getAllAuthorities() {
         return authorityDao.read().result(0L,0L);
+    }
+
+    @Override
+    public User getCurrentUser() throws UserServiceException {
+        User result = new User();
+        SecurityContext context = SecurityContextHolder.getContext();
+        Authentication authentication = context.getAuthentication();
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            try {
+                result = userDao.readBy(((UserDetails) principal).getUsername());
+            } catch (DaoException e) {
+                throw new UserServiceException("User is not found", e);
+            }
+        } else if (principal instanceof String) {
+            result.setUsername((String) authentication.getPrincipal());
+        }
+        return result;
     }
 
     private void encodeUserPassword(User user) {

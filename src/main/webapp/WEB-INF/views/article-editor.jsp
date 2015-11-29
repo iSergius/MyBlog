@@ -27,6 +27,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/">Home</a></li>
                     <li><a href="/note">Note</a></li>
+                    <li><a href="/user">User</a></li>
                 </ul>
                 <form class="navbar-form navbar-right" action="/logout" method="post">
                     <input class="btn btn-link" type="submit" value="Log out" />

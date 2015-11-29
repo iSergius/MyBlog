@@ -16,5 +16,8 @@
             </key>
             <one-to-many class="name.isergius.learn.myblog.domain.Authority" not-found="ignore"/>
         </set>
+        <property name="fullName" column="user_fullname" type="string"/>
+        <property name="about" column="user_about" type="string"/>
+        <property name="email" column="user_email" type="string"/>
     </class>
 </hibernate-mapping>

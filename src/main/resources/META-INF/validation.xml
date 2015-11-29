@@ -23,5 +23,6 @@
     <constraint-mapping>META-INF/Article.cm.xml</constraint-mapping>
     <constraint-mapping>META-INF/Marker.cm.xml</constraint-mapping>
     <constraint-mapping>META-INF/User.cm.xml</constraint-mapping>
+    <constraint-mapping>META-INF/UserInformationForm.cm.xml</constraint-mapping>
 
 </validation-config>

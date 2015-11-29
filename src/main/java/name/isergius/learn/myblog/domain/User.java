@@ -15,6 +15,9 @@ public class User extends Model {
     private String password;
     private boolean enabled;
     private Set<GrantedAuthority> authorities;
+    private String fullName;
+    private String about;
+    private String email;
 
     public User() {
     }
@@ -64,5 +67,29 @@ public class User extends Model {
 
     public void setAuthorities(Set<GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
