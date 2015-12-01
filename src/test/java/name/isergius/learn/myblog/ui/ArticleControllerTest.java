@@ -62,8 +62,8 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
         Mockito.when(article.getTitle()).thenReturn("My First Article");
         Mockito.when(noteService.getMarkers(1000L)).thenReturn(markersPage);
         Mockito.when(noteService.getArticleBy(1L)).thenReturn(article);
-        Mockito.when(markersPage.result(0L)).thenReturn(markers);
-        Mockito.when(articlePage.result(10L)).thenReturn(articles);
+        Mockito.when(markersPage.result()).thenReturn(markers);
+        Mockito.when(articlePage.result()).thenReturn(articles);
         Mockito.when(blogService.retrieveArticles(10L)).thenReturn(articlePage);
         Mockito.when(blogService.retrieveAllMarkers()).thenReturn(markers);
         Mockito.when(blogService.retrieveArticleBy(1L)).thenReturn(article);

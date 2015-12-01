@@ -36,34 +36,31 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
     private IndexController indexController;
     @Mock
     private BlogService blogService;
-    private List<Article> articles;
+    @Mock
+    private Page<Article> articles;
+    @Mock
     private List<Marker> markers;
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        articles = Mockito.mock(List.class);
-        markers = Mockito.mock(List.class);
-        Page<Article> articlePage = Mockito.mock(Page.class);
-        Mockito.when(articles.get(0)).thenReturn(Article.class.newInstance());
-        Mockito.when(articlePage.result(0L)).thenReturn(articles);
-        Mockito.when(blogService.retrieveArticles(10L)).thenReturn(articlePage);
+        Mockito.when(blogService.retrieveArticles(10L)).thenReturn(articles);
         Mockito.when(blogService.retrieveAllMarkers()).thenReturn(markers);
         Mockito.when(blogService.getTitle()).thenReturn("MyBlog");
     }
 
     @Test
     public void testSetArticlesInModel() throws Exception {
-        ModelAndView modelAndView = indexController.main();
+        ModelAndView modelAndView = indexController.main(null);
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("articles"));
-        List<Article> articles = (List<Article>)model.get("articles");
+        Page<Article> articles = (Page<Article>)model.get("articles");
         Assert.assertEquals(this.articles, articles);
     }
 
     @Test
     public void testSetMarkersInModel() throws Exception {
-        ModelAndView modelAndView = indexController.main();
+        ModelAndView modelAndView = indexController.main(null);
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("markers"));
@@ -74,7 +71,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testSetTitleInModel() throws Exception {
-        ModelAndView modelAndView = indexController.main();
+        ModelAndView modelAndView = indexController.main(null);
         Map<String, Object> model = modelAndView.getModel();
         Assert.assertTrue(model.containsKey("title"));
         Assert.assertEquals("MyBlog",model.get("title"));

@@ -44,18 +44,45 @@
                         <th>Published</th>
                         <th><a href="/article/new" class="btn btn-sm btn-success pull-right"><span class="glyphicon glyphicon-plus"></span></a></th>
                     </tr>
-                    <c:forEach items="${articles}" var="article">
+                    <c:forEach items="${articles.result()}" var="article">
                     <tr>
                         <td># ${article.id}</td>
                         <td>${article.title}</td>
                         <td>${article.publishedDate}</td>
                         <td>
-                            <a href="/article/${article.id}/edit" class="btn btn-sm btn-primary"><span class="glyphicon glyphicon-edit"></span>Edit</a>
-                            <a href="/article/${article.id}/delete" class="btn btn-sm btn-danger"><span class="glyphicon glyphicon-remove"></span>Delete</a>
+                            <a href="/article/${article.id}/edit" class="btn btn-sm btn-primary pull-right">Edit</a>
+                            <form action="/article/${article.id}/delete" method="post" class="form-inline">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="submit" name="delete" class="btn btn-sm btn-danger pull-right" value="Delete"/>
+                            </form>
                         </td>
                     </tr>
                     </c:forEach>
                 </table>
+                <nav>
+                    <ul class="pagination">
+                        <li>
+                            <a href="?page=${articles.backwardPagination()}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <c:forEach begin="${articles.beginPagination()}" end="${articles.endPagination()}" var="page">
+                            <c:choose>
+                                <c:when test="${page eq articles.page}">
+                                    <li class="active"><a href="#">${page}<span class="sr-only"></span></a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="<c:url value="/note?markerPage=${markers.page}&articlePage=${page}"/>">${page}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <li>
+                            <a href="?page=${articles.forwardPagination()}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             <div id="markersTable" class="col-lg-4">
                 <table class="table">
@@ -63,29 +90,56 @@
                         <th>Id</th>
                         <th>Title</th>
                         <th>
-                            <form action="/marker/edit" method="post" class="form-inline">
+                            <form action="/marker/edit" method="post" class="form-inline pull-right">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <input type="text" name="title" class="form-control input-sm">
-                                <input type="submit" name="submit" class="btn btn-sm btn-success pull-right" value="New">
+                                <input type="submit" name="submit" class="btn btn-sm btn-success" value="New">
                             </form>
                         </th>
                     </tr>
-                    <c:forEach items="${markers}" var="marker">
+                    <c:forEach items="${markers.result()}" var="marker">
                     <tr>
                         <td># ${marker.id}</td>
                         <td>${marker.title}</td>
                         <td>
-                            <form action="/marker/edit" method="post" class="form-inline">
+                            <form action="/marker/edit" method="post" class="form-inline pull-right">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                 <input type="hidden" name="id" value="${marker.id}"/>
                                 <input type="text" name="title" class="form-control input-sm">
                                 <input type="submit" name="submit" class="btn btn-sm btn-primary" value="Save">
-                                <a href="/marker/${marker.id}/delete" class="btn btn-sm btn-danger">Delete</a>
+                            </form>
+                            <form action="/marker/${marker.id}/delete" method="post" class="form-inline pull-right">
+                                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                <input type="submit" name="delete" class="btn btn-sm btn-danger" value="Delete"/>
                             </form>
                         </td>
                     </tr>
                     </c:forEach>
                 </table>
+                <nav>
+                    <ul class="pagination">
+                        <li>
+                            <a href="?page=${markers.backwardPagination()}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <c:forEach begin="${markers.beginPagination()}" end="${markers.endPagination()}" var="page">
+                            <c:choose>
+                                <c:when test="${page eq markers.page}">
+                                    <li class="active"><a href="#">${page}<span class="sr-only"></span></a></li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li><a href="<c:url value="/note?markerPage=${page}&articlePage=${articles.page}"/>">${page}</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <li>
+                            <a href="?page=${markers.forwardPagination()}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
         <footer class="text-center">

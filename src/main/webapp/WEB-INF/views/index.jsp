@@ -26,11 +26,11 @@
     </div>
     <div class="markers col-lg-6">
       <c:forEach items="${markers}" var="marker">
-         <h3> <span class="marker pull-left text-primary"> <a href="/?marker=${marker.id}"> ${marker.title} </a> </span> </h3>
+         <h3> <span class="marker pull-left text-primary"> <a href="/filter/marker/${marker.id}"> ${marker.title} </a> </span> </h3>
       </c:forEach>
     </div>
   </header>
-  <c:forEach items="${articles}" var="article">
+  <c:forEach items="${articles.result()}" var="article">
   <div class="row">
     <div class="col-lg-offset-1 col-lg-10" >
       <article class="panel panel-default">
@@ -45,7 +45,7 @@
         </div>
         <div class="panel-footer">
           <c:forEach items="${article.markers}" var="marker">
-            <a href="/?marker=${marker.id}"><span class="marker text-primary">${marker.title}</span></a>
+            <a href="/filter/marker/${marker.id}"><span class="marker text-primary">${marker.title}</span></a>
           </c:forEach>
         </div>
 
@@ -53,6 +53,30 @@
     </div>
   </div>
   </c:forEach>
+  <nav>
+    <ul class="pagination center">
+      <li>
+        <a href="?page=${articles.backwardPagination()}" aria-label="Previous">
+          <span aria-hidden="true">&laquo;</span>
+        </a>
+      </li>
+      <c:forEach begin="${articles.beginPagination()}" end="${articles.endPagination()}" var="page">
+        <c:choose>
+          <c:when test="${page eq articles.page}">
+            <li class="active"><a href="#">${page}<span class="sr-only"></span></a></li>
+          </c:when>
+          <c:otherwise>
+            <li><a href="?page=${page}">${page}</a></li>
+          </c:otherwise>
+        </c:choose>
+      </c:forEach>
+      <li>
+        <a href="?page=${articles.forwardPagination()}" aria-label="Next">
+          <span aria-hidden="true">&raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
   <footer class="well text-center">
     iSergius Copyright 2015
   </footer>

@@ -54,35 +54,35 @@ public class NoteControllerTest extends AbstractJUnit4SpringContextTests {
         markerPage = Mockito.mock(Page.class);
         Mockito.when(noteService.getArticles(10L)).thenReturn(articlePage);
         Mockito.when(noteService.getMarkers(10L)).thenReturn(markerPage);
-        Mockito.stub(articlePage.result(0L)).toReturn(articles);
-        Mockito.stub(markerPage.result(0L)).toReturn(markers);
+        Mockito.stub(articlePage.result()).toReturn(articles);
+        Mockito.stub(markerPage.result()).toReturn(markers);
         Mockito.when(blogService.getTitle()).thenReturn("MyBlog");
     }
 
     @Test
     public void testSetArticlesInModel() throws Exception {
-        ModelAndView modelAndView = noteController.main();
+        ModelAndView modelAndView = noteController.main(0L,0L);
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("articles"));
-        List<Article> articles = (List<Article>)model.get("articles");
-        Assert.assertEquals(this.articles, articles);
+        Page<Article> articles = (Page<Article>)model.get("articles");
+        Assert.assertEquals(this.articlePage, articles);
     }
 
     @Test
     public void testSetMarkersInModel() throws Exception {
-        ModelAndView modelAndView = noteController.main();
+        ModelAndView modelAndView = noteController.main(0L,0L);
         Map<String, Object> model = modelAndView.getModel();
 
         Assert.assertTrue(model.containsKey("markers"));
-        List<Marker> markers = (List<Marker>)model.get("markers");
-        Assert.assertEquals(this.markers, markers);
+        Page<Marker> markers = (Page<Marker>)model.get("markers");
+        Assert.assertEquals(this.markerPage, markers);
 
     }
 
     @Test
     public void testSetTitleInModel() throws Exception {
-        ModelAndView modelAndView = noteController.main();
+        ModelAndView modelAndView = noteController.main(0L,0L);
         Map<String, Object> model = modelAndView.getModel();
         Assert.assertTrue(model.containsKey("title"));
         Assert.assertEquals("MyBlog",model.get("title"));

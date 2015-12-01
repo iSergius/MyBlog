@@ -28,10 +28,9 @@ public class ArticleController {
     @Autowired
     private MarkerDao markerDao;
 
-    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", params = {"articlePage","markerPage"}, method = RequestMethod.GET)
     public ModelAndView show(@PathVariable("id") long articleId) {
         ModelAndView modelAndView = new ModelAndView("article");
-
         Article article = blogService.retrieveArticleBy(articleId);
         List<Marker> markers = blogService.retrieveAllMarkers();
 
@@ -48,7 +47,7 @@ public class ArticleController {
         Article article = noteService.getArticleBy(id);
         Page<Marker> markers = noteService.getMarkers(1000L);
 
-        modelAndView.addObject("markers",markers.result(0L));
+        modelAndView.addObject("markers",markers.result());
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article",article);
 
@@ -61,10 +60,10 @@ public class ArticleController {
         Page<Marker> markers = noteService.getMarkers(1000L);
         noteService.save(article);
 
-        modelAndView.addObject("markers",markers.result(0L));
+        modelAndView.addObject("markers",markers.result());
         modelAndView.addObject("title", article.getTitle());
         modelAndView.addObject("article", article);
-        modelAndView.setView(new RedirectView("/article/"+article.getId()+"/edit",false));
+        modelAndView.setView(new RedirectView("/note"));
         return modelAndView;
     }
 
@@ -72,7 +71,7 @@ public class ArticleController {
     public ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("article-editor");
         Page<Marker> markers = noteService.getMarkers(1000L);
-        modelAndView.addObject("markers",markers.result(0L));
+        modelAndView.addObject("markers",markers.result());
         modelAndView.addObject("title", "New Article");
         Article article = new Article();
         modelAndView.addObject("article", article);
