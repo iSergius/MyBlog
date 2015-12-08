@@ -28,7 +28,7 @@ public class ArticleController {
     @Autowired
     private MarkerDao markerDao;
 
-    @RequestMapping(value = "/{id}", params = {"articlePage","markerPage"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable("id") long articleId) {
         ModelAndView modelAndView = new ModelAndView("article");
         Article article = blogService.retrieveArticleBy(articleId);

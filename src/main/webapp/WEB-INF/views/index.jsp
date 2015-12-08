@@ -22,7 +22,7 @@
 <div class="container">
   <header class="jumbotron row">
     <div class="col-lg-3">
-      <h1 class="page-header">MyBlog</h1>
+      <a href="/"><h1 class="page-header">MyBlog</h1></a>
     </div>
     <div class="markers col-lg-6">
       <c:forEach items="${markers}" var="marker">
@@ -36,12 +36,14 @@
       <article class="panel panel-default">
 
         <div class="panel-heading">
-          <h2 class="panel-title pull-left">${article.title}</h2>
+          <a href="/article/${article.id}"><h2 class="panel-title pull-left">${article.title}</h2></a>
           <span class="date pull-right">${article.publishedDate}</span>
           <span class="clearfix"></span>
         </div>
         <div class="panel-body">
-          ${article.content}
+          ${article.disclaimer}
+          <br>
+          <a href="/article/${article.id}">Read more</a>
         </div>
         <div class="panel-footer">
           <c:forEach items="${article.markers}" var="marker">

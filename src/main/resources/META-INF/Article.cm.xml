@@ -18,5 +18,10 @@
         <field name="publishedDate">
             <constraint annotation="javax.validation.constraints.NotNull"/>
         </field>
+        <field name="disclaimer">
+            <constraint annotation="javax.validation.constraints.Size">
+                <element name="max">255</element>
+            </constraint>
+        </field>
     </bean>
 </constraint-mappings>

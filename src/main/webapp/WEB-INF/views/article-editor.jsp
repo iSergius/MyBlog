@@ -46,6 +46,10 @@
                     <form:input cssClass="form-control" size="140" path="title"/>
                 </div>
                 <div class="form-group">
+                    <form:label path="disclaimer">Disclaimer</form:label>
+                    <form:textarea rows="8" cols="140" cssClass="form-control" path="disclaimer"/>
+                </div>
+                <div class="form-group">
                     <form:label path="content">Content</form:label>
                     <form:textarea rows="20" cols="140" cssClass="form-control" path="content"/>
                 </div>

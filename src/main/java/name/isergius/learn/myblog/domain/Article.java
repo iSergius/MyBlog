@@ -16,6 +16,7 @@ public class Article extends Model {
     private List<Marker> markers;
     private Boolean published;
     private LocalDate publishedDate;
+    private String disclaimer;
 
     public Article() {
         super();
@@ -71,4 +72,11 @@ public class Article extends Model {
         this.publishedDate = publishedDate;
     }
 
+    public String getDisclaimer() {
+        return disclaimer;
+    }
+
+    public void setDisclaimer(String disclaimer) {
+        this.disclaimer = disclaimer;
+    }
 }

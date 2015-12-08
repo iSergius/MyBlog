@@ -22,7 +22,7 @@
     <div class="container">
         <header class="jumbotron row">
             <div class="col-lg-3">
-                <h1 class="page-header">MyBlog</h1>
+                <a href="/"> <h1 class="page-header">MyBlog</h1> </a>
             </div>
             <div class="markers col-lg-6">
                 <c:forEach items="${markers}" var="marker">
