@@ -11,13 +11,18 @@
     </appender>
 
     <root>
-        <level value="DEBUG" />
+        <level value="INFO" />
         <appender-ref ref="console" />
     </root>
 
     <logger name="org.hibernate">
         <level value="INFO" />
         <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework.security">
+        <level value="TRACE"/>
+        <appender-ref ref="console"/>
     </logger>
 
 </log4j:configuration>

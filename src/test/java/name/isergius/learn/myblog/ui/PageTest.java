@@ -122,6 +122,16 @@ public class PageTest extends Assert {
         assertEquals(new Long(2), page.backwardPagination());
     }
 
+    @Test
+    public void testPaginationWithReturnEmptyPortion() throws Exception {
+        when(portion.count()).thenReturn(0L);
 
+        page = new Page<Article>(portion,10L);
 
+        assertEquals(new Long(0), page.count());
+        assertEquals(new Long(0), page.beginPagination());
+        assertEquals(new Long(0), page.endPagination());
+        assertEquals(new Long(0), page.forwardPagination());
+        assertEquals(new Long(0), page.backwardPagination());
+    }
 }

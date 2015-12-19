@@ -23,7 +23,9 @@ public class Page<T extends Model> {
         this.portion = portion;
         this.size = size;
         long countItems = portion.count();
-        if (size == 0L) {
+        if (countItems == 0) {
+            pageCount = 0L;
+        } else if (size == 0L) {
             pageCount = 1L;
         } else {
             pageCount = countItems / size;
@@ -54,7 +56,8 @@ public class Page<T extends Model> {
 
     public Long beginPagination() {
         long result = 1;
-        if (field * 2 + pagePlace > pageCount) result = 1;
+        if (pageCount == 0) result = 0;
+        else if (field * 2 + pagePlace > pageCount) result = 1;
         else if (page > pageCount - field) result = pageCount - (field * 2 + pagePlace);
         else if (page > field) result = page - field;
         return result;
@@ -77,6 +80,7 @@ public class Page<T extends Model> {
     public Long backwardPagination() {
         long result = beginPagination() - 1;
         if (beginPagination() == 1) result = 1;
+        else if (beginPagination() == 0) result = 0;
         return result;
     }
 
