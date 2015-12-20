@@ -15,7 +15,7 @@ public class PageNoteIntegrationTest {
     public void testShowPage() throws Exception {
         open("/note/");
         logIn();
-        $("#articlesTable").$$("tr").shouldHaveSize(11);
+        $("#articlesTable").$$("tr").shouldHaveSize(5+1);
         $("#markersTable").$$("tr").shouldHaveSize(3);
     }
 

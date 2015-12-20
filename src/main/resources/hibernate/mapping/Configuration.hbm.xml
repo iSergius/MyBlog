@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+    <class name="name.isergius.learn.myblog.domain.Setting" table="setting_t">
+        <id name="id" column="setting_id" type="long">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="setting_name" type="java.lang.String" unique="true"/>
+        <property name="title" column="setting_title" type="java.lang.String"/>
+        <property name="description" column="setting_description" type="java.lang.String"/>
+        <property name="value" column="setting_value" type="java.lang.String"/>
+        <property name="type" column="setting_type" type="java.lang.String"/>
+    </class>
+</hibernate-mapping>

@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -20,10 +22,17 @@ import java.util.List;
 @RequestMapping("/article")
 public class ArticleController {
 
+    public static final String MARKERS_CLOUD_PAGE_LENGTH = "name.isergius.learn.myblog.ui.ArticleController.markersCloudPageLength.Long";
+    public static final String LOCALDATE_FORMAT = "name.isergius.learn.myblog.ui.ArticleController.localDateFormat.String";
+
+    @Autowired
+    @Qualifier("configurationService")
+    private ConfigurationService configurationService;
     @Autowired
     @Qualifier("blogService")
     private BlogService blogService;
     @Autowired
+    @Qualifier("noteService")
     private NoteService noteService;
     @Autowired
     private MarkerDao markerDao;
@@ -45,7 +54,7 @@ public class ArticleController {
     public ModelAndView edit(@PathVariable("id") long id) {
         ModelAndView modelAndView = new ModelAndView("article-editor");
         Article article = noteService.getArticleBy(id);
-        Page<Marker> markers = noteService.getMarkers(1000L);
+        Page<Marker> markers = noteService.getMarkers(configurationService.getProperty(MARKERS_CLOUD_PAGE_LENGTH,Long.class));
 
         modelAndView.addObject("markers",markers.result());
         modelAndView.addObject("title", article.getTitle());
@@ -57,7 +66,7 @@ public class ArticleController {
     @RequestMapping(path = {"/{id}/edit","/edit"}, method = RequestMethod.POST)
     public ModelAndView save(Article article) {
         ModelAndView modelAndView = new ModelAndView();
-        Page<Marker> markers = noteService.getMarkers(1000L);
+        Page<Marker> markers = noteService.getMarkers(configurationService.getProperty(MARKERS_CLOUD_PAGE_LENGTH,Long.class));
         noteService.save(article);
 
         modelAndView.addObject("markers",markers.result());
@@ -70,7 +79,7 @@ public class ArticleController {
     @RequestMapping(path = "/new", method = RequestMethod.GET)
     public ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("article-editor");
-        Page<Marker> markers = noteService.getMarkers(1000L);
+        Page<Marker> markers = noteService.getMarkers(configurationService.getProperty(MARKERS_CLOUD_PAGE_LENGTH,Long.class));
         modelAndView.addObject("markers",markers.result());
         modelAndView.addObject("title", "New Article");
         Article article = new Article();
@@ -88,7 +97,7 @@ public class ArticleController {
 
     @InitBinder
     public void binder(WebDataBinder binder) {
-        binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditor("yyyy-MM-dd"));
+        //binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditor(configurationService.getProperty(LOCALDATE_FORMAT)));
         binder.registerCustomEditor(List.class, "markers", new MarkerCollectionFormBinder<>(markerDao,List.class));
     }
 

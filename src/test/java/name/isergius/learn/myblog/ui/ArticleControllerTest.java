@@ -1,9 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.BlogService;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.NoteService;
+import name.isergius.learn.myblog.domain.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +41,8 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
     private NoteService noteService;
     @Mock
     private BlogService blogService;
+    @Mock
+    private ConfigurationService configurationService;
 
     private MockMvc mockMvc;
 
@@ -59,6 +58,8 @@ public class ArticleControllerTest extends AbstractJUnit4SpringContextTests {
         article = Mockito.mock(Article.class);
         Page<Marker> markersPage = Mockito.mock(Page.class);
         Page<Article> articlePage = Mockito.mock(Page.class);
+        Mockito.when(configurationService.getProperty(ArticleController.MARKERS_CLOUD_PAGE_LENGTH,Long.class)).thenReturn(1000L);
+        Mockito.when(configurationService.getProperty(ArticleController.LOCALDATE_FORMAT,String.class)).thenReturn("yyyy-MM-dd");
         Mockito.when(article.getTitle()).thenReturn("My First Article");
         Mockito.when(noteService.getMarkers(1000L)).thenReturn(markersPage);
         Mockito.when(noteService.getArticleBy(1L)).thenReturn(article);

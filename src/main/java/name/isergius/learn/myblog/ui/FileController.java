@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import name.isergius.learn.myblog.domain.ConfigurationService;
 import name.isergius.learn.myblog.domain.FileMetadata;
 import name.isergius.learn.myblog.domain.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,11 @@ import java.io.OutputStream;
 @RequestMapping("/file")
 public class FileController {
 
+    public static final String FILEMETADATA_PAGE_LENGTH = "name.isergius.learn.myblog.ui.FileController.fileMetadataPageLength.Long";
+
+    @Autowired
+    @Qualifier("configurationService")
+    private ConfigurationService configurationService;
     @Autowired
     @Qualifier("fileService")
     private FileService fileService;
@@ -32,7 +38,7 @@ public class FileController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView show(@RequestParam(defaultValue = "1") Long page) {
         ModelAndView modelAndView = new ModelAndView();
-        Page<FileMetadata> files = fileService.getFilesMetadata(10L);
+        Page<FileMetadata> files = fileService.getFilesMetadata(configurationService.getProperty(FILEMETADATA_PAGE_LENGTH,Long.class));
 
         modelAndView.addObject("files", files);
         modelAndView.addObject("page", page);

@@ -16,22 +16,25 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/note")
 public class NoteController {
 
+    public static final String ARTICLES_PAGE_LENGTH = "name.isergius.learn.myblog.ui.NoteController.articlesPageLength.Long";
+    public static final String MARKERS_PAGE_LENGTH = "name.isergius.learn.myblog.ui.NoteController.markersPageLength.Long";
+
+    @Autowired
+    @Qualifier("configurationService")
+    private ConfigurationService configurationService;
     @Autowired
     @Qualifier("noteService")
     private NoteService noteService;
-
     @Autowired
     @Qualifier("blogService")
     private BlogService blogService;
 
     @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView main(@RequestParam(name = "articlePage", required = false) Long articlePage, @RequestParam(name = "markerPage", required = false) Long markerPage) {
+    public ModelAndView main(@RequestParam(name = "articlePage", required = false, defaultValue = "0") Long articlePage,
+                             @RequestParam(name = "markerPage", required = false, defaultValue = "0") Long markerPage) {
         ModelAndView modelAndView = new ModelAndView("note");
-        Page<Article> articles = noteService.getArticles(10L);
-        Page<Marker> markers = noteService.getMarkers(10L);
-
-        if (articlePage == null) articlePage = 0L;
-        if (markerPage == null) markerPage = 0L;
+        Page<Article> articles = noteService.getArticles(configurationService.getProperty(ARTICLES_PAGE_LENGTH,Long.class));
+        Page<Marker> markers = noteService.getMarkers(configurationService.getProperty(MARKERS_PAGE_LENGTH,Long.class));
 
         articles.setPage(articlePage);
         markers.setPage(markerPage);

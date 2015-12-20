@@ -9,6 +9,8 @@ import java.util.List;
  */
 public interface BlogService {
 
+    String BLOG_TITLE = "name.isergius.learn.myblog.domain.BlogService.blogTitle.String";
+
     String getTitle();
 
     Marker retrieveMarkerBy(long id);

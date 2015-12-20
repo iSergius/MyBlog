@@ -97,3 +97,30 @@ VALUES ((SELECT user_id FROM user_t WHERE user_username = 'admin@localhost'),'RO
 --changeset Kondratyev Sergey:4 context:it
 INSERT INTO file_t(file_name, file_mime)
 VALUES ('picture.jpg','image/jpg');
+
+--changeset Kondratyev Sergey:5 context:it
+INSERT INTO setting_t(setting_name, setting_title, setting_value, setting_type)
+VALUES ('name.isergius.learn.myblog.ui.IndexController.pageLength.Long',
+        'Count Articles on Index Page',
+        '10',
+        'Long');
+INSERT INTO setting_t(setting_name, setting_title, setting_type)
+VALUES ('name.isergius.learn.myblog.ui.NoteController.articlesPageLength.Long',
+        'Number Articles Strings on Note Page',
+        'Long');
+INSERT INTO setting_t(setting_name, setting_title, setting_type)
+VALUES ('name.isergius.learn.myblog.ui.NoteController.markersPageLength.Long',
+        'Number Markers Strings on Note Page',
+        'Long');
+INSERT INTO setting_t(setting_name, setting_title, setting_type)
+VALUES ('name.isergius.learn.myblog.ui.FileController.fileMetadataPageLength.Long',
+        'Number File Strings on Files Page',
+        'Long');
+INSERT INTO setting_t(setting_name, setting_title, setting_type)
+VALUES ('name.isergius.learn.myblog.domain.BlogService.blogTitle.String',
+        'Title of the Blog',
+        'String');
+INSERT INTO setting_t(setting_name, setting_title, setting_type)
+VALUES ('name.isergius.learn.myblog.ui.ArticleController.markersCloudPageLength.Long',
+        'Count markers in cloud',
+        'Long');

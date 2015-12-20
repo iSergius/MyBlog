@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,8 +29,8 @@
                         <li><a href="/">Home</a></li>
                         <li><a href="/note">Note</a></li>
                         <li><a href="/file">Files</a></li>
-                        <li class="active"><a href="/user">User</a></li>
-                        <li><a href="/setting">Settings</a></li>
+                        <li><a href="/user">User</a></li>
+                        <li class="active"><a href="/setting">Settings</a></li>
                     </ul>
                     <form class="navbar-form navbar-right" action="/logout" method="post">
                         <input class="btn btn-link" type="submit" value="Log out" />
@@ -38,24 +40,14 @@
             </nav>
         </header>
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <p class="text-right"><strong>Username:</strong></p>
-                    <p class="text-right"><strong>Full name:</strong></p>
-                    <p class="text-right"><strong>About:</strong></p>
-                    <p class="text-right"><strong>Email:</strong></p>
-                </div>
-                <div class="col-lg-2">
-                    <c:if test="${not empty user}" >
-                        <p>${user.username}</p>
-                        <p>${user.fullName}</p>
-                        <p>${user.about}</p>
-                        <p>${user.email}</p>
-                        <a href="/user/edit" class="btn btn-primary">Change Information or/and Password</a>
-                    </c:if>
-                </div>
-            </div>
-
+            <form action="/setting" method="post" name="settingsForm" enctype="application/x-www-form-urlencoded">
+                <label>Title</label>
+                <input type="text" name="title" value="${settingsForm.title}">
+                <label>Page length</label>
+                <input type="text" name="pageLength" value="${settingsForm.pageLength}">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <input type="submit"/>
+            </form>
         </div>
         <footer class="text-center">
             iSergius Copyright 2015

@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
+import name.isergius.learn.myblog.domain.ConfigurationService;
 import name.isergius.learn.myblog.domain.FileMetadata;
 import name.isergius.learn.myblog.domain.FileService;
 import org.junit.Assert;
@@ -31,6 +32,8 @@ public class FileControllerTest extends AbstractControllerTest {
     private Page<FileMetadata> fileMetadataPage;
     @Mock
     private FileMetadata fileMetadata;
+    @Mock
+    private ConfigurationService configurationService;
 
     private MockMvc mockMvc;
 
@@ -42,6 +45,7 @@ public class FileControllerTest extends AbstractControllerTest {
 
     @Test
     public void testShow() throws Exception {
+        Mockito.when(configurationService.getProperty(FileController.FILEMETADATA_PAGE_LENGTH,Long.class)).thenReturn(10L);
         Mockito.when(fileService.getFilesMetadata(10L)).thenReturn(fileMetadataPage);
 
         mockMvc.perform(get("/file"))

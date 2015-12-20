@@ -2,6 +2,7 @@ package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.domain.Article;
 import name.isergius.learn.myblog.domain.BlogService;
+import name.isergius.learn.myblog.domain.ConfigurationService;
 import name.isergius.learn.myblog.domain.Marker;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,6 +38,8 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
     @Mock
     private BlogService blogService;
     @Mock
+    private ConfigurationService configurationService;
+    @Mock
     private Page<Article> articles;
     @Mock
     private List<Marker> markers;
@@ -46,6 +49,7 @@ public class IndexControllerTest extends AbstractJUnit4SpringContextTests {
         Mockito.when(blogService.retrieveArticles(10L)).thenReturn(articles);
         Mockito.when(blogService.retrieveAllMarkers()).thenReturn(markers);
         Mockito.when(blogService.getTitle()).thenReturn("MyBlog");
+        Mockito.when(configurationService.getProperty(IndexController.ARTICLE_PAGE_LENGTH,Long.class)).thenReturn(10L);
     }
 
     @Test

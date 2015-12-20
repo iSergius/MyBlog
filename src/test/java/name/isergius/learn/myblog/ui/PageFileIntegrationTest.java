@@ -37,7 +37,7 @@ public class PageFileIntegrationTest {
     @Test
     public void testUploadFile() throws Exception {
         open("/file");
-        $$("input").findBy(Condition.type("file")).uploadFile(new File("/tmp/files/hackerman.jpg"));
+        $$("input").findBy(Condition.type("file")).uploadFile(new File("src/test/resources/hackerman.jpg"));
 
         $(".btn-success").click();
         Assert.assertEquals("hackerman.jpg",title());

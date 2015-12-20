@@ -2,30 +2,27 @@ package name.isergius.learn.myblog.ui;
 
 import name.isergius.learn.myblog.dao.Dao;
 import name.isergius.learn.myblog.dao.DaoException;
-import name.isergius.learn.myblog.domain.Marker;
+import name.isergius.learn.myblog.domain.Setting;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 
 /**
- * Created by Kondratyev Sergey on 01.11.15.
+ * Created by Kondratyev Sergey on 27.12.15.
  */
-public class MarkerCollectionFormBinder<T extends Dao> extends CustomCollectionEditor {
+public class SettingCollectionFormBinder<T extends Dao> extends CustomCollectionEditor {
     private final T dao;
 
-    public MarkerCollectionFormBinder(final T daoIn, final Class collectionType) {
+    public SettingCollectionFormBinder(final T daoIn, final Class collectionType) {
         super(collectionType, true);
         dao = daoIn;
     }
 
     @Override
-    protected Object convertElement(final Object element)
-    {
+    protected Object convertElement(final Object element) {
         Object result = null;
-        if (element.getClass() == Marker.class) {
-            return (Marker) element;
+        if (element.getClass() == Setting.class) {
+            return (Setting) element;
         }
-        try
-        {
-            // forms should return the id as the itemValue
+        try {
             Integer id = Integer.valueOf(element.toString());
             try {
                 result = dao.readBy(id);
@@ -39,6 +36,5 @@ public class MarkerCollectionFormBinder<T extends Dao> extends CustomCollectionE
         }
         return result;
     }
-
 
 }

@@ -21,7 +21,7 @@
     </logger>
 
     <logger name="org.springframework.security">
-        <level value="TRACE"/>
+        <level value="INFO"/>
         <appender-ref ref="console"/>
     </logger>
 

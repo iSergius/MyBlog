@@ -33,15 +33,19 @@
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="settingDao" class="name.isergius.learn.myblog.dao.hibernate.SettingDaoHibernate">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="noteService" class="name.isergius.learn.myblog.domain.NoteServiceImpl">
         <constructor-arg name="articleDao" ref="articleDao"/>
         <constructor-arg name="markerDao" ref="markerDao"/>
     </bean>
 
     <bean id="blogService" class="name.isergius.learn.myblog.domain.BlogServiceImpl">
-        <constructor-arg name="title" value="MyBlog"/>
         <property name="markerDao" ref="markerDao"/>
         <property name="articleDao" ref="articleDao"/>
+        <property name="configurationService" ref="configurationService"/>
     </bean>
 
     <bean id="userService" class="name.isergius.learn.myblog.domain.UserServiceImpl">
@@ -50,13 +54,18 @@
         <constructor-arg name="passwordEncoder" ref="bcrypt"/>
     </bean>
 
-    <bean id="fileService" class="name.isergius.learn.myblog.domain.FileServiceImpl">
+    <bean id="fileService" class="name.isergius.learn.myblog.domain.FileServiceImpl" depends-on="fileRepository">
         <property name="fileMetadataDao" ref="fileDao"/>
         <property name="fileRepository" ref="fileRepository"/>
     </bean>
 
-    <bean id="fileRepository" class="name.isergius.learn.myblog.dao.FileRepositoryLocal" init-method="initRepository">
-        <property name="repositoryRoot" value="/tmp/files/"/>
+    <bean id="fileRepository" class="name.isergius.learn.myblog.dao.FileRepositoryLocal" init-method="initRepository" depends-on="configurationService">
+        <property name="configurationService" ref="configurationService"/>
+    </bean>
+
+    <bean id="configurationService" class="name.isergius.learn.myblog.domain.ConfigurationServiceImpl">
+        <property name="settingDao" ref="settingDao"/>
+        <property name="properties" ref="properties"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
@@ -77,5 +86,9 @@
         <entry key="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </util:map>
 
+    <util:list id="properties" list-class="java.util.ArrayList" value-type="java.util.Properties">
+        <util:properties location="classpath:config/uidefaults.properties"/>
+        <util:properties location="classpath:config/filerepositorylocal.properties"/>
+    </util:list>
 
 </beans>

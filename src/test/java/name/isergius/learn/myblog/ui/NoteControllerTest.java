@@ -1,9 +1,6 @@
 package name.isergius.learn.myblog.ui;
 
-import name.isergius.learn.myblog.domain.Article;
-import name.isergius.learn.myblog.domain.BlogService;
-import name.isergius.learn.myblog.domain.Marker;
-import name.isergius.learn.myblog.domain.NoteService;
+import name.isergius.learn.myblog.domain.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -39,6 +36,8 @@ public class NoteControllerTest extends AbstractJUnit4SpringContextTests {
     private NoteService noteService;
     @Mock
     private BlogService blogService;
+    @Mock
+    private ConfigurationService configurationService;
 
     private List<Article> articles = new ArrayList<>();
     private List<Marker> markers = new ArrayList<>();
@@ -52,6 +51,8 @@ public class NoteControllerTest extends AbstractJUnit4SpringContextTests {
         markers = Mockito.mock(markers.getClass());
         articlePage = Mockito.mock(Page.class);
         markerPage = Mockito.mock(Page.class);
+        Mockito.when(configurationService.getProperty(NoteController.ARTICLES_PAGE_LENGTH,Long.class)).thenReturn(10L);
+        Mockito.when(configurationService.getProperty(NoteController.MARKERS_PAGE_LENGTH,Long.class)).thenReturn(10L);
         Mockito.when(noteService.getArticles(10L)).thenReturn(articlePage);
         Mockito.when(noteService.getMarkers(10L)).thenReturn(markerPage);
         Mockito.stub(articlePage.result()).toReturn(articles);

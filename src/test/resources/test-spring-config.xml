@@ -15,6 +15,10 @@
         <property name="password" value="${jdbc.password}" />
     </bean>
 
+    <bean id="jndiCreator" class="name.isergius.learn.myblog.JndiCreator" init-method="init" lazy-init="false">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
     <util:map id="hibernateProperties" map-class="java.util.Properties">
         <entry key="hibernate.show_sql" value="true"/>
         <entry key="hibernate.format_sql" value="false"/>
@@ -25,8 +29,10 @@
         <entry key="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
     </util:map>
 
-    <bean id="jndiCreator" class="name.isergius.learn.myblog.JndiCreator" init-method="init" lazy-init="false">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+    <util:list id="properties" list-class="java.util.ArrayList" value-type="java.util.Properties">
+        <util:properties location="classpath:test.properties"/>
+        <util:properties location="classpath:config/uidefaults.properties"/>
+        <util:properties location="classpath:config/filerepositorylocal.properties"/>
+    </util:list>
 
 </beans>

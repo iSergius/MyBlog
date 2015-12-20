@@ -1,5 +1,6 @@
 package name.isergius.learn.myblog.dao;
 
+import name.isergius.learn.myblog.domain.ConfigurationService;
 import name.isergius.learn.myblog.domain.FileMetadata;
 
 import java.io.IOException;
@@ -13,17 +14,21 @@ import java.nio.file.StandardOpenOption;
  */
 public class FileRepositoryLocal implements FileRepository {
 
+    public static final String REPOSITORY_PROPERTY = "name.isergius.learn.myblog.dao.FileRepositoryLocal.String";
     private Path repositoryRoot;
+    private ConfigurationService configurationService;
 
-    public Path getRepositoryRoot() {
-        return repositoryRoot;
+    public ConfigurationService getConfigurationService() {
+        return configurationService;
     }
 
-    public void setRepositoryRoot(String repositoryRoot) {
-        this.repositoryRoot = Paths.get(repositoryRoot).normalize();
+    public void setConfigurationService(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
     }
 
     public void initRepository() throws IOException {
+        String repositoryRootLocation = configurationService.getProperty(REPOSITORY_PROPERTY, String.class);
+        this.repositoryRoot = Paths.get(repositoryRootLocation).normalize();
         if (!Files.exists(repositoryRoot))
             Files.createDirectory(repositoryRoot);
         else if (!Files.isReadable(repositoryRoot) || !Files.isWritable(repositoryRoot))

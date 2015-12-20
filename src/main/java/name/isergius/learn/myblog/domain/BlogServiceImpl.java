@@ -11,35 +11,23 @@ import java.util.List;
  */
 public class BlogServiceImpl implements BlogService {
 
-    private String title;
-    private NoteService note;
+    private static final long ALL = 0L;
     private MarkerDao markerDao;
     private ArticleDao articleDao;
+    private ConfigurationService configurationService;
 
     public BlogServiceImpl() {}
 
-    public BlogServiceImpl(String title) {
-        this.title = title;
-    }
-
     public String getTitle() {
-        return title;
+        return configurationService.getProperty(BLOG_TITLE,String.class);
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public MarkerDao getMarkerDao() {
-        return markerDao;
+    public void setConfigurationService(ConfigurationService configurationService) {
+        this.configurationService = configurationService;
     }
 
     public void setMarkerDao(MarkerDao markerDao) {
         this.markerDao = markerDao;
-    }
-
-    public ArticleDao getArticleDao() {
-        return articleDao;
     }
 
     public void setArticleDao(ArticleDao articleDao) {
@@ -53,7 +41,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Marker> retrieveAllMarkers() {
-        return markerDao.readAll(true).result(0L,0L);
+        return markerDao.readAll(true).result(ALL,ALL);
     }
 
     @Override

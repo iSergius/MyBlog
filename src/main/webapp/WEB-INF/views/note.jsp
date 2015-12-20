@@ -28,6 +28,7 @@
                         <li class="active"><a href="/note">Note</a></li>
                         <li><a href="/file">Files</a></li>
                         <li><a href="/user">User</a></li>
+                        <li><a href="/setting">Settings</a></li>
                     </ul>
                     <form class="navbar-form navbar-right" action="/logout" method="post">
                         <input class="btn btn-link" type="submit" value="Log out" />

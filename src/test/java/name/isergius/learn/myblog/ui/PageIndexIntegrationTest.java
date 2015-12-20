@@ -30,7 +30,7 @@ public class PageIndexIntegrationTest extends Assert {
 
     @Test
     public void testShowFilterMarker() throws Exception {
-        open("/?marker=1");
+        open("/filter/marker/1");
         $$("article").filter(Condition.text("News")).shouldHaveSize($$("article").size());
     }
 }

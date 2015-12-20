@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/edit",method = RequestMethod.POST)
-    public ModelAndView SaveUserInformation(@Valid UserInformationForm userInformationForm, SessionStatus sessionStatus) {
+    public ModelAndView saveUserInformation(@Valid UserInformationForm userInformationForm, SessionStatus sessionStatus) {
 
         ModelAndView modelAndView = new ModelAndView();
         try {
@@ -56,9 +56,8 @@ public class UserController {
     }
 
     @ExceptionHandler(BindException.class)
-    public ModelAndView formValidationHandler(/*ConstraintViolationException e, */BindException be) {
+    public ModelAndView formValidationHandler(BindException be) {
         ModelAndView modelAndView = new ModelAndView("user-editor");
-        //modelAndView.addObject("error",be.getMessage());
         for (FieldError fieldError : be.getFieldErrors()) {
             switch (fieldError.getField()) {
                 case "userName": {

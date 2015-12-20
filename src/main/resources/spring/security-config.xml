@@ -55,6 +55,10 @@
                                 access="hasRole('ROLE_ADMIN')"
                                 requires-channel="https"/>
 
+        <security:intercept-url pattern="/setting/?"
+                                access="hasRole('ROLE_ADMIN')"
+                                requires-channel="https"/>
+
         <security:intercept-url pattern="/login"
                                 access="permitAll()"
                                 requires-channel="https"/>
