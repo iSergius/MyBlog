@@ -29,6 +29,10 @@
         <constructor-arg name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
+    <bean id="fileDao" class="name.isergius.learn.myblog.dao.hibernate.FileMetadataDaoHibernate">
+        <constructor-arg name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
     <bean id="noteService" class="name.isergius.learn.myblog.domain.NoteServiceImpl">
         <constructor-arg name="articleDao" ref="articleDao"/>
         <constructor-arg name="markerDao" ref="markerDao"/>
@@ -44,6 +48,15 @@
         <constructor-arg name="userDao" ref="userDao"/>
         <constructor-arg name="authorityDao" ref="authorityDao"/>
         <constructor-arg name="passwordEncoder" ref="bcrypt"/>
+    </bean>
+
+    <bean id="fileService" class="name.isergius.learn.myblog.domain.FileServiceImpl">
+        <property name="fileMetadataDao" ref="fileDao"/>
+        <property name="fileRepository" ref="fileRepository"/>
+    </bean>
+
+    <bean id="fileRepository" class="name.isergius.learn.myblog.dao.FileRepositoryLocal" init-method="initRepository">
+        <property name="repositoryRoot" value="/tmp/files/"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">

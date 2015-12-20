@@ -120,4 +120,18 @@
 
     </changeSet>
 
+    <changeSet id="8" author="Konderatyev Sergey">
+
+        <createTable tableName="file_t">
+            <column name="file_id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="file_pk"/>
+            </column>
+            <column name="file_name" type="VARCHAR"/>
+            <column name="file_mime" type="VARCHAR"/>
+        </createTable>
+
+        <addUniqueConstraint tableName="file_t" columnNames="file_name"/>
+
+    </changeSet>
+
 </databaseChangeLog>

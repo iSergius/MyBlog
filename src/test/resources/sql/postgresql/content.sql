@@ -93,3 +93,7 @@ INSERT INTO user_t(user_username,user_password,user_enabled,user_fullname,user_a
 VALUES ('admin@localhost','$2a$10$eQV9Qknz5Gk6t8hJZQtTTOXg0XEid75uPZoX9Ga08dYF6prTODW6K',TRUE,'Ivanov Petr Vasilevich','Writer','admin@localhost');
 INSERT INTO authority_t(user_id, authority_title)
 VALUES ((SELECT user_id FROM user_t WHERE user_username = 'admin@localhost'),'ROLE_ADMIN');
+
+--changeset Kondratyev Sergey:4 context:it
+INSERT INTO file_t(file_name, file_mime)
+VALUES ('picture.jpg','image/jpg');

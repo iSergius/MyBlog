@@ -10,5 +10,6 @@
         <mapping resource="hibernate/mapping/Marker.hbm.xml"/>
         <mapping resource="hibernate/mapping/User.hbm.xml"/>
         <mapping resource="hibernate/mapping/Authority.hbm.xml"/>
+        <mapping resource="hibernate/mapping/File.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

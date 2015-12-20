@@ -26,6 +26,7 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/">Home</a></li>
                         <li class="active"><a href="/note">Note</a></li>
+                        <li><a href="/file">Files</a></li>
                         <li><a href="/user">User</a></li>
                     </ul>
                     <form class="navbar-form navbar-right" action="/logout" method="post">
