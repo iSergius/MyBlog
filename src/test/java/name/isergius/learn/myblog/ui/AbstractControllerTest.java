@@ -1,28 +1,20 @@
 package name.isergius.learn.myblog.ui;
 
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
+import org.springframework.test.context.support.GenericXmlContextLoader;
 
 /**
  * Created by Kondratyev Sergey on 23.10.15.
  */
-@RunWith(MockitoJUnitRunner.class)
-public abstract class AbstractControllerTest {
 
-    @Mock
-    protected HttpServletRequest httpServletRequest;
-    @Mock
-    protected HttpServletResponse httpServletResponse;
-    @Mock
-    protected RequestDispatcher requestDispatcher;
-    @Mock
-    protected ServletContext servletContext;
+@ContextConfiguration(loader = GenericXmlContextLoader.class,
+        locations = {"classpath:spring/webmvc-config.xml",
+                "classpath:spring/spring-config.xml",
+                "classpath:test-spring-config.xml",
+                "classpath:spring/security-config.xml",
+                "classpath:spring/aop-config.xml"})
+public abstract class AbstractControllerTest extends AbstractJUnit4SpringContextTests {
 
 
 }
