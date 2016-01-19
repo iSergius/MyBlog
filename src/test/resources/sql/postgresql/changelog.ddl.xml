@@ -3,9 +3,9 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
-    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="1" author="Kondratyev Sergey" context="ddl" runOnChange="true">
+    <changeSet id="1" author="Kondratyev Sergey" context="ddl">
         <createTable tableName="article_t">
             <column name="article_id" type="INT" autoIncrement="true">
                 <constraints primaryKey="true" primaryKeyName="article_pk" />
@@ -68,30 +68,6 @@
 
     </changeSet>
 
-    <changeSet id="5" author="Kondratyev Sergey" context="constraints">
-
-        <addForeignKeyConstraint baseTableName="article_marker_t"
-                                 baseColumnNames="article_id"
-                                 constraintName="article_fk"
-                                 referencedTableName="article_t"
-                                 referencedColumnNames="article_id"/>
-
-        <addForeignKeyConstraint baseTableName="article_marker_t"
-                                 baseColumnNames="marker_id"
-                                 constraintName="marker_fk"
-                                 referencedTableName="marker_t"
-                                 referencedColumnNames="marker_id"/>
-
-        <addUniqueConstraint tableName="article_t"
-                             columnNames="article_title"
-                             constraintName="article_title_uq"/>
-
-        <addUniqueConstraint tableName="marker_t"
-                             columnNames="marker_title"
-                             constraintName="marker_title_uq"/>
-
-    </changeSet>
-
     <changeSet id="6" author="Kondratyev Sergey" context="ddl">
 
         <addColumn tableName="user_t">
@@ -102,7 +78,7 @@
 
     </changeSet>
 
-    <changeSet id="7" author="Kondratyev Sergey">
+    <changeSet id="7" author="Kondratyev Sergey" context="ddl">
 
         <addColumn tableName="article_t">
             <column name="article_disclaimer" type="VARCHAR(255)"/>
@@ -135,20 +111,6 @@
             <column name="setting_type" type="VARCHAR"/>
         </createTable>
 
-    </changeSet>
-
-    <changeSet id="10" author="Kondratyev Sergey" context="constraints">
-        <addForeignKeyConstraint baseTableName="authority_t"
-                                 baseColumnNames="user_id"
-                                 constraintName="authority_user_fk"
-                                 referencedTableName="user_t"
-                                 referencedColumnNames="user_id"/>
-
-        <addUniqueConstraint tableName="user_t"
-                             columnNames="user_username"
-                             constraintName="user_username_uq"/>
-
-        <addUniqueConstraint tableName="file_t" columnNames="file_name"/>
     </changeSet>
 
 </databaseChangeLog>

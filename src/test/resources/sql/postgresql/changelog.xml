@@ -7,5 +7,6 @@
 
     <include file="/src/test/resources/sql/postgresql/changelog.ddl.xml"/>
     <include file="/src/test/resources/sql/postgresql/changelog.it.xml"/>
+    <include file="/src/test/resources/sql/postgresql/changelog.c.xml"/>
 
 </databaseChangeLog>

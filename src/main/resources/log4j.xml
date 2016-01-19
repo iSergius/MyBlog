@@ -11,17 +11,22 @@
     </appender>
 
     <root>
-        <level value="INFO" />
+        <level value="ERROR" />
         <appender-ref ref="console" />
     </root>
 
     <logger name="org.hibernate">
-        <level value="INFO" />
+        <level value="WARN" />
         <appender-ref ref="console" />
     </logger>
 
     <logger name="org.springframework.security">
-        <level value="INFO"/>
+        <level value="WARN"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework">
+        <level value="WARN"/>
         <appender-ref ref="console"/>
     </logger>
 

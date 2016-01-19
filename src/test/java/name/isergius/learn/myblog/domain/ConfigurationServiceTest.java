@@ -1,18 +1,12 @@
 package name.isergius.learn.myblog.domain;
 
-import name.isergius.learn.myblog.dao.SettingDao;
 import name.isergius.learn.myblog.dao.DaoException;
+import name.isergius.learn.myblog.dao.SettingDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.io.FileReader;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
 
 /**
  * Created by Kondratyev Sergey on 20.12.15.
@@ -73,11 +67,4 @@ public class ConfigurationServiceTest extends AbstractSpringContext {
         Assert.assertEquals(expected,actual);
     }
 
-    private void loadPropertiesFrom(String file) throws Exception {
-        Properties property = new Properties();
-        List<Properties> properties = new ArrayList<>();
-        property.load(new FileReader(Paths.get(file).toFile()));
-        properties.add(property);
-        configurationService.setProperties(properties);
-    }
 }

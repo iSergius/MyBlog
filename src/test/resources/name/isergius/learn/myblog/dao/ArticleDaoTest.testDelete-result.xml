@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE dataset SYSTEM "../../../../../db-schema/database.dtd">
 <dataset>
     <article_t/>
 </dataset>
