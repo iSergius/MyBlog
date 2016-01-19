@@ -288,7 +288,7 @@
                         <version>2.2</version>
                         <configuration>
                             <httpsPort>8443</httpsPort>
-                            <keystoreFile>${user.home}/.keystore</keystoreFile>
+                            <keystoreFile>${pom.basedir}/keystore</keystoreFile>
                             <keystorePass>${keystore.pass}</keystorePass>
                             <contextFile>target/test-classes/context.xml</contextFile>
                             <warFile>/target/MyBlog-0.0.1.war</warFile>
