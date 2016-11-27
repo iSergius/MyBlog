@@ -134,13 +134,31 @@
         <dependency>
             <groupId>com.codeborne</groupId>
             <artifactId>selenide</artifactId>
-            <version>2.23</version>
+            <version>4.0</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>2.48.2</version>
+            <artifactId>htmlunit-driver</artifactId>
+            <version>2.23.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-support</artifactId>
+            <version>3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>xml-apis</groupId>
+            <artifactId>xml-apis</artifactId>
+            <version>1.4.01</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.teknux</groupId>
+            <artifactId>jetty-bootstrap-websocket</artifactId>
+            <version>1.0.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -337,6 +355,7 @@
                                     <excludes>
                                         <exclude>none</exclude>
                                     </excludes>
+                                    <argLine>-Dbrowser=htmlunit</argLine>
                                     <includes>
                                         <include>**/*IntegrationTest.java</include>
                                     </includes>
