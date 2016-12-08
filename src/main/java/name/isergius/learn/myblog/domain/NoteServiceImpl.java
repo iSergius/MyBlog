@@ -6,7 +6,7 @@ import name.isergius.learn.myblog.dao.MarkerDao;
 import name.isergius.learn.myblog.dao.Portion;
 import name.isergius.learn.myblog.ui.Page;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Created by Kondratyev Sergey on 13.10.15.
@@ -47,7 +47,7 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public void save(Article article) {
 
-        if (article.getPublished()) article.setPublishedDate(LocalDate.now());
+        if (article.getPublished()) article.setPublishedDate(new Date());
 
         if (article.getId() == null) {
             try {

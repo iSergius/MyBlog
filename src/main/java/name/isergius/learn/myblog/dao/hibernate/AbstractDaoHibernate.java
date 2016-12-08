@@ -58,7 +58,7 @@ public abstract class AbstractDaoHibernate<T extends Model> implements Dao<T> {
     public Portion<T> read() {
         String selectQuery = "from " + clazz.getName();
         String countQuery = "select count (e) from "+clazz.getName()+" as e";
-        return new PortionHibernate<>(sessionFactory,selectQuery, countQuery ,new HashMap<>());
+        return new PortionHibernate<>(sessionFactory,selectQuery, countQuery ,new HashMap<String, Object>());
     }
 
     protected SessionFactory getSessionFactory() {
