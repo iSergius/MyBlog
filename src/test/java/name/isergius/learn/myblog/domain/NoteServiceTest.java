@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,7 +95,7 @@ public class NoteServiceTest extends Assert {
 
         noteService.save(article);
 
-        Mockito.verify(article).setPublishedDate(Matchers.any(LocalDate.class));
+        Mockito.verify(article).setPublishedDate(Matchers.any(Date.class));
     }
 
     @Test

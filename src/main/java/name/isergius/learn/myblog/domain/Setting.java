@@ -65,7 +65,7 @@ public class Setting extends Model {
 
     public <T> void importValue(T value) {
         this.value = value.toString();
-        this.type = value.getClass().getTypeName();
+        this.type = value.getClass().getName();
     }
 
     public <T> T exportValue() {

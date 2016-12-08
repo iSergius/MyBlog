@@ -23,11 +23,11 @@ public class User extends Model {
     }
 
     public User(String username, String password) {
-        this(username,password,false,new HashSet<>());
+        this(username,password,false,new HashSet<GrantedAuthority>());
     }
 
     public User(String username, String password, boolean enabled) {
-        this(username,password,enabled,new HashSet<>());
+        this(username,password,enabled,new HashSet<GrantedAuthority>());
     }
 
     public User(String username, String password, boolean enabled, Set<GrantedAuthority> authorities) {

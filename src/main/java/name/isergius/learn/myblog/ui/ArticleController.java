@@ -97,7 +97,6 @@ public class ArticleController {
 
     @InitBinder
     public void binder(WebDataBinder binder) {
-        //binder.registerCustomEditor(LocalDate.class, new LocalDatePropertyEditor(configurationService.getProperty(LOCALDATE_FORMAT)));
         binder.registerCustomEditor(List.class, "markers", new MarkerCollectionFormBinder<>(markerDao,List.class));
     }
 

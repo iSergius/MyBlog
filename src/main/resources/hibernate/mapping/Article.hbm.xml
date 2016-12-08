@@ -18,7 +18,7 @@
             </many-to-many>
         </bag>
         <property name="published" column="article_published" type="boolean"/>
-        <property name="publishedDate" column="article_published_date" type="java.time.LocalDate"/>
+        <property name="publishedDate" column="article_published_date" type="date"/>
         <property name="disclaimer" column="article_disclaimer" type="string"/>
     </class>
 </hibernate-mapping>

@@ -75,13 +75,13 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }
 
     public void setProperties(List<Properties> propertiesList) {
-        propertiesList.forEach(properties -> {
-            properties.forEach((key, value) -> {
-                String resultValue = parseVariables((String) value);
-                defaultSettings.put((String) key, new Setting((String) key, resultValue));
-                System.out.println(key+resultValue);
-            });
-        });
+        for (Properties properties : propertiesList) {
+            for (Map.Entry<Object, Object> entry : properties.entrySet()){
+                String resultValue = parseVariables((String) entry.getValue());
+                defaultSettings.put((String) entry.getKey(), new Setting((String) entry.getKey(), resultValue));
+                System.out.println(entry.getKey()+resultValue);
+            }
+        }
     }
 
     public void setSettingDao(SettingDao settingDao) {
